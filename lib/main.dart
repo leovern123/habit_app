@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_flutter/screen/splash_screen_2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
 
       ),
-      
+      home: SplashScreen2(),
+    debugShowCheckedModeBanner: false,
     );
   }
 }
