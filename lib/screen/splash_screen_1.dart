@@ -5,13 +5,28 @@ class SplashScreen1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text(
-          'Splash Screen 1',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            // Gambar bulat di tengah dengan logo global
+            Container(
+              width: 230,
+              height: 230,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.amber,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/logo_global.jpg"),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                ),
+              ),
+            ),
+          ]
+        )
+      )
     );
   }
 }
