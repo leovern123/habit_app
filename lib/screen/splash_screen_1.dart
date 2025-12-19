@@ -24,6 +24,16 @@ class SplashScreen1 extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 30), 
+
+             const Text(
+              "Welcome to Habit App",
+              style: TextStyle(
+                fontSize: 32.0,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            )
           ]
         )
       )
