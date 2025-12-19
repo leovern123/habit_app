@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uas_flutter/screen/splash_screen_2.dart';
+import 'package:uas_flutter/screen/splash_screen_1.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,9 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Habit App',
       theme: ThemeData(
         useMaterial3: true,
-
       ),
-      home: MySplashScreen2(),
+      home: SplashScreen1(),
     debugShowCheckedModeBanner: false,
     );
   }
