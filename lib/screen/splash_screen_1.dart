@@ -47,30 +47,48 @@ class SplashScreen1 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 0, 148, 62), // aktif
+                      color: Color(0xFF84a98c), // aktif
                     ),
                   ),
                   Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
+                      color: Color(0xFFedede9),
                     ),
                   ),
                   Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
                     ),
                   ),
                 ],
