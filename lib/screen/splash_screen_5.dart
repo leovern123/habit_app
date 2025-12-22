@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class SplashScreen5 extends StatelessWidget {
   const SplashScreen5({super.key});
 
@@ -27,9 +25,9 @@ class SplashScreen5 extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 30), 
+            const SizedBox(height: 30),
 
-             const Text(
+            const Text(
               "Welcome to Habit App",
               style: TextStyle(
                 fontSize: 32.0,
@@ -41,81 +39,75 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 15),
 
             const Text(
-                "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.grey,
-                  height: 1.5,
+              "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14.0, color: Colors.grey, height: 1.5),
+            ),
+
+            const SizedBox(height: 50),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 185, 246, 202), // aktif
+                  ),
                 ),
-              ),
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 185, 246, 202), // non-aktif
+                  ),
+                ),
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFedede9), // non-aktif
+                  ),
+                ),
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFedede9), // non-aktif
+                  ),
+                ),
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF84a98c), // non-aktif
+                  ),
+                ),
+              ],
+            ),
 
-              const SizedBox(height: 50),
-              
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // aktif
-                    ),
-                  ),
-                  Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
-                    ),
-                  ),
-                  Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
-                    ),
-                  ),
-                   Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
-                    ),
-                  ),
-                   Container(
-                    width: 12,
-                    height: 12,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 0, 148, 62), // non-aktif
-                    ),
-                  ),
-                ],
-              ),
-              
-              const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-              Container(
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 40),
               child: SizedBox(
                 width: double.infinity,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {
-                      
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 1, 165, 37),
+                    backgroundColor: Color(0xFF84a98c),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -131,9 +123,9 @@ class SplashScreen5 extends StatelessWidget {
                 ),
               ),
             ),
-          ]
-        )
-      )
+          ],
+        ),
+      ),
     );
   }
 }
