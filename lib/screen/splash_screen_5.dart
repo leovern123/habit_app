@@ -59,7 +59,7 @@ class SplashScreen5 extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 0, 148, 62), // aktif
+                      color: Color.fromARGB(255, 185, 246, 202), // aktif
                     ),
                   ),
                   Container(
@@ -95,7 +95,7 @@ class SplashScreen5 extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 185, 246, 202), // non-aktif
+                      color: Color.fromARGB(255, 0, 148, 62), // non-aktif
                     ),
                   ),
                 ],
