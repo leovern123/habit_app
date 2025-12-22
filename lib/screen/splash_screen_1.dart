@@ -32,12 +32,12 @@ class SplashScreen1 extends StatelessWidget {
             const SizedBox(height: 15),
 
             const Text(
-                "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
+                "Mulai kebiasaan baikmu dan capai tujuanmu\ndengan aplikasi Habit Tracker!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.grey,
-                  height: 1.5,
+                fontSize: 15,
+                color: Color(0xFF52796F),
+                height: 1.5,
                 ),
               ),
 
