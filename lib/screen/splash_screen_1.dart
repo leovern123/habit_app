@@ -11,7 +11,7 @@ class SplashScreen1 extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            // Gambar bulat di tengah dengan logo global
+            
             Lottie.asset(
               "assets/lotties/succes.json",
               width: 220,
@@ -21,11 +21,11 @@ class SplashScreen1 extends StatelessWidget {
             const SizedBox(height: 30), 
 
              const Text(
-              "Welcome to Habit App",
+              "Welcome to Habit Tracker",
               style: TextStyle(
-                fontSize: 32.0,
-                color: Colors.black,
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
+                color: Color(0xFF2F3E46),
               ),
             ),
 
