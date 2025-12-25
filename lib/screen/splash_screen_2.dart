@@ -94,7 +94,16 @@ class MySplashScreen2 extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ),  
+
+               const SizedBox(height: 30),
+
+              Lottie.asset(
+              'assets/lotties/Sandy Loading.json',
+              width: 50,
+              height: 50,
+              repeat: true,
+            ),
           ]
         ),
       ),
