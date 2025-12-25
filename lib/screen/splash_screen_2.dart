@@ -19,6 +19,17 @@ class MySplashScreen2 extends StatelessWidget {
               width: 220,
               height: 220,
             ),
+
+            const SizedBox(height: 30), 
+
+             const Text(
+              "Track Your Daily Routine",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2F3E46),
+              ),
+            ),
           ]
         ),
       ),
