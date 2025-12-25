@@ -30,6 +30,18 @@ class MySplashScreen2 extends StatelessWidget {
                 color: Color(0xFF2F3E46),
               ),
             ),
+
+            const SizedBox(height: 15),
+
+            const Text(
+                "Buat jadwal harian\n dan atur rutinitas mu dengan mudah",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                fontSize: 15,
+                color: Color(0xFF52796F),
+                height: 1.5,
+                ),
+              ),
           ]
         ),
       ),
