@@ -42,6 +42,59 @@ class MySplashScreen2 extends StatelessWidget {
                 height: 1.5,
                 ),
               ),
+
+              const SizedBox(height: 50),
+                
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9), 
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF84a98c), //aktif
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                ],
+              ),
           ]
         ),
       ),
