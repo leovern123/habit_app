@@ -12,11 +12,10 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 50),
             // Gambar bulat di tengah dengan logo global
             Container(
-              width: 230,
-              height: 230,
+              width: 220,
+              height: 220,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.amber,
                 image: DecorationImage(
                   image: AssetImage("assets/images/logo_global.jpg"),
                   fit: BoxFit.cover,
@@ -28,10 +27,10 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 30),
 
             const Text(
-              "Welcome to Habit App",
+              "Halo, Pejuang Kebiasaan!",
               style: TextStyle(
-                fontSize: 32.0,
-                color: Colors.black,
+                fontSize: 28.0,
+                color: Color(0xFF2F3E46),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -39,9 +38,13 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 15),
 
             const Text(
-              "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
+              "Siap untuk hidup lebih teratur? Yuk, mulai catat kebiasaan mulai dari hal yang paling sederhana",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14.0, color: Colors.grey, height: 1.5),
+              style: TextStyle(
+                fontSize: 15,
+                color: Color(0xFF52796F),
+                height: 1.5,
+              ),
             ),
 
             const SizedBox(height: 50),
@@ -50,48 +53,48 @@ class SplashScreen5 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 12,
-                  height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 13,
+                  height: 13,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFFedede9), // aktif
+                    color: Color(0xFFedede9),
                   ),
                 ),
                 Container(
-                  width: 12,
-                  height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 13,
+                  height: 13,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFFedede9), // non-aktif
+                    color: Color(0xFFedede9),
                   ),
                 ),
                 Container(
-                  width: 12,
-                  height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 13,
+                  height: 13,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFFedede9), // non-aktif
+                    color: Color(0xFFedede9),
                   ),
                 ),
                 Container(
-                  width: 12,
-                  height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 13,
+                  height: 13,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFFedede9), // non-aktif
+                    color: Color(0xFFedede9),
                   ),
                 ),
                 Container(
-                  width: 12,
-                  height: 12,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: 13,
+                  height: 13,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFF84a98c), // non-aktif
+                    color: Color(0xFF84a98c), // aktif
                   ),
                 ),
               ],
