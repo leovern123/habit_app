@@ -13,10 +13,35 @@ class SplashScreen3 extends StatelessWidget {
             const SizedBox(height: 50),
 
             Lottie.asset(
-              "assets/lotties/succes.json",
+              "assets/lotties/graph.json",
               width: 220,
               height: 220,
             ),
+
+            const SizedBox(height: 30), 
+
+             const Text(
+              "Build Positive Habits",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2F3E46),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            const Text(
+                "Pantau perkembanganmu dan\n capai target setiap hari",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                fontSize: 15,
+                color: Color(0xFF52796F),
+                height: 1.5,
+                ),
+              ),
+
+              const SizedBox(height: 50),
           ],
         ),        
       ),
