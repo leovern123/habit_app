@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen3 extends StatelessWidget {
   const SplashScreen3({super.key});
@@ -10,20 +11,12 @@ class SplashScreen3 extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            // diagram
-            Container(
-              width: 230,
-              height: 230,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blueAccent,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/logo_global.jpg"),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-                ),
-              ),
-            )
+
+            Lottie.asset(
+              "assets/lotties/succes.json",
+              width: 220,
+              height: 220,
+            ),
           ],
         ),        
       ),
