@@ -36,6 +36,16 @@ class SplashScreen4 extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
+            const SizedBox(height: 15),
+            const Text(
+              "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                height: 1.5,
+              ),
+            ),
           ],
         ),
       ),
