@@ -57,6 +57,20 @@ class SplashScreen4 extends StatelessWidget {
                 _dot(false),
               ],
             ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // aksi nanti
+                  },
+                  child: const Text("Continue"),
+                ),
+              ),
+            ),
           ],
         ),
       ),
