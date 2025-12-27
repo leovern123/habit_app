@@ -46,9 +46,34 @@ class SplashScreen4 extends StatelessWidget {
                 height: 1.5,
               ),
             ),
+            const SizedBox(height: 50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _dot(false),
+                _dot(false),
+                _dot(false),
+                _dot(true),
+                _dot(false),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _dot(bool isActive) {
+  return Container(
+    width: 12,
+    height: 12,
+    margin: const EdgeInsets.symmetric(horizontal: 4),
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: isActive
+          ? const Color.fromARGB(255, 0, 148, 62)
+          : const Color.fromARGB(255, 185, 246, 202),
+    ),
+  );
 }
