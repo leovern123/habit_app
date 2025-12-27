@@ -67,7 +67,21 @@ class SplashScreen4 extends StatelessWidget {
                   onPressed: () {
                     // aksi nanti
                   },
-                  child: const Text("Continue"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color.fromARGB(255, 1, 165, 37),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    "Continue",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
