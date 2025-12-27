@@ -14,7 +14,7 @@ class SplashScreen4 extends StatelessWidget {
               "Splash Screen 4",
               style: TextStyle(fontSize: 20),
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             Container(
               width: 230,
               height: 230,
@@ -26,6 +26,15 @@ class SplashScreen4 extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              "Welcome to Habit App",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
