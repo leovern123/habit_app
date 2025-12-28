@@ -1,107 +1,130 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:uas_flutter/screen/splash_screen_2.dart';
 
-class SplashScreen4 extends StatelessWidget {
-  const SplashScreen4({super.key});
+class MySplashScreen3 extends StatefulWidget {
+  const MySplashScreen3({super.key}); 
+  
 
+  @override
+  State<MySplashScreen3> createState() => _SplashScreen1State();
+}
+
+class _SplashScreen1State extends State<MySplashScreen3> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MySplashScreen3()),
+      );
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Splash Screen 4",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              width: 230,
-              height: 230,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.amber,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/logo_global.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              "Welcome to Habit App",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 15),
-            const Text(
-              "Mulai kebiasaan baikmu dan capai tujuanmu dengan aplikasi Habit App!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                height: 1.5,
-              ),
-            ),
             const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _dot(false),
-                _dot(false),
-                _dot(false),
-                _dot(true),
-                _dot(false),
-              ],
+
+            Lottie.asset(
+              "assets/lotties/graph.json",
+              width: 220,
+              height: 220,
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // aksi nanti
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color.fromARGB(255, 1, 165, 37),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    "Continue",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+
+            const SizedBox(height: 30), 
+
+             const Text(
+              "Build Positive Habits",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2F3E46),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            const Text(
+                "Pantau perkembanganmu dan\n capai target setiap hari",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                fontSize: 15,
+                color: Color(0xFF52796F),
+                height: 1.5,
                 ),
               ),
+
+              const SizedBox(height: 50),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF84a98c), // aktif
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              Lottie.asset(
+              'assets/lotties/Sandy Loading.json',
+              width: 50,
+              height: 50,
+              repeat: true,
             ),
           ],
-        ),
+        ),        
       ),
     );
   }
-}
-
-Widget _dot(bool isActive) {
-  return Container(
-    width: 12,
-    height: 12,
-    margin: const EdgeInsets.symmetric(horizontal: 4),
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      color: isActive
-          ? const Color.fromARGB(255, 0, 148, 62)
-          : const Color.fromARGB(255, 185, 246, 202),
-    ),
-  );
 }
