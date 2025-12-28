@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_2.dart';
+
 
 class MySplashScreen3 extends StatefulWidget {
   const MySplashScreen3({super.key}); 
-  
+
 
   @override
   State<MySplashScreen3> createState() => _SplashScreen1State();
