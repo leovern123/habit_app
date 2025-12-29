@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "871204951466-vb4n0g76ph6srllhi2ruccoosrtf5nm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.habitapp",
+            "certificate_hash": "5701ba5003392511192c26bf6d62a9fb286c15bb"
+          }
+        },
+        {
           "client_id": "871204951466-ote0j9r5lkdfuqoicgdje9abvusmpce9.apps.googleusercontent.com",
           "client_type": 3
         }
