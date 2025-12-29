@@ -23,6 +23,35 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Future<void> _loginEmail() async {
+    setState(() => _isLoading = true);
+    try {
+      await _authService.loginWithEmail(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      _goToHome();
+    } catch (e) {
+      _showError(e.toString());
+    }
+    setState(() => _isLoading = false);
+  }
+
+  Future<void> _loginGoogle() async {
+    setState(() => _isLoading = true);
+    try {
+      await _authService.loginWithGoogle();
+      _goToHome();
+    } catch (e) {
+      _showError(e.toString());
+    }
+    setState(() => _isLoading = false);
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
