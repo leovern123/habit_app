@@ -15,7 +15,7 @@ class Login extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Icon(
-                Icons.lock_outline,
+                Icons.eco,
                 size: 70,
                 color: Colors.green,
               ),
