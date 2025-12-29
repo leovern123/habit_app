@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import '../../data/services/auth_service.dart';
+import 'habit_home_page.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+@override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
+
+  bool _isLoading = false;
+
+  void _goToHome() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const HabitHomePage()),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
