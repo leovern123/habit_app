@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_2.dart';
+import 'package:uas_flutter/screen/splash_screen_4.dart';
 
 class MySplashScreen3 extends StatefulWidget {
   const MySplashScreen3({super.key});
 
   @override
-  State<MySplashScreen3> createState() => _SplashScreen1State();
+  State<MySplashScreen3> createState() => _SplashScreen3State();
 }
 
-class _SplashScreen1State extends State<MySplashScreen3> {
+class _SplashScreen3State extends State<MySplashScreen3> {
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 5), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MySplashScreen3()),
+        MaterialPageRoute(builder: (context) => const MySplashScreen4()),
       );
     });
   }
