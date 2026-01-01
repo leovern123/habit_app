@@ -82,3 +82,26 @@ class Register extends StatelessWidget {
                     ),
                   ),
                 ),
+                   const SizedBox(height: 20),
+
+                // Konfirmasi Password
+                const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Konfirmasi Password',
+                    hintText: 'Ulangi password Anda',
+                    prefixIcon: Icon(Icons.lock_outline),
+                    suffixIcon: Icon(Icons.visibility_off_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                  ),
+                ),
