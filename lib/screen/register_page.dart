@@ -20,4 +20,20 @@ class Register extends StatelessWidget {
                   size: 70,
                   color: Colors.green,
                 ),
-                
+                 const SizedBox(height: 20),
+
+                const Text(
+                  "Buat Akun Baru",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+                const Text(
+                  'Silakan daftar untuk melanjutkan',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
