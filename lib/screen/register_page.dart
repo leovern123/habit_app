@@ -20,7 +20,7 @@ class Register extends StatelessWidget {
                   size: 70,
                   color: Colors.green,
                 ),
-                 const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 const Text(
                   "Buat Akun Baru",
@@ -37,7 +37,7 @@ class Register extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-                  const SizedBox(height: 30),
+                const SizedBox(height: 30),
 
                 // Nama
                 const TextField(
@@ -59,7 +59,31 @@ class Register extends StatelessWidget {
                     ),
                   ),
                 ),
-                   const SizedBox(height: 20),
+
+                const SizedBox(height: 20),
+
+                // Email
+                const TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'Masukkan email Anda',
+                    prefixIcon: Icon(Icons.email_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
 
                 // Password
                 const TextField(
@@ -82,7 +106,8 @@ class Register extends StatelessWidget {
                     ),
                   ),
                 ),
-                   const SizedBox(height: 20),
+
+                const SizedBox(height: 20),
 
                 // Konfirmasi Password
                 const TextField(
@@ -105,7 +130,7 @@ class Register extends StatelessWidget {
                     ),
                   ),
                 ),
-                   const SizedBox(height: 30),
+                const SizedBox(height: 30),
 
                 ElevatedButton(
                   onPressed: () {},
@@ -122,7 +147,8 @@ class Register extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
-                  const SizedBox(height: 15),
+
+                const SizedBox(height: 15),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
