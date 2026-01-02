@@ -1,7 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
+
+   @override
+  State<Register> createState() => _RegisterState();
+
+  }
+
+  class _RegisterState extends State<Register> {
+  final _auth = FirebaseAuth.instance;
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  Future<void> _register() async {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      _showMessage('Password dan konfirmasi tidak sama');
+      return;
+    }
+
+     try {
+      setState(() => _isLoading = true);
+
+      final result = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+    // Simpan display name
+      await result.user!.updateDisplayName(
+        _nameController.text.trim(),
+      );
+
+      _showMessage('Registrasi berhasil');
+
+    Navigator.pop(context); // kembali ke login
+    } on FirebaseAuthException catch (e) {
+      _showMessage(e.message ?? 'Registrasi gagal');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+   void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,100 +102,57 @@ class Register extends StatelessWidget {
                 const SizedBox(height: 30),
 
                 // Nama
-                const TextField(
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: 'Nama Lengkap',
-                    hintText: 'Masukkan nama Anda',
-                    prefixIcon: Icon(Icons.person_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
+                 TextField(
+                  controller: _nameController,
+                  decoration: _inputDecoration(
+                    'Nama Lengkap',
+                    'Masukkan nama Anda',
+                    Icons.person_outline,
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Email
-                const TextField(
+                TextField(
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Masukkan email Anda',
-                    prefixIcon: Icon(Icons.email_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
+                  decoration: _inputDecoration(
+                    'Email',
+                    'Masukkan email Anda',
+                    Icons.email_outlined,
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Password
-                const TextField(
+                TextField(
+                  controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Masukkan password',
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: Icon(Icons.visibility_off_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
+                  decoration: _inputDecoration(
+                    'Password',
+                    'Masukkan password',
+                    Icons.lock_outline,
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Konfirmasi Password
-                const TextField(
+                      TextField(
+                  controller: _confirmPasswordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Konfirmasi Password',
-                    hintText: 'Ulangi password Anda',
-                    prefixIcon: Icon(Icons.lock_outline),
-                    suffixIcon: Icon(Icons.visibility_off_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE0E0E0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
+                  decoration: _inputDecoration(
+                    'Konfirmasi Password',
+                    'Ulangi password Anda',
+                    Icons.lock_outline,
                   ),
                 ),
                 const SizedBox(height: 30),
 
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed:  _isLoading ? null : _register,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green[700],
                     foregroundColor: Colors.white,
@@ -142,7 +161,10 @@ class Register extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
+                  child: _isLoading ?
+                      const CircularProgressIndicator(color: Colors.white,
+                      strokeWidth: 2,):
+                      const Text(
                     'Daftar',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
@@ -155,9 +177,7 @@ class Register extends StatelessWidget {
                   children: [
                     const Text("Sudah punya akun? "),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context); // kembali ke Login
-                      },
+                      onTap: ()  => Navigator.pop(context), // kembali ke Login
                       child: const Text(
                         "Login",
                         style: TextStyle(
@@ -172,6 +192,25 @@ class Register extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  InputDecoration _inputDecoration(
+    String label,
+    String hint,
+    IconData icon,
+  ) {
+    return InputDecoration(
+      labelText: label,
+      hintText: hint,
+      prefixIcon: Icon(icon),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.green, width: 2),
+        borderRadius: BorderRadius.circular(12),
       ),
     );
   }
