@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_4.dart';
+import 'package:uas_flutter/features/splash/presentation/splash_screen_4.dart';
 
 class MySplashScreen3 extends StatefulWidget {
   const MySplashScreen3({super.key});
