@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uas_flutter/screen/register_page.dart';
-import '../../data/services/auth_service.dart';
+import '../features/auth/data/auth_service.dart';
 import 'habit_home_page.dart';
 
 class Login extends StatefulWidget {
