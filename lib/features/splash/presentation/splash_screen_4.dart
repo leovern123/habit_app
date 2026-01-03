@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_5.dart';
+import 'package:uas_flutter/features/splash/presentation/splash_screen_5.dart';
 
 
 class MySplashScreen4 extends StatefulWidget {
