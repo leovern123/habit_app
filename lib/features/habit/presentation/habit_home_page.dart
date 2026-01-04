@@ -120,6 +120,18 @@ class _HabitHomePageState extends State<HabitHomePage> {
       ),
     );
   }
+  void _deleteHabit(BuildContext context, String docId, int index) async {
+    try {
+      await FirebaseFirestore.instance.collection('habits').doc(docId).delete();
+      _listKey.currentState?.removeItem(
+        index,
+        (context, animation) => SizeTransition(sizeFactor: animation, child: Container()),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Habit berhasil dihapus')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Gagal menghapus habit: $e')));
+    }
+  }
 }
 
 
