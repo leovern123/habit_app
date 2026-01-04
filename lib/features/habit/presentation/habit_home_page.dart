@@ -25,3 +25,16 @@ class _HabitHomePageState extends State<HabitHomePage> {
         title: const Text('My Habits'),
         backgroundColor: Colors.green[400],
       ),
+      body: StreamBuilder<List<Habit>>(
+  stream: _service.getHabits(),
+  builder: (context, habitSnapshot) {
+    if (habitSnapshot.connectionState == ConnectionState.waiting) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (habitSnapshot.hasError) {
+      return Center(child: Text('Terjadi error: ${habitSnapshot.error}'));
+    }
+    final habits = habitSnapshot.data ?? [];
+    return habits.isEmpty ? _buildEmptyState() : Container(); // sementara
+  },
+)
