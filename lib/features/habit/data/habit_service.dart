@@ -22,4 +22,23 @@ class HabitService {
     });
   }
 
+  /// ambil log hari ini
+  Stream<Map<String, bool>> getTodayLogs() {
+    final today = DateHelper.today();
+
+    return _firestore
+        .collection('habit_logs')
+        .where('userId', isEqualTo: uid)
+        .where('date', isEqualTo: today)
+        .snapshots()
+        .map((snapshot) {
+      final map = <String, bool>{};
+      for (var doc in snapshot.docs) {
+        map[doc['habitId']] = doc['isDone'] as bool;
+      }
+      return map;
+    });
+  }
+
+  
 }
