@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../data/habit_service.dart';
 import '../model/habit_model.dart';
-
+import 'habit_tile.dart';
+import 'habit_dialog.dart';
 
 class HabitHomePage extends StatelessWidget {
   const HabitHomePage({super.key});
@@ -34,7 +35,17 @@ class HabitHomePage extends StatelessWidget {
               ),
             );
           }
-        }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[400],
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => const HabitDialog(),
+          );
+        },
       ),
     );
   }
