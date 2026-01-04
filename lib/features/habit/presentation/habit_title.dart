@@ -13,5 +13,12 @@ class HabitTile extends StatelessWidget {
     required this.onChanged,
   });
 
-  
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      title: Text(habit.title),
+      value: isDone,
+      onChanged: (value) => onChanged(value!),
+    );
+  }
 }
