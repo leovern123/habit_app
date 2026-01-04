@@ -1,16 +1,33 @@
-class HabitModel {
-  final String id;
-  final String title;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  HabitModel({
-    required this.id,
+class Habit {
+  final String habitId;
+  final String title;
+  final String userId;
+  final Timestamp createdAt;
+
+  Habit({
+    required this.habitId,
     required this.title,
+    required this.userId,
+    required this.createdAt,
   });
 
-  factory HabitModel.fromFirestore(Map<String, dynamic> data, String id) {
-    return HabitModel(
-      id: id,
-      title: data['title'],
+  factory Habit.fromMap(Map<String, dynamic> map) {
+    return Habit(
+      habitId: map['habitId'] as String,
+      title: map['title'] as String,
+      userId: map['userId'] as String,
+      createdAt: map['createdAt'] as Timestamp,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'habitId': habitId,
+      'title': title,
+      'userId': userId,
+      'createdAt': createdAt,
+    };
   }
 }
