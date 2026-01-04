@@ -7,4 +7,10 @@ class HabitModel {
     required this.title,
   });
 
+  factory HabitModel.fromFirestore(Map<String, dynamic> data, String id) {
+    return HabitModel(
+      id: id,
+      title: data['title'],
+    );
+  }
 }
