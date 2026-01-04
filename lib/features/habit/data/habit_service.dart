@@ -7,10 +7,16 @@ class HabitService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  String get uid => _auth.currentUser!.uid;
+  String? get uid => _auth.currentUser?.uid;
 
   /// ambil semua habit user
   Stream<List<Habit>> getHabits() {
+    if (uid == null) {
+      return const Stream.empty();
+    }
+
+    print('UID LOGIN (getHabits): $uid');
+
     return _firestore
         .collection('habits')
         .where('userId', isEqualTo: uid)
@@ -24,7 +30,12 @@ class HabitService {
 
   /// ambil log hari ini
   Stream<Map<String, bool>> getTodayLogs() {
+    if (uid == null) {
+      return const Stream.empty();
+    }
+
     final today = DateHelper.today();
+    print('UID LOGIN (getTodayLogs): $uid');
 
     return _firestore
         .collection('habit_logs')
@@ -42,6 +53,8 @@ class HabitService {
 
   /// toggle habit hari ini (ANTI DUPLIKAT)
   Future<void> toggleHabit(String habitId, bool value) async {
+    if (uid == null) return;
+
     final today = DateHelper.today();
 
     final query = await _firestore
