@@ -107,4 +107,21 @@ class HabitService {
       return map;
     });
   }
+   /// Ambil logs 7 hari terakhir sebagai Stream
+  Stream<List<bool>> getLast7DaysLogsStream(String habitId) {
+    if (uid == null) return const Stream.empty();
+
+    final now = DateTime.now();
+    final sevenDaysAgo = now.subtract(const Duration(days: 7));
+
+    return _firestore
+        .collection('habit_logs')
+        .where('habitId', isEqualTo: habitId)
+        .where('userId', isEqualTo: uid)
+        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgo))
+        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(now))
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => doc['isDone'] as bool).toList());
+  }
 }
