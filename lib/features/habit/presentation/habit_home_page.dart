@@ -55,6 +55,14 @@ class _HabitHomePageState extends State<HabitHomePage> {
                       ],
                     ),
                   ),
+                                // Kalender (satu saja)
+                  StreamBuilder<Map<String, bool>>(
+                    stream: _service.getCurrentMonthLogsStream('all'), // bisa sesuaikan logikanya
+                    builder: (context, monthSnapshot) {
+                      final monthLogs = monthSnapshot.data ?? {};
+                      return HabitCalendar(monthLogs);
+                    },
+                  ),
                   Expanded(
                     child: AnimatedList(
                       key: _listKey,
@@ -76,14 +84,6 @@ class _HabitHomePageState extends State<HabitHomePage> {
                               ),
                               onDelete: () => _deleteHabit(context, habit.habitId, index),
                               service: _service,
-                            ),
-                              // Kalender per habit
-                            StreamBuilder<Map<String, bool>>(
-                              stream: _service.getCurrentMonthLogsStream(habit.habitId),
-                              builder: (context, monthSnapshot) {
-                                final monthLogs = monthSnapshot.data ?? {};
-                                return HabitCalendar(monthLogs);
-                              },
                             ),
                           ],
                         );
