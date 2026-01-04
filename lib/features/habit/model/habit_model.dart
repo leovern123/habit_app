@@ -12,8 +12,7 @@ class Habit {
     required this.userId,
     required this.createdAt,
   });
-
-/// ambil dari Firestore (doc + id)
+/// Dipakai saat ambil dari Firestore (doc + id)
   factory Habit.fromFirestore(
     Map<String, dynamic> data,
     String id,
@@ -23,6 +22,15 @@ class Habit {
       title: data['title'] as String,
       userId: data['userId'] as String,
       createdAt: data['createdAt'] as Timestamp,
+    );
+  }
+  /// Opsional: kalau map sudah mengandung habitId
+  factory Habit.fromMap(Map<String, dynamic> map) {
+    return Habit(
+      habitId: map['habitId'] as String,
+      title: map['title'] as String,
+      userId: map['userId'] as String,
+      createdAt: map['createdAt'] as Timestamp,
     );
   }
 
