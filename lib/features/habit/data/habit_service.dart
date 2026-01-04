@@ -40,5 +40,34 @@ class HabitService {
     });
   }
 
-  
+  /// toggle habit hari ini (ANTI DUPLIKAT)
+  Future<void> toggleHabit(String habitId, bool value) async {
+    final today = DateHelper.today();
+
+    final query = await _firestore
+        .collection('habit_logs')
+        .where('userId', isEqualTo: uid)
+        .where('habitId', isEqualTo: habitId)
+        .where('date', isEqualTo: today)
+        .limit(1)
+        .get();
+
+    if (query.docs.isEmpty) {
+      await _firestore.collection('habit_logs').add({
+        'habitId': habitId,
+        'userId': uid,
+        'date': today,
+        'isDone': value,
+        'completedAt': Timestamp.now(),
+      });
+    } else {
+      await _firestore
+          .collection('habit_logs')
+          .doc(query.docs.first.id)
+          .update({
+        'isDone': value,
+        'completedAt': Timestamp.now(),
+      });
+    }
+  }
 }
