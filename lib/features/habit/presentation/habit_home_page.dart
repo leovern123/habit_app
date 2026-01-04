@@ -1,52 +1,27 @@
 import 'package:flutter/material.dart';
 import '../data/habit_service.dart';
 import '../model/habit_model.dart';
-import 'habit_tile.dart';
-import 'habit_dialog.dart';
+import 'widgets/stat_card.dart';
+import 'widgets/habit_calendar.dart';
+import 'widgets/habit_card.dart';
+import 'widgets/habit_dialog.dart';
 
-class HabitHomePage extends StatelessWidget {
+class HabitHomePage extends StatefulWidget {
   const HabitHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final HabitService _service = HabitService();
+  State<HabitHomePage> createState() => _HabitHomePageState();
+}
 
+class _HabitHomePageState extends State<HabitHomePage> {
+  final HabitService _service = HabitService();
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title: const Text('My Habits'),
-        backgroundColor: Colors.blue[400],
+        backgroundColor: Colors.green[400],
       ),
-      body: StreamBuilder<List<Habit>>(
-        stream: _service.getHabits(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Terjadi error: ${snapshot.error}'));
-          }
-          final habits = snapshot.data ?? [];
-          if (habits.isEmpty) {
-            return const Center(
-              child: Text(
-                'Belum ada habit.\nTekan tombol + untuk menambahkan.',
-                textAlign: TextAlign.center,
-              ),
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[400],
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (_) => const HabitDialog(),
-          );
-        },
-      ),
-    );
-  }
-}
