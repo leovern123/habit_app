@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../model/habit_model.dart';
+import '../../model/habit_model.dart';
 
 class HabitDialog extends StatefulWidget {
   final Habit? habit;
