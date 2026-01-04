@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import '../model/habit_model.dart';
 import '../../../core/utils/date_helper.dart';
 
@@ -51,6 +52,17 @@ class HabitService {
     });
   }
 
+// Update habitTime untuk habit tertentu
+  Future<void> updateHabitTime(String habitId, TimeOfDay time) async {
+    if (uid == null) return;
+
+    final now = DateTime.now();
+    final dateTime = DateTime(now.year, now.month, now.day, time.hour, time.minute);
+
+    await _firestore.collection('habits').doc(habitId).update({
+      'habitTime': Timestamp.fromDate(dateTime),
+    });
+  }
   /// toggle habit hari ini (ANTI DUPLIKAT)
   Future<void> toggleHabit(String habitId, bool value) async {
     if (uid == null) return;
