@@ -104,6 +104,22 @@ class _HabitHomePageState extends State<HabitHomePage> {
       ),
     );
   }
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.self_improvement, size: 100, color: Colors.green[200]),
+          const SizedBox(height: 16),
+          const Text(
+            'Belum ada habit.\nTekan tombol + untuk menambahkan.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 
