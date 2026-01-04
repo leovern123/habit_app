@@ -83,4 +83,28 @@ class HabitService {
       });
     }
   }
+
+/// Ambil logs habit untuk bulan ini sebagai Stream
+  Stream<Map<String, bool>> getCurrentMonthLogsStream(String habitId) {
+    if (uid == null) return const Stream.empty();
+
+    final now = DateTime.now();
+    final startOfMonth = Timestamp.fromDate(DateTime(now.year, now.month, 1));
+    final startOfNextMonth = Timestamp.fromDate(DateTime(now.year, now.month + 1, 1));
+
+    return _firestore
+        .collection('habit_logs')
+        .where('habitId', isEqualTo: habitId)
+        .where('userId', isEqualTo: uid)
+        .where('date', isGreaterThanOrEqualTo: startOfMonth)
+        .where('date', isLessThan: startOfNextMonth)
+        .snapshots()
+        .map((snapshot) {
+      final map = <String, bool>{};
+      for (var doc in snapshot.docs) {
+        map[doc['date'].toDate().day.toString()] = doc['isDone'] as bool;
+      }
+      return map;
+    });
+  }
 }

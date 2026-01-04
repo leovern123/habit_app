@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../data/habit_service.dart';
 import '../model/habit_model.dart';
@@ -42,10 +43,6 @@ class _HabitHomePageState extends State<HabitHomePage> {
             builder: (context, logSnapshot) {
               final logs = logSnapshot.data ?? {};
               final doneToday = logs.values.where((done) => done).length;
-              final longestStreak = habits.fold<int>(0, (prev, habit) {
-                final streak = DateTime.now().difference(habit.createdAt.toDate()).inDays + 1;
-                return streak > prev ? streak : prev;
-              });
               return Column(
                 children: [
                   Padding(
@@ -58,13 +55,6 @@ class _HabitHomePageState extends State<HabitHomePage> {
                       ],
                     ),
                   ),
-                  StreamBuilder<Map<String, bool>>(
-                    stream: _service.getMonthLogs(),
-                    builder: (context, monthSnapshot) {
-                      final monthLogs = monthSnapshot.data ?? {};
-                      return HabitCalendar(monthLogs);
-                    },
-                  ),
                   Expanded(
                     child: AnimatedList(
                       key: _listKey,
@@ -73,19 +63,32 @@ class _HabitHomePageState extends State<HabitHomePage> {
                         final habit = habits[index];
                         final isDone = logs[habit.habitId] ?? false;
 
-                        return HabitCard(
-                          habit: habit,
-                          isDone: isDone,
-                          animation: animation,
-                          onToggle: (done) => _service.toggleHabit(habit.habitId, done),
-                          onEdit: () => showDialog(
-                            context: context,
-                            builder: (_) => HabitDialog(habit: habit),
-                          ),
-                          onDelete: () => _deleteHabit(context, habit.habitId, index),
-                          service: _service,
+                        return Column(
+                          children: [
+                            HabitCard(
+                              habit: habit,
+                              isDone: isDone,
+                              animation: animation,
+                              onToggle: (done) => _service.toggleHabit(habit.habitId, done),
+                              onEdit: () => showDialog(
+                                context: context,
+                                builder: (_) => HabitDialog(habit: habit),
+                              ),
+                              onDelete: () => _deleteHabit(context, habit.habitId, index),
+                              service: _service,
+                            ),
+                              // Kalender per habit
+                            StreamBuilder<Map<String, bool>>(
+                              stream: _service.getCurrentMonthLogsStream(habit.habitId),
+                              builder: (context, monthSnapshot) {
+                                final monthLogs = monthSnapshot.data ?? {};
+                                return HabitCalendar(monthLogs);
+                              },
+                            ),
+                          ],
                         );
                       },
+                      
                     ),
                   ),
                 ],

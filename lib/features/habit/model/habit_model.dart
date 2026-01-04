@@ -5,12 +5,14 @@ class Habit {
   final String title;
   final String userId;
   final Timestamp createdAt;
+  final Timestamp? habitTime;
 
   Habit({
     required this.habitId,
     required this.title,
     required this.userId,
     required this.createdAt,
+    this.habitTime,
   });
 /// Dipakai saat ambil dari Firestore (doc + id)
   factory Habit.fromFirestore(
