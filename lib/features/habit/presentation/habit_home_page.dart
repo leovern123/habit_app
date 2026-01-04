@@ -94,6 +94,14 @@ class _HabitHomePageState extends State<HabitHomePage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green[400],
+        child: const Icon(Icons.add),
+        onPressed: () => showDialog(
+          context: context,
+          builder: (_) => const HabitDialog(),
+        ),
+      ),
     );
   }
 }
