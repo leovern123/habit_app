@@ -74,22 +74,24 @@
                     ),
                   ),
                   const SizedBox(height: 6),
-  FutureBuilder<List<Map<String, dynamic>>>(
-    future: _service.getLast7DaysLogsStream(habit.habitId),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const CircularProgressIndicator();
-      }
-      if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
-      }
-      final logs = snapshot.data ?? [];
-      // Ubah logs jadi List<bool> atau sesuai kebutuhan
-      final doneList = logs.map((e) => e['isDone'] as bool).toList();
-
-      return Text('Done in last 7 days: ${doneList.where((b) => b).length}');
-    },
-  )
+                  // Last 7 days logs (StreamBuilder)
+                StreamBuilder<List<bool>>(
+                  stream: service.getLast7DaysLogsStream(habit.habitId),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    final logs = snapshot.data ?? [];
+                    return Text('Done in last 7 days: ${logs.where((b) => b).length}');
+                  },
+                ),
 
                 ],
               ),
