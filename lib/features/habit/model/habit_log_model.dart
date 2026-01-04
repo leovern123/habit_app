@@ -13,4 +13,13 @@ class HabitLogModel {
     required this.date,
   });
 
+  factory HabitLogModel.fromFirestore(
+      Map<String, dynamic> data, String id) {
+    return HabitLogModel(
+      id: id,
+      habitId: data['habitId'],
+      isDone: data['isDone'],
+      date: data['date'],
+    );
+  }
 }
