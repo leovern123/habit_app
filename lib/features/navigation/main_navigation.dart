@@ -24,4 +24,7 @@ class _MainNavigationState extends State<MainNavigation> {
         index: _currentIndex,
         children: _pages,
       ),
-      
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+
+        
