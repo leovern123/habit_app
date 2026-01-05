@@ -89,7 +89,7 @@ class HabitCard extends StatelessWidget {
                           }
                         },
                         child: Chip(
-                          label: Text('Waktu: $habitTimeStr'),
+                          label: Text(' $habitTimeStr'),
                           backgroundColor: Colors.grey[200],
                         ),
                       ),
