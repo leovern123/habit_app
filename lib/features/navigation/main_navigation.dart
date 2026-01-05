@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../habit/presentation/habit_home_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -32,7 +33,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey
+        unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
