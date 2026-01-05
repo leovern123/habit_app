@@ -36,7 +36,6 @@ class _HabitHomePageState extends State<HabitHomePage> {
       return Center(child: Text('Terjadi error: ${habitSnapshot.error}'));
     }
     final habits = habitSnapshot.data ?? [];
-     if (habits.isEmpty) return _buildEmptyState();
 
           return StreamBuilder<Map<String, bool>>(
             stream: _service.getTodayLogs(),
