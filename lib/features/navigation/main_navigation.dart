@@ -67,3 +67,15 @@ class _PlaceholderPage extends StatelessWidget {
         appBar: AppBar(
         title: Text(title),
       ),
+      body: Center(
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
