@@ -24,6 +24,7 @@ class Habit {
       title: data['title'] as String,
       userId: data['userId'] as String,
       createdAt: data['createdAt'] as Timestamp,
+      habitTime: data['habitTime'] as Timestamp?,
     );
   }
   /// Opsional: kalau map sudah mengandung habitId
@@ -33,6 +34,7 @@ class Habit {
       title: map['title'] as String,
       userId: map['userId'] as String,
       createdAt: map['createdAt'] as Timestamp,
+      habitTime: map['habitTime'] as Timestamp?,
     );
   }
 
@@ -42,6 +44,7 @@ class Habit {
       'title': title,
       'userId': userId,
       'createdAt': createdAt,
+      if (habitTime != null) 'habitTime': habitTime, 
     };
   }
 }
