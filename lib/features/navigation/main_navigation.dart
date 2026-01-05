@@ -7,3 +7,5 @@ class MainNavigation extends StatefulWidget {
   State<MainNavigation> createState() => _MainNavigationState();
 }
 
+class _MainNavigationState extends State<MainNavigation> {
+  int _currentIndex = 0;
