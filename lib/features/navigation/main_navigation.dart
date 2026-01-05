@@ -55,4 +55,13 @@ class _MainNavigationState extends State<MainNavigation> {
     );
   }
 }
+
+class _PlaceholderPage extends StatelessWidget {
+  final String title;
+
+  const _PlaceholderPage({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         
