@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uas_flutter/features/auth/presentation/register_page.dart';
 import '../data/auth_service.dart';
-import '../../habit/presentation/habit_home_page.dart';
+import '../../navigation/main_navigation.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
   void _goToHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const HabitHomePage()),
+      MaterialPageRoute(builder: (_) => const MainNavigation()),
     );
   }
 
