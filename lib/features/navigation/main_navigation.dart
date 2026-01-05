@@ -30,4 +30,7 @@ class _MainNavigationState extends State<MainNavigation> {
           setState(() => _currentIndex = index);
         },
 
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey
         
