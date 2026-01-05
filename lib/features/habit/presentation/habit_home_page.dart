@@ -18,6 +18,13 @@ class _HabitHomePageState extends State<HabitHomePage> {
   final HabitService _service = HabitService();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
+ String _todayLabel() {
+  final now = DateTime.now();
+  const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+  return '${days[now.weekday % 7]}, '
+         '${now.day}/${now.month}/${now.year}';
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +57,7 @@ class _HabitHomePageState extends State<HabitHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         StatCard('Total Habit', habits.length.toString(), Colors.green),
-                        StatCard('Done Today', doneToday.toString(), Colors.green[700]!),
+                        StatCard( 'Done Today (${_todayLabel()})', doneToday.toString(),Colors.green[700]!,),
                       ],
                     ),
                   ),
