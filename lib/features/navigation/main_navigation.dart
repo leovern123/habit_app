@@ -12,7 +12,7 @@ class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
    final List<Widget> _pages = const [
-    _PlaceholderPage(title: 'Dashboard'),
+   HabitHomePage(),
     _PlaceholderPage(title: 'Habit List'),
     _PlaceholderPage(title: 'Statistik'),
     _PlaceholderPage(title: 'Profile'),
