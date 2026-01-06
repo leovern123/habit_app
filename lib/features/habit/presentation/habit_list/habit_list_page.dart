@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'widgets/confirm_delete_dialog.dart';
 import 'package:uas_flutter/features/habit/data/habit_service.dart';
 import 'package:uas_flutter/features/habit/model/habit_model.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
@@ -52,10 +53,17 @@ class HabitListPage extends StatelessWidget {
                   });
                 },
                 onDelete: () async {
-                  await FirebaseFirestore.instance
-                      .collection('habits')
-                      .doc(habit.habitId)
-                      .delete();
+                final confirm = await showConfirmDeleteDialog(context);
+
+                  if (confirm == true) {
+                    await FirebaseFirestore.instance
+                        .collection('habits')
+                        .doc(habit.habitId)
+                        .delete();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Habit berhasil dihapus')));
+                  }
                 },
                      onEdit: () {
                  
