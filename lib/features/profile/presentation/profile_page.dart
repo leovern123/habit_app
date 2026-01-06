@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_flutter/features/auth/presentation/login_page.dart';
 import 'package:uas_flutter/features/profile/presentation/edit_profile_page.dart';
 import '../data/profile_service.dart';
 import 'about_team_page.dart';
@@ -66,8 +67,15 @@ class ProfilePage extends StatelessWidget {
               subtitle: 'Logout dari akun',
               isDanger: true,
               onTap: () async {
-                await service.logout();
-                Navigator.pushReplacementNamed(context, '/login');
+                await ProfileService().logout();
+
+                if (!context.mounted) return;
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Login()),
+                  (route) => false,
+                );
               },
             ),
           ],
