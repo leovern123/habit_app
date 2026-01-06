@@ -53,6 +53,7 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
+             'Tambah Habit',
              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
