@@ -28,3 +28,8 @@ class HabitListPage extends StatelessWidget {
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+
+                  return const HabitListEmpty();
+                }
+
+                final habits = snapshot.data!.docs;
