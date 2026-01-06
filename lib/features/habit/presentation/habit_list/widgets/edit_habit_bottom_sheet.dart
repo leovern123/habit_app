@@ -35,3 +35,37 @@ class _EditHabitBottomSheetState extends State<EditHabitBottomSheet> {
     if (_titleController.text.trim().isEmpty) return;
 
     setState(() => _isSaving = true);
+
+    await FirebaseFirestore.instance
+        .collection('habits')
+        .doc(widget.habit.habitId)
+        .update({
+      'title': _titleController.text.trim(),
+    });
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        top: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            'Edit Habit',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
