@@ -77,4 +77,14 @@ class _EditHabitBottomSheetState extends State<EditHabitBottomSheet> {
             ),
           ),
           const SizedBox(height: 16),
-          
+           ElevatedButton(
+            onPressed: _isSaving ? null : _save,
+            child: _isSaving
+                ? const CircularProgressIndicator()
+                : const Text('Simpan Perubahan'),
+          ),
+        ],
+      ),
+    );
+  }
+}
