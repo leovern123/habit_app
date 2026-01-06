@@ -67,3 +67,27 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
           ),
 
           const SizedBox(height: 16),
+
+            /// Pilih Jam
+          InkWell(
+            onTap: _pickTime,
+            borderRadius: BorderRadius.circular(12),
+            child: InputDecorator(
+              decoration: const InputDecoration(
+                labelText: 'Jam habit',
+                border: OutlineInputBorder(),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    _selectedTime.format(context),
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const Icon(Icons.access_time),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
