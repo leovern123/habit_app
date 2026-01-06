@@ -53,3 +53,17 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
+             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+
+          /// Nama habit
+          TextField(
+            controller: _titleController,
+            decoration: const InputDecoration(
+              labelText: 'Nama habit',
+              border: OutlineInputBorder(),
+            ),
+          ),
+
+          const SizedBox(height: 16),
