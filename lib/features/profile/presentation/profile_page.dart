@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:uas_flutter/features/profile/presentation/edit_profile_page.dart';
 import '../data/profile_service.dart';
 import 'about_team_page.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/profile_menu_item.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -32,7 +34,18 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.edit,
               title: 'Edit Profil',
               subtitle: 'Ubah foto dan nama',
-              onTap: () {},
+              onTap: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const EditProfilePage(),
+                  ),
+                );
+
+                if (result == true) {
+                  (context as Element).markNeedsBuild();
+                }
+              },
             ),
             ProfileMenuItem(
               icon: Icons.info_outline,
