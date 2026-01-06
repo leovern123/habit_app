@@ -39,10 +39,31 @@ class HabitHomeHeader extends StatelessWidget {
               ),
           ),
           const SizedBox(height: 20),
-          
+
           _TodayProgress(habitService: habitService),
         ],
       ),
     );
   }
 }
+
+class _TodayProgress extends StatelessWidget {
+  final HabitService habitService;
+
+  const _TodayProgress({
+    required this.habitService,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<Habit>>(
+      stream: habitService.getHabits(),
+      builder: (context, habitSnapshot) {
+        if (habitSnapshot.connectionState == ConnectionState.waiting) {
+          return const LinearProgressIndicator();
+        }
+
+        if (!habitSnapshot.hasData) {
+          return const SizedBox();
+        }
+        
