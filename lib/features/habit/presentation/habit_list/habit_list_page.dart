@@ -13,6 +13,7 @@ class HabitListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
+    final habitService = HabitService();
 
     return Scaffold(
       appBar: AppBar(
