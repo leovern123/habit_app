@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../member_detail/profil_page_zaqi.dart';
 import 'widgets/team_member_tile.dart';
+import 'member_detail/profil_page_zaqi.dart';
 
 class AboutTeamPage extends StatelessWidget {
   const AboutTeamPage({super.key});
