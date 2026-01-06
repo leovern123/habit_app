@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'widgets/confirm_delete_dialog.dart';
+import 'widgets/edit_habit_bottom_sheet.dart';
 import 'package:uas_flutter/features/habit/data/habit_service.dart';
 import 'package:uas_flutter/features/habit/model/habit_model.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
@@ -66,7 +67,14 @@ class HabitListPage extends StatelessWidget {
                   }
                 },
                      onEdit: () {
-                 
+                      showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    ),
+                    builder: (_) => EditHabitBottomSheet(habit: habit),
+                  );                              
                 },
               );
             },
