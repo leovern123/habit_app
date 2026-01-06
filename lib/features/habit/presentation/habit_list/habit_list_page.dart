@@ -52,3 +52,6 @@ class HabitListPage extends StatelessWidget {
                         });
                       },
                       onDelete: () async {
+                       await doc.reference.delete();
+                      },
+                      onEdit: () {
