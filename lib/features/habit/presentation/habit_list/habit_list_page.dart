@@ -33,3 +33,17 @@ class HabitListPage extends StatelessWidget {
                 }
 
                 final habits = snapshot.data!.docs;
+
+                
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: habits.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final doc = habits[index];
+                    final data = doc.data() as Map<String, dynamic>;
+
+                    return HabitListItem(
+                      title: data['title'] ?? '-',
+                      isActive: data['isActive'] ?? true,
+                      onToggleActive: () async {
