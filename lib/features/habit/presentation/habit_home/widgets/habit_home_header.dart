@@ -77,3 +77,6 @@ class _TodayProgress extends StatelessWidget {
         }
 
         return StreamBuilder<Map<String, bool>>(
+          stream: habitService.getTodayLogs(),
+          builder: (context, logSnapshot) {
+            final logs = logSnapshot.data ?? {};
