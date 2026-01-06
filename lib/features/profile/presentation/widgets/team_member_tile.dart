@@ -4,6 +4,8 @@ class TeamMemberTile extends StatelessWidget {
   final String name;
   final String nim;
   final String role;
+  final Color backgroundColor;
+  final Color accentColor;
   final VoidCallback onTap;
 
   const TeamMemberTile({
@@ -11,48 +13,71 @@ class TeamMemberTile extends StatelessWidget {
     required this.name,
     required this.nim,
     required this.role,
+    required this.backgroundColor,
+    required this.accentColor,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            backgroundColor.withOpacity(0.9),
+            backgroundColor.withOpacity(0.6),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: backgroundColor.withOpacity(0.3),
+            blurRadius: 10,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: ListTile(
-        leading: const CircleAvatar(
-          child: Icon(Icons.person),
+        contentPadding: const EdgeInsets.all(16),
+        leading: CircleAvatar(
+          radius: 26,
+          backgroundColor: accentColor.withOpacity(0.2),
+          child: Icon(Icons.person, color: accentColor),
         ),
         title: Text(
           name,
           style: const TextStyle(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.black,
           ),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 4),
             Text(
               nim,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Colors.black54,
-              ),
+              style: const TextStyle(fontSize: 13),
             ),
-            const SizedBox(height: 2),
             Text(
               role,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Colors.black54,
+              style: TextStyle(
+                fontSize: 12,
                 fontStyle: FontStyle.italic,
+                color: accentColor,
               ),
             ),
           ],
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: accentColor,
+        ),
         onTap: onTap,
       ),
     );
