@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uas_flutter/screen/register_page.dart';
 import '../../data/services/auth_service.dart';
 import 'habit_home_page.dart';
 
@@ -182,6 +183,22 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Belum punya akun?",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const Register()));
+                      },
+                      child: const Text("Buat akun baru"),
+                    ),
+                  ],
                 ),
               ],
             ),
