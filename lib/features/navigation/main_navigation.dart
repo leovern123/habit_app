@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../habit/presentation/habit_home_page.dart';
+import '../profile/presentation/profile_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -15,7 +16,7 @@ class _MainNavigationState extends State<MainNavigation> {
    HabitHomePage(),
     _PlaceholderPage(title: 'Habit List'),
     _PlaceholderPage(title: 'Statistik'),
-    _PlaceholderPage(title: 'Profile'),
+    ProfilePage(),
   ];
 
   @override
