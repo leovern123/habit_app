@@ -7,14 +7,14 @@ import 'widgets/habit_calendar.dart';
 import 'widgets/habit_card.dart';
 import 'widgets/habit_dialog.dart';
 
-class HabitHomePage extends StatefulWidget {
-  const HabitHomePage({super.key});
+class HabitHomePageOld extends StatefulWidget {
+  const HabitHomePageOld({super.key});
 
   @override
-  State<HabitHomePage> createState() => _HabitHomePageState();
+  State<HabitHomePageOld> createState() => _HabitHomePageState();
 }
 
-class _HabitHomePageState extends State<HabitHomePage> {
+class _HabitHomePageState extends State<HabitHomePageOld> {
   final HabitService _service = HabitService();
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 

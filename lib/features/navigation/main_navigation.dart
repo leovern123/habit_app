@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../habit/presentation/habit_home_page.dart';
+import 'package:uas_flutter/features/habit/presentation/habit_home_page_old.dart';
+import '../habit/presentation/habit_home/habit_home_page.dart';
 import '../habit/presentation/habit_list/habit_list_page.dart';
 
 class MainNavigation extends StatefulWidget {

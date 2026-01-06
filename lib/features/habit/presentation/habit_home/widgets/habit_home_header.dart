@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/date_helper.dart';
+import '../../../data/habit_service.dart';
+import '../../../model/habit_model.dart';
 
 class HabitHomeHeader extends StatelessWidget {
-  const HabitHomeHeader({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final today = DateHelper.formattedToday();
+    final HabitService habitService;
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
+  const HabitHomeHeader({
+    super.key,
+    required this.habitService,
+  });
+
+   Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(24),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
