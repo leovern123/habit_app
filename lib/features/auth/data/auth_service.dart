@@ -48,4 +48,20 @@ class AuthService {
     await _auth.signOut();
     await _googleSignIn.signOut();
   }
+
+  Future<void> updateProfile({
+    required String name,
+    String? photoUrl,
+  }) async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    await user.updateDisplayName(name);
+
+    if (photoUrl != null && photoUrl.isNotEmpty) {
+      await user.updatePhotoURL(photoUrl);
+    }
+
+    await user.reload();
+  }
 }
