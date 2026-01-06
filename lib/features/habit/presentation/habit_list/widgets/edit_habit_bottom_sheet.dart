@@ -21,3 +21,17 @@ class _EditHabitBottomSheetState extends State<EditHabitBottomSheet> {
   @override
   void initState() {
     super.initState();
+
+     _titleController = TextEditingController(text: widget.habit.title);
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    if (_titleController.text.trim().isEmpty) return;
+
+    setState(() => _isSaving = true);
