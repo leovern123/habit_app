@@ -172,21 +172,21 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text('atau', style: TextStyle(color: Colors.grey[600])),
+                    const Text(
+                      "Belum punya akun?",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
-                    Expanded(child: Divider(color: Colors.grey[300])),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const Register()));
+                      },
+                      child: const Text("Buat akun baru"),
+                    ),
                   ],
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const Register()));
-                  },
-                  child: const Text("Buat akun baru"),
                 ),
               ],
             ),
