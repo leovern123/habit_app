@@ -6,6 +6,7 @@ class Habit {
   final String userId;
   final Timestamp createdAt;
   final Timestamp? habitTime;
+  final bool isActive;
 
   Habit({
     required this.habitId,
@@ -13,6 +14,7 @@ class Habit {
     required this.userId,
     required this.createdAt,
     this.habitTime,
+    required this.isActive, 
   });
 /// Dipakai saat ambil dari Firestore (doc + id)
   factory Habit.fromFirestore(
@@ -25,6 +27,7 @@ class Habit {
       userId: data['userId'] as String,
       createdAt: data['createdAt'] as Timestamp,
       habitTime: data['habitTime'] as Timestamp?,
+       isActive: data['isActive'] ?? true,
     );
   }
   /// Opsional: kalau map sudah mengandung habitId
