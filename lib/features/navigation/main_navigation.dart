@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_home_page_old.dart';
 import '../habit/presentation/habit_home/habit_home_page.dart';
 import '../habit/presentation/habit_list/habit_list_page.dart';
+import '../habit/presentation/habit_home/widgets/add_habit_bottom_sheet.dart';
+
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -27,6 +29,25 @@ class _MainNavigationState extends State<MainNavigation> {
         index: _currentIndex,
         children: _pages,
       ),
+
+         floatingActionButton: _currentIndex == 0
+          ? FloatingActionButton(
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(24)),
+                  ),
+                  builder: (_) => const AddHabitBottomSheet(),
+                );
+              },
+            )
+          : null,
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
