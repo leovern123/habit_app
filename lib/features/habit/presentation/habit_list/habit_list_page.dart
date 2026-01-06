@@ -32,37 +32,38 @@ class HabitListPage extends StatelessWidget {
           final habits = snapshot.data!;
 
 
-                return ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: habits.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final doc = habits[index];
-                    final data = doc.data() as Map<String, dynamic>;
+         return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: habits.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            itemBuilder: (context, index) {
+              final habit = habits[index];
 
-                    return HabitListItem(
-                      title: data['title'] ?? '-',
-                      isActive: data['isActive'] ?? true,
-                      onToggleActive: () async {
-                      await doc.reference.update({
-                          'isActive': !(data['isActive'] ?? true),
-                        });
-                      },
-                      onDelete: () async {
-                       await doc.reference.delete();
-                      },
-                      onEdit: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Edit habit segera tersedia'),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+              return HabitListItem(
+                title: habit.title,
+                isActive: habit.isActive,
+                onToggleActive: () async {
+                  await FirebaseFirestore.instance
+                      .collection('habits')
+                      .doc(habit.habitId)
+                      .update({
+                    'isActive': !habit.isActive,
+                  });
+                },
+                onDelete: () async {
+                  await FirebaseFirestore.instance
+                      .collection('habits')
+                      .doc(habit.habitId)
+                      .delete();
+                },
+                     onEdit: () {
+                 
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
