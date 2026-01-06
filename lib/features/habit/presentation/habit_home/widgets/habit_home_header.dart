@@ -36,8 +36,11 @@ class HabitHomeHeader extends StatelessWidget {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-            ),
+              ),
           ),
+          const SizedBox(height: 20),
+          
+          _TodayProgress(habitService: habitService),
         ],
       ),
     );
