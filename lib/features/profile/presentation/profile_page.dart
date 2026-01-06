@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/profile_service.dart';
+import 'about_team_page.dart';
 import 'widgets/profile_header.dart';
 import 'widgets/profile_menu_item.dart';
 
@@ -38,7 +39,12 @@ class ProfilePage extends StatelessWidget {
               title: 'Tentang Kami',
               subtitle: 'Informasi pengembang aplikasi',
               onTap: () {
-                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AboutTeamPage(),
+                  ),
+                );
               },
             ),
             ProfileMenuItem(
