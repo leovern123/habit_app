@@ -69,3 +69,12 @@ class _EditHabitBottomSheetState extends State<EditHabitBottomSheet> {
             ),
           ),
           const SizedBox(height: 16),
+           TextField(
+            controller: _titleController,
+            decoration: const InputDecoration(
+              labelText: 'Nama Habit',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          
