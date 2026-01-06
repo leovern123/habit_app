@@ -26,10 +26,10 @@ class HabitHomeHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hari ini',
-            style: Theme.of(context).textTheme.titleLarge,
+            DateHelper.formattedToday(),
+            style: const TextStyle(color: Colors.grey),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
           Text(
             today,
             style: const TextStyle(color: Colors.grey),
