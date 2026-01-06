@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uas_flutter/features/habit/data/habit_service.dart';
+import 'package:uas_flutter/features/habit/model/habit_model.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_item.dart';
 
@@ -17,22 +19,17 @@ class HabitListPage extends StatelessWidget {
         title: const Text('Habit List'),
       ),
       body: StreamBuilder<List<Habit>>(
-        stream: habitService.getHabits(),
-                  .collection('habits'),
-                  .where('userId', isEqualTo: userId)
-                  .orderBy('createdAt', descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+      stream: HabitService.getHabits(),
+                 builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const HabitListEmpty();
+          }
 
-                  return const HabitListEmpty();
-                }
-
-                final habits = snapshot.data!.docs;
+          final habits = snapshot.data!;
 
 
                 return ListView.separated(
