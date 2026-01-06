@@ -91,3 +91,18 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
           ),
 
           const SizedBox(height: 20),
+
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _isLoading ? null : _save,
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text('Simpan'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
