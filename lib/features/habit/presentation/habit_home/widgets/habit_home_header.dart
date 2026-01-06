@@ -66,4 +66,14 @@ class _TodayProgress extends StatelessWidget {
         if (!habitSnapshot.hasData) {
           return const SizedBox();
         }
-        
+        final activeHabits =
+            habitSnapshot.data!.where((h) => h.isActive).toList();
+
+        if (activeHabits.isEmpty) {
+          return const Text(
+            'Belum ada habit aktif',
+            style: TextStyle(color: Colors.grey),
+          );
+        }
+
+        return StreamBuilder<Map<String, bool>>(
