@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../member_detail/profil_page_zaqi.dart';
+import 'widgets/team_member_tile.dart';
 
 class AboutTeamPage extends StatelessWidget {
   const AboutTeamPage({super.key});
@@ -6,11 +8,18 @@ class AboutTeamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile Team'),
-      ),
-      body: const Center(
-        child: Text('About Team Page Content Here'),
+      appBar: AppBar(title: const Text('Profile Team')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          TeamMemberTile(
+            name: 'Zaqi',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const MemberPage()),
+            ),
+          ),
+        ],
       ),
     );
   }
