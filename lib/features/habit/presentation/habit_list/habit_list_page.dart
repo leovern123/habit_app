@@ -16,11 +16,9 @@ class HabitListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Habit List'),
       ),
-      body: userId == null
-          ? const Center(child: Text('User belum login'))
-          : StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('habits')
+      body: StreamBuilder<List<Habit>>(
+        stream: habitService.getHabits(),
+                  .collection('habits'),
                   .where('userId', isEqualTo: userId)
                   .orderBy('createdAt', descending: true)
                   .snapshots(),
