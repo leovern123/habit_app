@@ -80,3 +80,37 @@ class _TodayProgress extends StatelessWidget {
           stream: habitService.getTodayLogs(),
           builder: (context, logSnapshot) {
             final logs = logSnapshot.data ?? {};
+            final completed = activeHabits
+                .where((habit) => logs[habit.habitId] == true)
+                .length;
+
+            final total = activeHabits.length;
+            final progress = completed / total;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                /// teks progress
+                Text(
+                  '$completed dari $total habit selesai',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                /// bar progress
+                LinearProgressIndicator(
+                  value: progress,
+                  minHeight: 8,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}
