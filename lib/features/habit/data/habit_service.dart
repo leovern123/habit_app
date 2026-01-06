@@ -21,6 +21,7 @@ class HabitService {
     return _firestore
         .collection('habits')
         .where('userId', isEqualTo: uid)
+         .where('isActive', isEqualTo: true)
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
