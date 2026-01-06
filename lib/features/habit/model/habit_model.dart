@@ -38,6 +38,7 @@ class Habit {
       userId: map['userId'] as String,
       createdAt: map['createdAt'] as Timestamp,
       habitTime: map['habitTime'] as Timestamp?,
+      isActive: map['isActive'] as bool,
     );
   }
 
@@ -48,6 +49,7 @@ class Habit {
       'userId': userId,
       'createdAt': createdAt,
       if (habitTime != null) 'habitTime': habitTime, 
+      'isActive': isActive,    
     };
   }
 }
