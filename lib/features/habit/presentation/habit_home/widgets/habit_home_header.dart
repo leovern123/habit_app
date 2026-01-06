@@ -30,9 +30,13 @@ class HabitHomeHeader extends StatelessWidget {
             style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 6),
-          Text(
-            today,
-            style: const TextStyle(color: Colors.grey),
+
+          const Text(
+            'Habit Hari Ini',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
