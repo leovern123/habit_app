@@ -14,6 +14,8 @@ class AboutTeamPage extends StatelessWidget {
         children: [
           TeamMemberTile(
             name: 'Zaqi',
+            nim: '1123150048',
+            role: 'Flutter Developer',
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const MemberPage()),
