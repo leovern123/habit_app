@@ -18,7 +18,8 @@ class HabitHomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const HabitHomeHeader(),
+             HabitHomeHeader(
+            habitService: habitService,),
           Expanded(
             child: HabitTodayList(habitService: habitService),
           ),
