@@ -55,3 +55,17 @@ class HabitListPage extends StatelessWidget {
                        await doc.reference.delete();
                       },
                       onEdit: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Edit habit segera tersedia'),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+    );
+  }
+}
