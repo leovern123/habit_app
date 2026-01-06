@@ -138,4 +138,29 @@ class HabitService {
         .map((snapshot) =>
             snapshot.docs.map((doc) => doc['isDone'] as bool).toList());
   }
+
+// create add habit
+  Future<void> createHabit({
+  required String title,
+  required TimeOfDay time,
+}) async {
+  if (uid == null) return;
+
+  final now = DateTime.now();
+  final habitDateTime = DateTime(
+    now.year,
+    now.month,
+    now.day,
+    time.hour,
+    time.minute,
+  );
+
+  await _firestore.collection('habits').add({
+    'title': title,
+    'userId': uid,
+    'isActive': true,
+    'createdAt': Timestamp.now(),
+    'habitTime': Timestamp.fromDate(habitDateTime),
+  });
+}
 }
