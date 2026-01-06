@@ -23,7 +23,34 @@ class _EditHabitBottomSheetState extends State<EditHabitBottomSheet> {
     super.initState();
 
      _titleController = TextEditingController(text: widget.habit.title);
+      if (widget.habit.habitTime != null) {
+      final dt = widget.habit.habitTime!.toDate();
+      _selectedTime = TimeOfDay(hour: dt.hour, minute: dt.minute);
+    }
   }
+
+    if (widget.habit.habitTime != null) {
+        final dt = widget.habit.habitTime!.toDate();
+        _selectedTime = TimeOfDay(hour: dt.hour, minute: dt.minute);
+      }
+  }
+
+    Future<void> _pickTime() async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime ?? TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      setState(() => _selectedTime = picked);
+    }
+  }
+
+    Future<void> _save() async {
+    if (_titleController.text.trim().isEmpty) return;
+
+    setState(() => _isSaving = true);
+
 
   @override
   void dispose() {
