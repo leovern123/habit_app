@@ -14,7 +14,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
    final List<Widget> _pages = const [
    HabitHomePage(),
-    _PlaceholderPage(title: 'Habit List'),
+   HabitListPage(),
     _PlaceholderPage(title: 'Statistik'),
     _PlaceholderPage(title: 'Profile'),
   ];
