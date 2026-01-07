@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../data/habit_service.dart';
 
 class AddHabitBottomSheet extends StatefulWidget {
-  const AddHabitBottomSheet({super.key});
+  final HabitService habitService;
+  const AddHabitBottomSheet({super.key, required this.habitService});
 
   @override
   State<AddHabitBottomSheet> createState() => _AddHabitBottomSheetState();
@@ -10,8 +11,6 @@ class AddHabitBottomSheet extends StatefulWidget {
 
 class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
   final _titleController = TextEditingController();
-  final HabitService _habitService = HabitService();
-
   TimeOfDay _selectedTime = const TimeOfDay(hour: 7, minute: 0);
   bool _isLoading = false;
 
@@ -21,9 +20,7 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
       initialTime: _selectedTime,
     );
 
-    if (time != null) {
-      setState(() => _selectedTime = time);
-    }
+    if (time != null) setState(() => _selectedTime = time);
   }
 
   Future<void> _save() async {
@@ -31,13 +28,23 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
 
     setState(() => _isLoading = true);
 
-    await _habitService.createHabit(
-      title: _titleController.text.trim(),
-      time: _selectedTime,
-    );
+    try {
+      await widget.habitService.createHabit(
+        title: _titleController.text.trim(),
+        time: _selectedTime,
+      );
+      if (mounted) Navigator.pop(context);
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Gagal menambahkan habit: $e')));
+      }
+    }
 
-    if (mounted) Navigator.pop(context);
+    
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +57,13 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-             'Tambah Habit',
-             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            'Tambah Habit',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-
-          /// Nama habit
           TextField(
             controller: _titleController,
             decoration: const InputDecoration(
@@ -66,10 +71,7 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
               border: OutlineInputBorder(),
             ),
           ),
-
           const SizedBox(height: 16),
-
-            /// Pilih Jam
           InkWell(
             onTap: _pickTime,
             borderRadius: BorderRadius.circular(12),
@@ -81,26 +83,18 @@ class _AddHabitBottomSheetState extends State<AddHabitBottomSheet> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    _selectedTime.format(context),
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Text(_selectedTime.format(context)),
                   const Icon(Icons.access_time),
                 ],
               ),
             ),
           ),
-
           const SizedBox(height: 20),
-
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _isLoading ? null : _save,
-              child: _isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text('Simpan'),
-            ),
+          ElevatedButton(
+            onPressed: _isLoading ? null : _save,
+            child: _isLoading
+                ? const CircularProgressIndicator(color: Colors.white)
+                : const Text('Simpan'),
           ),
         ],
       ),

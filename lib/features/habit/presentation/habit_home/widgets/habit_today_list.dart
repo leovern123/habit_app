@@ -20,6 +20,12 @@ class HabitTodayList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+       if (snapshot.hasError) {
+          return Center(
+            child: Text('Terjadi error: ${snapshot.error}'),
+          );
+        }
+
         final habits = snapshot.data
                 ?.where((h) => h.isActive)
                 .toList() ??
