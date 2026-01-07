@@ -15,6 +15,11 @@ class HabitTodayItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final habitTime = habit.habitTime?.toDate();
+    final timeLabel = habitTime != null
+        ? '${habitTime.hour.toString().padLeft(2, '0')}:${habitTime.minute.toString().padLeft(2, '0')}'
+        : 'Belum diatur';
+
     return Card(
       child: ListTile(
         title: Text(habit.title),
