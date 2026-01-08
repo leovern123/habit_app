@@ -52,62 +52,60 @@ class _HabitListPageState extends State<HabitListPage> {
         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-            ),
-      ),
-      const SizedBox(height: 4),
-      Text(
-        'Kelola kebiasaan baikmu setiap hari',
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Colors.white.withOpacity(0.9),
-            ),
-      ),
-    ],
-  ),
-),
-          final habits = snapshot.data!;
-
-
-         return ListView.separated(
-            padding: const EdgeInsets.all(16),
-            itemCount: habits.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, index) {
-              final habit = habits[index];
-
-              return HabitListItem(
-                title: habit.title,
-                isActive: habit.isActive,
-                onToggleActive: () async {
-                  await FirebaseFirestore.instance
-                      .collection('habits')
-                      .doc(habit.habitId)
-                      .update({
-                    'isActive': !habit.isActive,
-                  });
-                },
-                onDelete: () async {
-                final confirm = await showConfirmDeleteDialog(context);
-
-                  if (confirm == true) {
-                    await FirebaseFirestore.instance
-                        .collection('habits')
-                        .doc(habit.habitId)
-                        .delete();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Habit berhasil dihapus')));
-                  }
-                },
-                     onEdit: () {
-                      showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                      ),
+                ),
+              const SizedBox(height: 4),
+              Text(
+                'Kelola kebiasaan baikmu setiap hari',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white.withOpacity(0.9),
                     ),
-                    builder: (_) => EditHabitBottomSheet(habit: habit),
-                  );                              
-                },
+              ),
+            ],
+          ),
+        ),
+         Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child: SegmentedButton<HabitFilter>(
+            segments: const [
+              ButtonSegment(
+                value: HabitFilter.all,
+                label: Text('Semua'),
+                icon: Icon(Icons.list),
+              ),
+              ButtonSegment(
+                value: HabitFilter.active,
+                label: Text('Aktif'),
+                icon: Icon(Icons.check_circle),
+              ),
+              ButtonSegment(
+                value: HabitFilter.inactive,
+                label: Text('Nonaktif'),
+                icon: Icon(Icons.pause_circle),
+              ),
+            ],
+            selected: {_filter},
+            onSelectionChanged: (value) {
+              setState(() {
+                _filter = value.first;
+              });
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return Colors.green.shade600;
+                }
+                return Colors.green.shade50;
+              }),
+              foregroundColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return Colors.white;
+                }
+                return Colors.green.shade700;
+              }),
+            ),
+          ),
+        ),
               );
             },
           );
