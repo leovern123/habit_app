@@ -96,4 +96,17 @@ class _TodayProgress extends StatelessWidget {
         if (activeHabits.isEmpty) {
           return const SizedBox();
         }
+        return StreamBuilder<Map<String, bool>>(
+          stream: habitService.getTodayLogs(),
+          builder: (context, logSnapshot) {
+            final logs = logSnapshot.data ?? {};
 
+            final completed = activeHabits
+                .where((habit) => logs[habit.habitId] == true)
+                .length;
+
+            final total = activeHabits.length;
+            final progress = completed / total;
+
+            return Container(
+              padding: const EdgeInsets.all(16),
