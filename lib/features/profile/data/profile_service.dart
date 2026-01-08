@@ -10,7 +10,7 @@ class ProfileService {
     String? photoUrl,
     String? newPassword,
   }) async {
-    final user = currentUser;
+    final user = _auth.currentUser;
     if (user == null) return;
 
     if (displayName != null) {
@@ -21,10 +21,11 @@ class ProfileService {
       await user.updatePhotoURL(photoUrl);
     }
 
-    if (newPassword != null && newPassword.isNotEmpty) {
+    if (newPassword != null) {
       await user.updatePassword(newPassword);
     }
 
+    // 🔥 WAJIB: refresh data user
     await user.reload();
   }
 
