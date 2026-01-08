@@ -10,27 +10,35 @@ class HabitHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitService = HabitService();
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        centerTitle: true,
-      ),
+      backgroundColor: theme.colorScheme.surface,
       body: Column(
         children: [
-             HabitHomeHeader(
-            habitService: habitService,),
+          HabitHomeHeader(
+            habitService: habitService,
+          ),
           Expanded(
-            child: HabitTodayList(habitService: habitService),),
+            child: HabitTodayList(
+              habitService: habitService,
+            ),
+          ),
         ],
-        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            builder: (_) => AddHabitBottomSheet(habitService: habitService),
+            backgroundColor: theme.colorScheme.surface,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(24),
+              ),
+            ),
+            builder: (_) =>
+                AddHabitBottomSheet(habitService: habitService),
           );
         },
         child: const Icon(Icons.add),

@@ -20,26 +20,34 @@ class HabitTodayItem extends StatelessWidget {
         ? '${habitTime.hour.toString().padLeft(2, '0')}:${habitTime.minute.toString().padLeft(2, '0')}'
         : 'Belum diatur';
 
-    return Card(
-      child: ListTile(
-        title: Text(habit.title),
-        trailing: StreamBuilder<Map<String, bool>>(
-          stream: habitService.getTodayLogs(),
-          builder: (context, snapshot) {
-            final isDone = snapshot.data?[habit.habitId] ?? false;
+return Card(
+  child: ListTile(
+    title: Text(habit.title),
+    subtitle: Text(
+      timeLabel,
+      style: const TextStyle(
+        fontSize: 12,
+        color: Colors.grey,
+      ),
+    ),
+    trailing: StreamBuilder<Map<String, bool>>(
+      stream: habitService.getTodayLogs(),
+      builder: (context, snapshot) {
+        final isDone = snapshot.data?[habit.habitId] ?? false;
 
-            return Checkbox(
-              value: isDone,
-              onChanged: (value) {
-                habitService.toggleHabit(
-                  habit.habitId,
-                  value ?? false,
-                );
-              },
+        return Checkbox(
+          value: isDone,
+          onChanged: (value) {
+            habitService.toggleHabit(
+              habit.habitId,
+              value ?? false,
             );
           },
-        ),
-      ),
-    );
+        );
+      },
+    ),
+  ),
+);
+
   }
 }
