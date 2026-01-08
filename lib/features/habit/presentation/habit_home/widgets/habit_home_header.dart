@@ -3,7 +3,7 @@ import '../../../../../core/utils/date_helper.dart';
 import '../../../data/habit_service.dart';
 import '../../../model/habit_model.dart';
 
-class HabitHomeHeader extends StatelessWidget {
+lass HabitHomeHeader extends StatelessWidget {
   final HabitService habitService;
 
   const HabitHomeHeader({
@@ -24,7 +24,7 @@ class HabitHomeHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            colors.primary,
+            Colors.green,
             colors.primaryContainer,
           ],
         ),
@@ -35,7 +35,7 @@ class HabitHomeHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// tanggal
+         
           Text(
             DateHelper.formattedToday(),
             style: theme.textTheme.bodySmall?.copyWith(
@@ -44,18 +44,6 @@ class HabitHomeHeader extends StatelessWidget {
           ),
           const SizedBox(height: 6),
 
-          /// judul
-          Text(
-            'Habit Hari Ini',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: colors.onPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          /// progress card
-          _TodayProgress(habitService: habitService),
         ],
       ),
     );
