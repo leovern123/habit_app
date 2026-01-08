@@ -3,7 +3,7 @@ import '../../../../../core/utils/date_helper.dart';
 import '../../../data/habit_service.dart';
 import '../../../model/habit_model.dart';
 
-lass HabitHomeHeader extends StatelessWidget {
+class HabitHomeHeader extends StatelessWidget {
   final HabitService habitService;
 
   const HabitHomeHeader({
@@ -75,6 +75,7 @@ class _TodayProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final progressColor = Colors.green;
 
     return StreamBuilder<List<Habit>>(
       stream: habitService.getHabits(),
@@ -111,7 +112,7 @@ class _TodayProgress extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.all(16),
 
-              ecoration: BoxDecoration(
+              decoration: BoxDecoration(
                 color: colors.surface,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
@@ -125,7 +126,7 @@ class _TodayProgress extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// COMMIT 2.7: Text progress
+                  // Text progress
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -145,3 +146,20 @@ class _TodayProgress extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
+
+                   LinearProgressIndicator(
+                    value: progress,
+                    minHeight: 8,
+                    borderRadius: BorderRadius.circular(8),
+                     valueColor: AlwaysStoppedAnimation<Color>(progressColor),
+                     backgroundColor: progressColor.withOpacity(0.2),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
