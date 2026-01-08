@@ -22,7 +22,7 @@ class HabitListPage extends StatelessWidget {
         title: const Text('Habit List'),
       ),
       body: StreamBuilder<List<Habit>>(
-      stream: habitService.getHabits(),
+    stream: habitService.getAllHabits(),
                  builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

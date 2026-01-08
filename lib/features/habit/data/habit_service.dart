@@ -30,6 +30,20 @@ class HabitService {
           .toList();
     });
   }
+// ambil SEMUA habit (aktif + nonaktif)
+Stream<List<Habit>> getAllHabits() {
+  if (uid == null) return const Stream.empty();
+
+  return _firestore
+      .collection('habits')
+      .where('userId', isEqualTo: uid)
+      .orderBy('createdAt', descending: true)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs
+              .map((doc) => Habit.fromFirestore(doc.data(), doc.id))
+              .toList());
+}
 
   /// ambil log hari ini
   Stream<Map<String, bool>> getTodayLogs() {
@@ -164,4 +178,7 @@ class HabitService {
     'isActive': true, 
   });
 }
+
+  
+
 }
