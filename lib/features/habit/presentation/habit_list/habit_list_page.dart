@@ -9,18 +9,25 @@ import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_em
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_item.dart';
 
 
-class HabitListPage extends StatelessWidget {
+class HabitListPage extends StatefulWidget {
   const HabitListPage({super.key});
 
   @override
+  State<HabitListPage> createState() => _HabitListPageState();
+}
+
+class _HabitListPageState extends State<HabitListPage> {
+  HabitFilter _filter = HabitFilter.all;
+  final HabitService habitService = HabitService();
+
+  @override
   Widget build(BuildContext context) {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
-    final habitService = HabitService();
+    final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Habit List'),
-      ),
+      appBar: AppBar(title: const Text('Habit List')),
+      body: Column(
+        children: [
       body: StreamBuilder<List<Habit>>(
     stream: habitService.getAllHabits(),
                  builder: (context, snapshot) {
