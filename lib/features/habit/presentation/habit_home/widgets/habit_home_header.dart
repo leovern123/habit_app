@@ -53,8 +53,29 @@ lass HabitHomeHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
+
+            //progress habit hari ini
+          _TodayProgress(habitService: habitService),
+
         ],
       ),
     );
   }
 }
+
+
+class _TodayProgress extends StatelessWidget {
+  final HabitService habitService;
+
+  const _TodayProgress({
+    required this.habitService,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
+    return StreamBuilder<List<Habit>>(
+      stream: habitService.getHabits(),
+      builder: (context, habitSnapshot) {
