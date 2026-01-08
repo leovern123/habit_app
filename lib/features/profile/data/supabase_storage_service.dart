@@ -1,24 +1,29 @@
 import 'dart:io';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/utils/supabase_client.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final supabase = SupabaseClientHelper().supabase;
 
 class SupabaseStorageService {
-  final SupabaseClient _client = SupabaseClientHelper.client;
-
   static const String bucketName = 'avatars';
 
   Future<String> uploadAvatar({
     required File imageFile,
     required String userId,
   }) async {
-    final filePath = '$userId/avatar.jpg';
+    final bytes = await imageFile.readAsBytes();
+    final filePath = '$userId/avatar.png';
 
-    await _client.storage.from(bucketName).upload(
+    await supabase.storage
+        .from(bucketName)
+        .uploadBinary(
           filePath,
-          imageFile,
+          bytes,
           fileOptions: const FileOptions(upsert: true),
         );
 
-    return _client.storage.from(bucketName).getPublicUrl(filePath);
+    return supabase.storage
+        .from(bucketName)
+        .getPublicUrl(filePath);
   }
 }
