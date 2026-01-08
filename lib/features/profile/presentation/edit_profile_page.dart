@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:flutter/foundation.dart';
 import '../data/profile_service.dart';
 import '../data/supabase_storage_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -21,8 +21,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  Uint8List? _webImage;
   File? _selectedImage;
   bool _isLoading = false;
+
+    Widget _buildAvatar(User? user) {
+    if (kIsWeb && _webImage != null) {
+      return Image.memory(_webImage!, fit: BoxFit.cover);
+    }
+
+    if (!kIsWeb && _selectedImage != null) {
+      return Image.file(_selectedImage!, fit: BoxFit.cover);
+    }
+
+    if (user?.photoURL != null) {
+      return Image.network(user!.photoURL!, fit: BoxFit.cover);
+    }
+
+    return const Icon(Icons.person, size: 60, color: Colors.grey);
+  }
 
   @override
   void initState() {
@@ -36,11 +53,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      setState(() {
-        _selectedImage = File(image.path);
-      });
+      if (kIsWeb) {
+        final bytes = await image.readAsBytes();
+        setState(() {
+          _webImage = bytes;
+        });
+      } else {
+        setState(() {
+          _selectedImage = File(image.path);
+        });
+      }
     }
   }
+
 
   Future<void> _saveProfile() async {
     final user = _profileService.currentUser;
@@ -57,12 +82,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
     try {
       String? photoUrl;
 
-      if (_selectedImage != null) {
+      if (_selectedImage != null || _webImage != null) {
         photoUrl = await _storageService.uploadAvatar(
-          imageFile: _selectedImage!,
           userId: user.uid,
+          imageFile: _selectedImage,
+          webBytes: _webImage,
         );
       }
+
 
       await _profileService.updateProfile(
         displayName: _nameController.text.trim(),
@@ -118,21 +145,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: 120,
                     height: 120,
                     color: Colors.grey.shade200,
-                    child: _selectedImage != null
-                        ? Image.file(
-                            _selectedImage!,
-                            fit: BoxFit.cover,
-                          )
-                        : (user?.photoURL != null
-                            ? Image.network(
-                                user!.photoURL!,
-                                fit: BoxFit.cover,
-                              )
-                            : const Icon(
-                                Icons.person,
-                                size: 60,
-                                color: Colors.grey,
-                              )),
+                    child: _buildAvatar(user),
                   ),
                 ),
               ),
