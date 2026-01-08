@@ -18,12 +18,12 @@ class ProfileHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 48,
-          backgroundColor: Colors.green.shade100,
-          backgroundImage: photoUrl != null
-              ? NetworkImage(photoUrl!)
-              : const AssetImage(
-                  'assets/images/avatar_placeholder.png',
-                ) as ImageProvider,
+          backgroundColor: Colors.blue.shade100,
+          backgroundImage:
+              photoUrl != null ? NetworkImage(photoUrl!) : null,
+          child: photoUrl == null
+              ? const Icon(Icons.person, size: 40, color: Colors.white)
+              : null,
         ),
         const SizedBox(height: 12),
         Text(

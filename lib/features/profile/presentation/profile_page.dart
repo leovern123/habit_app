@@ -7,21 +7,21 @@ import 'widgets/profile_header.dart';
 import 'widgets/profile_menu_item.dart';
 
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final ProfileService _service = ProfileService();
+
+  @override
   Widget build(BuildContext context) {
-    final service = ProfileService();
-    final user = service.currentUser;
+    final user = _service.currentUser;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4FAFF),
-      appBar: AppBar(
-        title: const Text('Profil'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                 );
 
                 if (result == true) {
-                  (context as Element).markNeedsBuild();
+                  setState(() {}); 
                 }
               },
             ),

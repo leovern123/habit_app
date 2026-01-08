@@ -112,30 +112,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               GestureDetector(
                 onTap: _pickImage,
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    width: 120,
+                    height: 120,
                     color: Colors.grey.shade200,
-                    image: DecorationImage(
-                      image: _selectedImage != null
-                          ? FileImage(_selectedImage!)
-                          : (user?.photoURL != null
-                              ? NetworkImage(user!.photoURL!)
-                              : const AssetImage(
-                                  'assets/images/avatar_placeholder.png',
-                                )) as ImageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: const Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Colors.greenAccent,
-                      child: Icon(Icons.camera_alt, color: Colors.white),
-                    ),
+                    child: _selectedImage != null
+                        ? Image.file(
+                            _selectedImage!,
+                            fit: BoxFit.cover,
+                          )
+                        : (user?.photoURL != null
+                            ? Image.network(
+                                user!.photoURL!,
+                                fit: BoxFit.cover,
+                              )
+                            : const Icon(
+                                Icons.person,
+                                size: 60,
+                                color: Colors.grey,
+                              )),
                   ),
                 ),
               ),
