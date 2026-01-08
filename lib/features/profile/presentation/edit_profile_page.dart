@@ -133,7 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     alignment: Alignment.bottomRight,
                     child: CircleAvatar(
                       radius: 18,
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.greenAccent,
                       child: Icon(Icons.camera_alt, color: Colors.white),
                     ),
                   ),

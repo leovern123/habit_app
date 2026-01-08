@@ -29,6 +29,7 @@ class ProfilePage extends StatelessWidget {
             ProfileHeader(
               name: user?.displayName ?? 'User',
               email: user?.email ?? '-',
+              photoUrl: user?.photoURL,
             ),
             const SizedBox(height: 24),
             ProfileMenuItem(

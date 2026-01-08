@@ -23,8 +23,8 @@ class ProfileMenuItem extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor:
-              isDanger ? Colors.red.shade100 : Colors.blue.shade100,
-          child: Icon(icon, color: isDanger ? Colors.red : Colors.blue),
+              isDanger ? Colors.red.shade100 : Colors.green.shade100,
+          child: Icon(icon, color: isDanger ? Colors.red : Colors.green),
         ),
         title: Text(
           title,
