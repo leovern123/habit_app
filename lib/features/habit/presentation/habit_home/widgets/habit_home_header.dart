@@ -36,6 +36,7 @@ lass HabitHomeHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
          
+        //tanggal hari ini 
           Text(
             DateHelper.formattedToday(),
             style: theme.textTheme.bodySmall?.copyWith(
@@ -43,7 +44,15 @@ lass HabitHomeHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-
+          // judul halaman
+           Text(
+            'Habit App',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: colors.onPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
