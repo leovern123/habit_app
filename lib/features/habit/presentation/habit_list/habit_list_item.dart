@@ -24,24 +24,27 @@ class HabitListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
-        leading: Icon(
-          isActive ? Icons.check_circle : Icons.remove_circle_outline,
-          color: isActive ? Colors.green : Colors.grey,
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: isActive ? Colors.black : Colors.grey,
-          ),
-        ),
-        subtitle: Text(
-          isActive ? 'Aktif' : 'Nonaktif',
-          style: TextStyle(
-            fontSize: 12,
-            color: isActive ? Colors.green : Colors.grey,
-          ),
-        ),
+    leading: Icon(
+      isActive ? Icons.check_circle : Icons.remove_circle_outline,
+      color: isActive ? Colors.green.shade600 : Colors.grey,
+    ),
+
+    title: Text(
+      title,
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+        color: isActive ? Colors.black : Colors.grey,
+      ),
+    ),
+
+    subtitle: Text(
+      isActive ? 'Aktif' : 'Nonaktif',
+      style: TextStyle(
+        fontSize: 12,
+        color: isActive ? Colors.green.shade600 : Colors.grey,
+      ),
+    ),
+
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'edit') onEdit();

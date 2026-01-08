@@ -24,7 +24,6 @@ class _HabitListPageState extends State<HabitListPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Habit List')),
       body: Column(
         children: [
       Container(
