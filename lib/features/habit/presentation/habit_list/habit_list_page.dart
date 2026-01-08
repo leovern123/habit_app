@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'widgets/confirm_delete_dialog.dart';
 import 'widgets/edit_habit_bottom_sheet.dart';
 import 'package:uas_flutter/features/habit/data/habit_service.dart';
 import 'package:uas_flutter/features/habit/model/habit_model.dart';
+import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_filter.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_item.dart';
 
@@ -106,10 +105,86 @@ class _HabitListPageState extends State<HabitListPage> {
             ),
           ),
         ),
-              );
-            },
-          );
-        },
+        const SizedBox(height: 12),
+
+          Expanded(
+            child: StreamBuilder<List<Habit>>(
+              stream: habitService.getAllHabits(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                      child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const HabitListEmpty();
+                }
+
+                /// filter di UI (AMAN)
+                final habits = snapshot.data!.where((habit) {
+                  switch (_filter) {
+                    case HabitFilter.active:
+                      return habit.isActive;
+                    case HabitFilter.inactive:
+                      return !habit.isActive;
+                    case HabitFilter.all:
+                      return true;
+                  }
+                }).toList();
+
+                if (habits.isEmpty) {
+                  return const Center(
+                    child: Text('Tidak ada habit sesuai filter'),
+                  );
+                }
+
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: habits.length,
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final habit = habits[index];
+
+                    return HabitListItem(
+                      title: habit.title,
+                      isActive: habit.isActive,
+                      onToggleActive: () async {
+                        await habitService.toggleActive(
+                          habit.habitId,
+                          habit.isActive,
+                        );
+                      },
+                      onDelete: () async {
+                        final confirm =
+                            await showConfirmDeleteDialog(context);
+                        if (confirm == true) {
+                          await habitService.deleteHabit(
+                              habit.habitId);
+                        }
+                      },
+                      onEdit: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape:
+                              const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                          ),
+                          builder: (_) =>
+                              EditHabitBottomSheet(habit: habit),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

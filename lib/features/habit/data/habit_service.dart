@@ -179,6 +179,27 @@ Stream<List<Habit>> getAllHabits() {
   });
 }
 
-  
+/// toggle aktif / nonaktif
+Future<void> toggleActive(String habitId, bool isActive) async {
+  if (uid == null) return;
+
+  await _firestore
+      .collection('habits')
+      .doc(habitId)
+      .update({
+    'isActive': !isActive,
+  });
+}
+
+/// hapus habit
+Future<void> deleteHabit(String habitId) async {
+  if (uid == null) return;
+
+  await _firestore
+      .collection('habits')
+      .doc(habitId)
+      .delete();
+}
+
 
 }
