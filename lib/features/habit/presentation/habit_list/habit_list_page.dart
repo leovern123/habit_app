@@ -28,16 +28,22 @@ class _HabitListPageState extends State<HabitListPage> {
       appBar: AppBar(title: const Text('Habit List')),
       body: Column(
         children: [
-      body: StreamBuilder<List<Habit>>(
-    stream: habitService.getAllHabits(),
-                 builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const HabitListEmpty();
-          }
+      Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.green.shade600,
+                  Colors.green.shade400,
+                ],
+              ),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(24),
+              ),
+            ),
 
           final habits = snapshot.data!;
 
