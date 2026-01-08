@@ -79,3 +79,21 @@ class _TodayProgress extends StatelessWidget {
     return StreamBuilder<List<Habit>>(
       stream: habitService.getHabits(),
       builder: (context, habitSnapshot) {
+      if (habitSnapshot.connectionState == ConnectionState.waiting) {
+          return const LinearProgressIndicator();
+        }
+
+       
+        if (!habitSnapshot.hasData) {
+          return const SizedBox();
+        }
+
+        //Filter habit aktif
+        final activeHabits =
+            habitSnapshot.data!.where((h) => h.isActive).toList();
+
+        //sembunyikan habit ga aktif
+        if (activeHabits.isEmpty) {
+          return const SizedBox();
+        }
+
