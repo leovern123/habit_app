@@ -44,7 +44,26 @@ class _HabitListPageState extends State<HabitListPage> {
                 bottom: Radius.circular(24),
               ),
             ),
-
+          child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Habit List',
+        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+      const SizedBox(height: 4),
+      Text(
+        'Kelola kebiasaan baikmu setiap hari',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withOpacity(0.9),
+            ),
+      ),
+    ],
+  ),
+),
           final habits = snapshot.data!;
 
 
