@@ -24,166 +24,169 @@ class _HabitListPageState extends State<HabitListPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: Column(
-        children: [
-      Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.green.shade600,
-                  Colors.green.shade400,
+      backgroundColor: theme.colorScheme.surface,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.green.shade600,
+                    Colors.green.shade400,
+                  ],
+                ),
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(24),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Habit List',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Kelola kebiasaan baikmu setiap hari',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                  ),
                 ],
               ),
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(24),
-              ),
             ),
-          child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Habit List',
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-                      ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: SegmentedButton<HabitFilter>(
+                segments: const [
+                  ButtonSegment(
+                    value: HabitFilter.all,
+                    label: Text('Semua'),
+                    icon: Icon(Icons.list),
+                  ),
+                  ButtonSegment(
+                    value: HabitFilter.active,
+                    label: Text('Aktif'),
+                    icon: Icon(Icons.check_circle),
+                  ),
+                  ButtonSegment(
+                    value: HabitFilter.inactive,
+                    label: Text('Nonaktif'),
+                    icon: Icon(Icons.pause_circle),
+                  ),
+                ],
+                selected: {_filter},
+                onSelectionChanged: (value) {
+                  setState(() {
+                    _filter = value.first;
+                  });
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Colors.green.shade600;
+                    }
+                    return Colors.green.shade50;
+                  }),
+                  foregroundColor: MaterialStateProperty.resolveWith((states) {
+                    if (states.contains(MaterialState.selected)) {
+                      return Colors.white;
+                    }
+                    return Colors.green.shade700;
+                  }),
                 ),
-              const SizedBox(height: 4),
-              Text(
-                'Kelola kebiasaan baikmu setiap hari',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                    ),
               ),
-            ],
-          ),
-        ),
-         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-          child: SegmentedButton<HabitFilter>(
-            segments: const [
-              ButtonSegment(
-                value: HabitFilter.all,
-                label: Text('Semua'),
-                icon: Icon(Icons.list),
-              ),
-              ButtonSegment(
-                value: HabitFilter.active,
-                label: Text('Aktif'),
-                icon: Icon(Icons.check_circle),
-              ),
-              ButtonSegment(
-                value: HabitFilter.inactive,
-                label: Text('Nonaktif'),
-                icon: Icon(Icons.pause_circle),
-              ),
-            ],
-            selected: {_filter},
-            onSelectionChanged: (value) {
-              setState(() {
-                _filter = value.first;
-              });
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
-                  return Colors.green.shade600;
-                }
-                return Colors.green.shade50;
-              }),
-              foregroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
-                  return Colors.white;
-                }
-                return Colors.green.shade700;
-              }),
             ),
-          ),
-        ),
-        const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          Expanded(
-            child: StreamBuilder<List<Habit>>(
-              stream: habitService.getAllHabits(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator());
-                }
-
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const HabitListEmpty();
-                }
-
-                /// filter di UI (AMAN)
-                final habits = snapshot.data!.where((habit) {
-                  switch (_filter) {
-                    case HabitFilter.active:
-                      return habit.isActive;
-                    case HabitFilter.inactive:
-                      return !habit.isActive;
-                    case HabitFilter.all:
-                      return true;
+            Expanded(
+              child: StreamBuilder<List<Habit>>(
+                stream: habitService.getAllHabits(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                }).toList();
 
-                if (habits.isEmpty) {
-                  return const Center(
-                    child: Text('Tidak ada habit sesuai filter'),
-                  );
-                }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const HabitListEmpty();
+                  }
 
-                return ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: habits.length,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final habit = habits[index];
+                  final habits = snapshot.data!.where((habit) {
+                    switch (_filter) {
+                      case HabitFilter.active:
+                        return habit.isActive;
+                      case HabitFilter.inactive:
+                        return !habit.isActive;
+                      case HabitFilter.all:
+                        return true;
+                    }
+                  }).toList();
 
-                    return HabitListItem(
-                      title: habit.title,
-                      isActive: habit.isActive,
-                      onToggleActive: () async {
-                        await habitService.toggleActive(
-                          habit.habitId,
-                          habit.isActive,
-                        );
-                      },
-                      onDelete: () async {
-                        final confirm =
-                            await showConfirmDeleteDialog(context);
-                        if (confirm == true) {
-                          await habitService.deleteHabit(
-                              habit.habitId);
-                        }
-                      },
-                      onEdit: () {
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          shape:
-                              const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
-                          ),
-                          builder: (_) =>
-                              EditHabitBottomSheet(habit: habit),
-                        );
-                      },
+                  if (habits.isEmpty) {
+                    return const Center(
+                      child: Text('Tidak ada habit sesuai filter'),
                     );
-                  },
-                );
-              },
+                  }
+
+                  return ListView.separated(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: habits.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final habit = habits[index];
+
+                      return HabitListItem(
+                        title: habit.title,
+                        isActive: habit.isActive,
+                        onToggleActive: () async {
+                          await habitService.toggleActive(
+                            habit.habitId,
+                            habit.isActive,
+                          );
+                        },
+                        onDelete: () async {
+                          final confirm = await showConfirmDeleteDialog(context);
+                          if (confirm == true) {
+                            await habitService.deleteHabit(habit.habitId);
+                          }
+                        },
+                        onEdit: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(16),
+                              ),
+                            ),
+                            builder: (_) =>
+                                EditHabitBottomSheet(habit: habit),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
