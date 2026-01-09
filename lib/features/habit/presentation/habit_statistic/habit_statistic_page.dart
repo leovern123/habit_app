@@ -71,3 +71,31 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
               ),
             ),
           ),
+          const SizedBox(height: 16),
+
+          if (selectedRange != null)
+            Card(
+              color: Colors.green.shade100,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: StatisticSummary(
+                  habitService: _habitService,
+                  range: selectedRange,
+                ),
+              ),
+            )
+          else
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Silakan pilih rentang tanggal untuk melihat statistik',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ),
+
+          const SizedBox(height: 16),
