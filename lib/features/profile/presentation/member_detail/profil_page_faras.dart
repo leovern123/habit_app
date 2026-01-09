@@ -105,4 +105,49 @@ class MemberFarasPage extends StatelessWidget {
   }
 }
 
+class ProfileRow extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String value;
+
+  const ProfileRow({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Icon(icon, color: Color(0xFF1976D2)),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
