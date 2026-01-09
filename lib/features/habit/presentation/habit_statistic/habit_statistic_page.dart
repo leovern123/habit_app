@@ -17,3 +17,8 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
   final HabitService _habitService = HabitService();
 
   DateTimeRange? selectedRange;
+  void _onDateRangeChanged(DateTimeRange range) {
+    setState(() {
+      selectedRange = range;
+    });
+  }
