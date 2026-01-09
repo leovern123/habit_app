@@ -19,6 +19,27 @@ class MemberPage extends StatelessWidget {
               radius: 60,
               backgroundImage: AssetImage('assets/images/zaqi.jpeg'),
             ),
+
+              const SizedBox(height: 16),
+
+              const Text(
+                'Zaqi Maulana',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              Text(
+                'TI-23-SE-SH',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+
           ],
         ),
       ),
