@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../model/habit_model.dart';
 import '../../../core/utils/date_helper.dart';
+import 'package:uas_flutter/service/notification_service.dart';
+
+
 
 class HabitService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -206,6 +209,15 @@ Future<void> deleteHabit(String habitId) async {
       .collection('habits')
       .doc(habitId)
       .delete();
+}
+
+void sendHabitNotification() {
+  NotificationService.showNotification(
+    id: 1,
+    title: 'Waktunya Habit!',
+    body: 'Jangan lupa lakukan habitmu hari ini',
+    payload: 'habit_123',
+  );
 }
 
 
