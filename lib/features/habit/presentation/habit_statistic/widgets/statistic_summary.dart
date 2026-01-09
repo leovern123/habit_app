@@ -26,6 +26,12 @@ class StatisticSummary extends StatelessWidget {
     final startText = '${start.day}/${start.month}/${start.year}';
     final endDisplay = end.subtract(const Duration(days: 1));
     final endText = '${endDisplay.day}/${endDisplay.month}/${endDisplay.year}';
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('habit_logs')
+          .where('userId', isEqualTo: habitService.uid)
+          .snapshots(),
+      builder: (context, snapshot) {
 
   }
 }
