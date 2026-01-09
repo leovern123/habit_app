@@ -236,14 +236,13 @@ static void scheduleDailyHabitNotification(int id, String title, TimeOfDay time)
     );
   }
 
-void sendHabitNotification() {
-  NotificationService.showNotification(
-    id: 1,
-    title: 'Waktunya Habit!',
-    body: 'Jangan lupa lakukan habitmu hari ini',
-    payload: 'habit_123',
-  );
-}
-
+static void sendTestNotification() {
+    NotificationService.showNotification(
+      id: 999,
+      title: 'Tes Habit',
+      body: 'Ini adalah notifikasi percobaan',
+      payload: 'test_999',
+    );
+  }
 
 }
