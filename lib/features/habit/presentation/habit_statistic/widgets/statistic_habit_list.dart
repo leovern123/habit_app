@@ -21,7 +21,7 @@ class StatisticHabitList extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('habits')
-          // [2] Ambil hanya habit milik user yang sedang login
+          
           .where('userId', isEqualTo: habitService.uid)
           .where('isActive', isEqualTo: true)
           .snapshots(),
@@ -34,4 +34,14 @@ class StatisticHabitList extends StatelessWidget {
           children: habits.map((habit) {
             return StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection('habit_logs')
+                  .collection('habit_logs'),
+                    .where('habitId', isEqualTo: habit.id)
+                  .where('userId', isEqualTo: habitService.uid)
+                  // [4] Gunakan dateTs (Timestamp) untuk filter berdasarkan rentang tanggal
+                  .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+                  .where('dateTs', isLessThan: Timestamp.fromDate(end))
+                  .snapshots(),
+              builder: (context, logSnapshot) {
+                if (!logSnapshot.hasData) return const SizedBox();
+
+                final logs = logSnapshot.data!.docs;
