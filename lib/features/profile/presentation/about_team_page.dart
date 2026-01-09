@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/team_member_tile.dart';
 import 'member_detail/profil_page_zaqi.dart';
+import 'member_detail/profil_page_faras.dart';
 
 class AboutTeamPage extends StatelessWidget {
   const AboutTeamPage({super.key});
@@ -67,7 +68,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.green.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberFarasPage()),
             ),
           ),
         ],
