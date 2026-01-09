@@ -14,7 +14,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -29,7 +29,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const Spacer(flex: 1),
 
             Lottie.asset(
               "assets/lotties/graph.json",
@@ -121,6 +121,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
               height: 50,
               repeat: true,
             ),
+            const Spacer(flex: 1),
           ],
         ),        
       ),
