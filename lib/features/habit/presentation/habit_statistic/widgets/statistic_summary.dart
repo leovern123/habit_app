@@ -38,6 +38,35 @@ class StatisticSummary extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        final logs = snapshot.data!.docs;
+        final total = logs.length;
+        final done = logs.where((e) => e['isDone'] == true).length;
 
+
+        final percent = total == 0 ? 0.0 : done / total;
+        final percentText = (percent * 100).toStringAsFixed(0);
+
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                 
+                Text(
+                  'Rentang: $startText - $endText',
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(height: 16),
+
+      
+                ),
+              ],
+            ),
+          ),
+        );
   }
 }
