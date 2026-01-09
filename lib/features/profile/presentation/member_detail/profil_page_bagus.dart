@@ -57,3 +57,16 @@ class MemberBagusPage extends StatelessWidget {
               label: 'Email',
               value: 'bagus@email.com',
             ),
+            const SizedBox(height: 20),
+            
+            const SectionTitle(title: 'Keahlian'),
+            const ProfileLine(
+              icon: Icons.check_circle_outline,
+              label: 'Skill',
+              value: 'Flutter UI, API Integration',
+            ),
+            const ProfileLine(
+              icon: Icons.check_circle_outline,
+              label: 'Tools',
+              value: 'VS Code, Firebase',
+            ),
