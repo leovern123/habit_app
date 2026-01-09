@@ -6,118 +6,61 @@ class MemberHaikalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFB39DDB),
-                  Color(0xFF81D4FA),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF7E57C2), Color(0xFF64B5F6)],
           ),
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  const CircleAvatar(
-                    radius: 55,
-                    backgroundImage:
-                        AssetImage('assets/images/haikal.jpeg'),
-                  ),
-
-                  const SizedBox(height: 14),
-
-                  const Text(
-                    'Haikal Falah',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  const SizedBox(height: 6),
-
-                  const Text(
-                    'TI-23-SE-SH',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white70,
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.25),
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.3),
-                      ),
-                    ),
-                    child: Column(
-                      children: const [
-                        GlassProfileItem(
-                          icon: Icons.badge,
-                          label: 'NIM',
-                          value: '1123150041',
-                        ),
-                        Divider(color: Colors.white30),
-                        GlassProfileItem(
-                          icon: Icons.email,
-                          label: 'Email',
-                          value: 'haikal@email.com',
-                        ),
-                        Divider(color: Colors.white30),
-                        GlassProfileItem(
-                          icon: Icons.star,
-                          label: 'Keahlian',
-                          value: 'Heker dan Cyber scurity',
-                        ),
-                        Divider(color: Colors.white30),
-                        GlassProfileItem(
-                          icon: Icons.school,
-                          label: 'Program Studi',
-                          value: 'Teknik Informatika',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
+          child: Column(
+            children: [
+              const CircleAvatar(
+                radius: 55,
+                backgroundImage: AssetImage('assets/images/haikal.jpeg'),
               ),
-            ),
+              const SizedBox(height: 14),
+              const Text(
+                'Haikal Falah',
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              const Text(
+                'TI-23-SE-SH',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const SizedBox(height: 24),
+              _glassItem(Icons.badge, 'NIM', '1123150041'),
+              _glassItem(Icons.email, 'Email', 'haikal@email.com'),
+              _glassItem(Icons.security, 'Keahlian', 'Cyber Security'),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
-}
 
-class GlassProfileItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const GlassProfileItem({
-    super.key,
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
+  Widget _glassItem(IconData icon, String title, String value) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.25),
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Row(
         children: [
           Icon(icon, color: Colors.white),
@@ -125,23 +68,13 @@ class GlassProfileItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.white70,
-                ),
-              ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+              Text(title, style: const TextStyle(color: Colors.white70)),
+              Text(value,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold)),
             ],
-          ),
+          )
         ],
       ),
     );

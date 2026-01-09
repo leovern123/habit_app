@@ -6,11 +6,17 @@ class MemberPageUmar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: const Color(0xFFF4F8F9),
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Profil Umar'),
+        title: const Text('Profil Mahasiswa'),
         centerTitle: true,
+        backgroundColor: const Color(0xFF009688),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -18,18 +24,15 @@ class MemberPageUmar extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.cyanAccent.withOpacity(0.6),
-                    blurRadius: 15,
-                    spreadRadius: 2,
-                  ),
-                ],
+                gradient: LinearGradient(
+                  colors: [Color(0xFF009688), Color(0xFF4DB6AC)],
+                ),
               ),
               child: const CircleAvatar(
-                radius: 55,
+                radius: 58,
+                backgroundColor: Colors.white,
                 backgroundImage: AssetImage('assets/images/umar.jpeg'),
               ),
             ),
@@ -41,50 +44,49 @@ class MemberPageUmar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black87,
               ),
             ),
 
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
 
             const Text(
-              'TI-23-SE-SH',
+              'TI-23-SE-SH • Teknik Informatika',
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.grey,
+                color: Colors.black54,
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 30),
 
             Card(
-              color: const Color(0xFF1E1E1E),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(16),
               ),
-              elevation: 6,
+              elevation: 4,
               child: Column(
                 children: const [
-                  UmarProfileItem(
-                    icon: Icons.badge,
+                  UmarItem(
+                    icon: Icons.badge_outlined,
                     label: 'NIM',
                     value: '1123150046',
                   ),
-                  Divider(color: Colors.grey),
-                  UmarProfileItem(
-                    icon: Icons.email,
+                  Divider(height: 0),
+                  UmarItem(
+                    icon: Icons.email_outlined,
                     label: 'Email',
                     value: 'umar@email.com',
                   ),
-                  Divider(color: Colors.grey),
-                  UmarProfileItem(
-                    icon: Icons.memory,
+                  Divider(height: 0),
+                  UmarItem(
+                    icon: Icons.memory_outlined,
                     label: 'Keahlian',
                     value: 'Flutter Logic, Firebase Auth',
                   ),
-                  Divider(color: Colors.grey),
-                  UmarProfileItem(
-                    icon: Icons.school,
+                  Divider(height: 0),
+                  UmarItem(
+                    icon: Icons.school_outlined,
                     label: 'Program Studi',
                     value: 'Teknik Informatika',
                   ),
@@ -98,12 +100,12 @@ class MemberPageUmar extends StatelessWidget {
   }
 }
 
-class UmarProfileItem extends StatelessWidget {
+class UmarItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
 
-  const UmarProfileItem({
+  const UmarItem({
     super.key,
     required this.icon,
     required this.label,
@@ -112,33 +114,22 @@ class UmarProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.cyanAccent),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey,
-                ),
-              ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ],
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFF009688)),
+      title: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 14,
+          color: Colors.black54,
+        ),
+      ),
+      subtitle: Text(
+        value,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
       ),
     );
   }
