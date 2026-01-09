@@ -23,6 +23,9 @@ class StatisticSummary extends StatelessWidget {
     final end = DateTime(range!.end.year, range!.end.month, range!.end.day)
         .add(const Duration(days: 1)); 
 
+    final startText = '${start.day}/${start.month}/${start.year}';
+    final endDisplay = end.subtract(const Duration(days: 1));
+    final endText = '${endDisplay.day}/${endDisplay.month}/${endDisplay.year}';
 
   }
 }
