@@ -30,6 +30,8 @@ class StatisticSummary extends StatelessWidget {
       stream: FirebaseFirestore.instance
           .collection('habit_logs')
           .where('userId', isEqualTo: habitService.uid)
+          .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+          .where('dateTs', isLessThan: Timestamp.fromDate(end))
           .snapshots(),
       builder: (context, snapshot) {
 
