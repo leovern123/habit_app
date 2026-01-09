@@ -14,3 +14,24 @@ class StatisticHabitList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final start = DateTime(range.start.year, range.start.month, range.start.day);
+    final end = DateTime(range.end.year, range.end.month, range.end.day)
+        .add(const Duration(days: 1));
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('habits')
+          // [2] Ambil hanya habit milik user yang sedang login
+          .where('userId', isEqualTo: habitService.uid)
+          .where('isActive', isEqualTo: true)
+          .snapshots(),
+      builder: (context, habitSnapshot) {
+        if (!habitSnapshot.hasData) return const SizedBox();
+
+        final habits = habitSnapshot.data!.docs;
+
+        return Column(
+          children: habits.map((habit) {
+            return StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('habit_logs')
