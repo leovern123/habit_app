@@ -46,13 +46,6 @@ class StatisticDateFilter extends StatelessWidget {
             child: const Text('7 Hari'),
           ),
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: OutlinedButton(
-            onPressed: () => onRangeSelected(_thisMonth()),
-            child: const Text('Bulan Ini'),
-          ),
-        ),
       ],
     );
   }
