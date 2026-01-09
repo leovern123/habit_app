@@ -18,6 +18,9 @@ class Register extends StatefulWidget {
   final _confirmPasswordController = TextEditingController();
 
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
 
   Future<void> _register() async {
     if (_passwordController.text != _confirmPasswordController.text) {
