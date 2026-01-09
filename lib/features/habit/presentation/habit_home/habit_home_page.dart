@@ -14,22 +14,15 @@ class HabitHomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('Habit Tracker'),
-        centerTitle: true,
-        backgroundColor: theme.colorScheme.surface, 
-        foregroundColor: theme.colorScheme.onSurface, 
-      ),
       body: SafeArea(
-        top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Column(
             children: [
               HabitHomeHeader(
                 habitService: habitService,
               ),
-              const SizedBox(height: 12), 
+              const SizedBox(height: 15), 
               Expanded(
                 child: HabitTodayList(
                   habitService: habitService,
@@ -59,4 +52,3 @@ class HabitHomePage extends StatelessWidget {
     );
   }
 }
-
