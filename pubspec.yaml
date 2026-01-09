@@ -42,6 +42,7 @@ dependencies:
   lottie: ^3.3.2
   supabase_flutter: ^2.12.0
   image_picker: ^1.2.1
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +71,10 @@ flutter:
     - assets/images/
     - assets/lotties/
   
-  
+  flutter_launcher_icons:
+    android: true
+    ios: true
+    image_path: "assets/icon/"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
