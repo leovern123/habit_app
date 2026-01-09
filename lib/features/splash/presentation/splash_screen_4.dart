@@ -31,7 +31,7 @@ class _SplashScreen4State extends State<MySplashScreen4> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const Spacer(flex: 1),
 
             Lottie.asset(
               "assets/lotties/income_tracker_final.json",
@@ -123,6 +123,7 @@ class _SplashScreen4State extends State<MySplashScreen4> {
               height: 50,
               repeat: true,
             ),
+            const Spacer(flex: 1),
           ],
         ),        
       ),
