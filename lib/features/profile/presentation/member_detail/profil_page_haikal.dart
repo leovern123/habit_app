@@ -29,7 +29,7 @@ class MemberHaikalPage extends StatelessWidget {
                   const CircleAvatar(
                     radius: 55,
                     backgroundImage:
-                        AssetImage('assets/images/member4.jpg'),
+                        AssetImage('assets/images/haikal.jpeg'),
                   ),
 
                   const SizedBox(height: 14),
