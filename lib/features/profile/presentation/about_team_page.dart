@@ -23,7 +23,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.green.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberPageZaqi()),
             ),
           ),
           TeamMemberTile(

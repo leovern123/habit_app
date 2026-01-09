@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MemberPage extends StatelessWidget {
-  const MemberPage({super.key});
+class MemberPageZaqi extends StatelessWidget {
+  const MemberPageZaqi({super.key});
 
   @override
   Widget build(BuildContext context) {
