@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../profile/presentation/profile_page.dart';
 import '../habit/presentation/habit_home/habit_home_page.dart';
 import '../habit/presentation/habit_list/habit_list_page.dart';
+import '../habit/presentation/habit_statistic/habit_statistic_page.dart';
 
 
 class MainNavigation extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MainNavigationState extends State<MainNavigation> {
    final List<Widget> _pages = const [
    HabitHomePage(),
    HabitListPage(),
-    _PlaceholderPage(title: 'Statistik'),
+   HabitStatisticPage(),
     ProfilePage(),
   ];
 
