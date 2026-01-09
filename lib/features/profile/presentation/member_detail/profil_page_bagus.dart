@@ -23,7 +23,7 @@ class MemberBagusPage extends StatelessWidget {
                   CircleAvatar(
                     radius: 55,
                     backgroundImage:
-                        AssetImage('assets/images/member5.jpg'),
+                        AssetImage('assets/images/bagus.jpeg'),
                   ),
                   SizedBox(height: 14),
                   Text(
@@ -35,7 +35,7 @@ class MemberBagusPage extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'TI-4A • Teknik Informatika',
+                    'TI-23-SE-M • Teknik Informatika',
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey,
@@ -43,4 +43,17 @@ class MemberBagusPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 30),
+
+            const SectionTitle(title: 'Biodata'),
+            const ProfileLine(
+              icon: Icons.badge_outlined,
+              label: 'NIM',
+              value: '6677889900',
+            ),
+            const ProfileLine(
+              icon: Icons.email_outlined,
+              label: 'Email',
+              value: 'bagus@email.com',
             ),
