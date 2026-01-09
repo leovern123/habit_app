@@ -24,7 +24,7 @@ class _HabitListPageState extends State<HabitListPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: Column(
           children: [
