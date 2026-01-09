@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../habit/presentation/habit_home_page.dart';
 import '../profile/presentation/profile_page.dart';
+import '../habit/presentation/habit_home/habit_home_page.dart';
+import '../habit/presentation/habit_list/habit_list_page.dart';
+
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -14,7 +16,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
    final List<Widget> _pages = const [
    HabitHomePage(),
-    _PlaceholderPage(title: 'Habit List'),
+   HabitListPage(),
     _PlaceholderPage(title: 'Statistik'),
     ProfilePage(),
   ];

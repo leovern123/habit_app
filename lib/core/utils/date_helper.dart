@@ -7,4 +7,11 @@ class DateHelper {
     final dateOnly = DateTime(now.year, now.month, now.day);
     return Timestamp.fromDate(dateOnly);
   }
+
+   static String formattedToday() {
+    final now = DateTime.now();
+    const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    return '${days[now.weekday % 7]}, '
+           '${now.day}/${now.month}/${now.year}';
+  }
 }

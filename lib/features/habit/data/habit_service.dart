@@ -21,6 +21,8 @@ class HabitService {
     return _firestore
         .collection('habits')
         .where('userId', isEqualTo: uid)
+         .where('isActive', isEqualTo: true)
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
@@ -28,6 +30,20 @@ class HabitService {
           .toList();
     });
   }
+// ambil SEMUA habit (aktif + nonaktif)
+Stream<List<Habit>> getAllHabits() {
+  if (uid == null) return const Stream.empty();
+
+  return _firestore
+      .collection('habits')
+      .where('userId', isEqualTo: uid)
+      .orderBy('createdAt', descending: true)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs
+              .map((doc) => Habit.fromFirestore(doc.data(), doc.id))
+              .toList());
+}
 
   /// ambil log hari ini
   Stream<Map<String, bool>> getTodayLogs() {
@@ -136,4 +152,54 @@ class HabitService {
         .map((snapshot) =>
             snapshot.docs.map((doc) => doc['isDone'] as bool).toList());
   }
+
+// create add habit
+  Future<void> createHabit({
+  required String title,
+  required TimeOfDay time,
+}) async {
+  if (uid == null) return;
+
+  final now = DateTime.now();
+  final habitDateTime = DateTime(
+    now.year,
+    now.month,
+    now.day,
+    time.hour,
+    time.minute,
+  );
+
+  await _firestore.collection('habits').add({
+    'title': title,
+    'userId': uid,
+    'isActive': true,
+    'createdAt': Timestamp.now(),
+    'habitTime': Timestamp.fromDate(habitDateTime),
+    'isActive': true, 
+  });
+}
+
+/// toggle aktif / nonaktif
+Future<void> toggleActive(String habitId, bool isActive) async {
+  if (uid == null) return;
+
+  await _firestore
+      .collection('habits')
+      .doc(habitId)
+      .update({
+    'isActive': !isActive,
+  });
+}
+
+/// hapus habit
+Future<void> deleteHabit(String habitId) async {
+  if (uid == null) return;
+
+  await _firestore
+      .collection('habits')
+      .doc(habitId)
+      .delete();
+}
+
+
 }
