@@ -21,7 +21,9 @@ class StatisticWeeklyGrid extends StatelessWidget {
           .where('dateTs', isLessThanOrEqualTo: Timestamp.fromDate(now))
           .snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return const SizedBox();
+            if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
         final logs = snapshot.data!.docs;
 
