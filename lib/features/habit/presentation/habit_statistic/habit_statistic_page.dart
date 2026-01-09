@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../data/habit_service.dart';
-import '../habit_statistic/widgets/statistic_date_filter.dart';
-import '../habit_statistic/widgets/statistic_summary.dart';
+import '../../../../data/habit_service.dart';
+import 'widgets/statistic_date_filter.dart';
+import 'widgets/statistic_summary.dart';
 
 class HabitStatisticPage extends StatefulWidget {
   const HabitStatisticPage({super.key});

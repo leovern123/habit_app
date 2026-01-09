@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../data/habit_service.dart';
+import '../../../../data/habit_service.dart';
 
 class StatisticSummary extends StatelessWidget {
   final HabitService habitService;
@@ -33,3 +33,25 @@ class StatisticSummary extends StatelessWidget {
         final logs = snapshot.data!.docs;
         final total = logs.length;
         final done = logs.where((e) => e['isDone'] == true).length;
+
+         return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Total Log: $total'),
+                const SizedBox(height: 8),
+                Text('Selesai: $done'),
+                const SizedBox(height: 8),
+                Text(
+                  'Progress: ${total == 0 ? 0 : ((done / total) * 100).toStringAsFixed(0)}%',
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
