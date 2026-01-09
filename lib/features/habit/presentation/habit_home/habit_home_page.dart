@@ -17,11 +17,11 @@ class HabitHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Habit Tracker'),
         centerTitle: true,
-        elevation: 1,
-        backgroundColor: theme.colorScheme.surface,
+        backgroundColor: theme.colorScheme.surface, 
         foregroundColor: theme.colorScheme.onSurface, 
       ),
       body: SafeArea(
+        top: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
