@@ -21,3 +21,39 @@ class StatisticDateFilter extends StatelessWidget {
       end: now,
     );
   }
+    DateTimeRange _thisMonth() {
+    final now = DateTime.now();
+    return DateTimeRange(
+      start: DateTime(now.year, now.month, 1),
+      end: DateTime(now.year, now.month + 1, 1),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton(
+            onPressed: () => onRangeSelected(_today()),
+            child: const Text('Hari Ini'),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: OutlinedButton(
+            onPressed: () => onRangeSelected(_last7Days()),
+            child: const Text('7 Hari'),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: OutlinedButton(
+            onPressed: () => onRangeSelected(_thisMonth()),
+            child: const Text('Bulan Ini'),
+          ),
+        ),
+      ],
+    );
+  }
+}
