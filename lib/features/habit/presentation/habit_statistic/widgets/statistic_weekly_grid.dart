@@ -43,9 +43,25 @@ class StatisticWeeklyGrid extends StatelessWidget {
                   logDate.day == day.day &&
                   e['isDone'] == true;
             });
-            return Icon(
-              done ? Icons.check_circle : Icons.cancel,
-              color: done ? Colors.green : Colors.red,
+            
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  day.day.toString(), // tanggal
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: done ? Colors.green.shade700 : Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Icon(
+                  done ? Icons.check_circle : Icons.cancel,
+                  color: done ? Colors.green : Colors.grey,
+                  size: 20,
+                ),
+              ],
             );
           },
         );
