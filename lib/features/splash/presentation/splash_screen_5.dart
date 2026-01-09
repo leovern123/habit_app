@@ -10,7 +10,7 @@ class SplashScreen5 extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const Spacer(flex: 1),
             // Gambar bulat di tengah dengan logo global
             Container(
               width: 220,
@@ -39,7 +39,7 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 15),
 
             const Text(
-              "Siap untuk hidup lebih teratur? Yuk, mulai catat kebiasaan mulai dari hal yang paling sederhana",
+              "Siap untuk hidup lebih teratur? \n Yuk, mulai catat kebiasaan mulai dari hal yang paling sederhana",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
@@ -133,6 +133,7 @@ class SplashScreen5 extends StatelessWidget {
                 ),
               ),
             ),
+            const Spacer(flex: 1,)
           ],
         ),
       ),

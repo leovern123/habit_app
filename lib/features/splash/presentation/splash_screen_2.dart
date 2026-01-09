@@ -13,7 +13,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -28,7 +28,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const Spacer(flex: 1),
             
             Lottie.asset(
               "assets/lotties/calendar.json",
@@ -120,6 +120,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
               height: 50,
               repeat: true,
             ),
+            const Spacer(flex: 1),
           ]
         ),
       ),
