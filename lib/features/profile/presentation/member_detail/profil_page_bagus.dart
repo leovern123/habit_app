@@ -53,7 +53,7 @@ class MemberBagusPage extends StatelessWidget {
             const ProfileLine(
               icon: Icons.badge_outlined,
               label: 'NIM',
-              value: '6677889900',
+              value: '1123150038',
             ),
             const ProfileLine(
               icon: Icons.email_outlined,

@@ -69,7 +69,7 @@ class MemberHaikalPage extends StatelessWidget {
                         GlassProfileItem(
                           icon: Icons.badge,
                           label: 'NIM',
-                          value: '5566778899',
+                          value: '1123150041',
                         ),
                         Divider(color: Colors.white30),
                         GlassProfileItem(
