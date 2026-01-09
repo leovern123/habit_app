@@ -192,14 +192,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       controller: _passwordController,
                       label: 'Password Baru',
                       icon: Icons.lock_outline,
-                      obscure: true,
+                      obscure: _obscurePassword,
+                      onToggleObscure: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                     const SizedBox(height: 12),
                     _buildField(
                       controller: _confirmPasswordController,
                       label: 'Konfirmasi Password',
                       icon: Icons.lock_reset,
-                      obscure: true,
+                      obscure: _obscureConfirmPassword,
+                      onToggleObscure: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
                     ),
                   ],
                 ),
