@@ -13,7 +13,17 @@ class StatisticCalendarPicker extends StatelessWidget {
       lastDate: now,
     );
 
-    if (result != null) {
+     if (result != null) {
       onSelected(result);
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      icon: const Icon(Icons.calendar_month),
+      label: const Text('Pilih Tanggal'),
+      onPressed: () => _pick(context),
+    );
+  }
+}
