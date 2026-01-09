@@ -14,7 +14,8 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
-
+  
+  bool _obscurePassword = true;
   bool _isLoading = false;
 
   void _goToHome() {
@@ -116,16 +117,27 @@ class _LoginState extends State<Login> {
 
                 /// PASSWORD
                 TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword ? Icons.visibility_off : Icons.visibility,
                     ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
                 ),
+              ),
+
                 const SizedBox(height: 20),
 
                 /// LOGIN EMAIL
@@ -172,21 +184,21 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text('atau', style: TextStyle(color: Colors.grey[600])),
+                    const Text(
+                      "Belum punya akun?",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
-                    Expanded(child: Divider(color: Colors.grey[300])),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const Register()));
+                      },
+                      child: const Text("Buat akun baru"),
+                    ),
                   ],
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const Register()));
-                  },
-                  child: const Text("Buat akun baru"),
                 ),
               ],
             ),
