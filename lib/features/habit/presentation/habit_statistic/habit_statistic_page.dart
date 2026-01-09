@@ -123,3 +123,22 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
           ),
 
           const SizedBox(height: 16),
+          
+          if (selectedRange != null)
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: StatisticHabitList(
+                  habitService: _habitService,
+                  range: selectedRange!,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
