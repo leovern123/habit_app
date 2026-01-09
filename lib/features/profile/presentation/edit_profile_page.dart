@@ -16,7 +16,6 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final _profileService = ProfileService();
   final _storageService = SupabaseStorageService();
-
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -24,6 +23,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Uint8List? _webImage;
   File? _selectedImage;
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
 
     Widget _buildAvatar(User? user) {
     if (kIsWeb && _webImage != null) {
@@ -119,6 +121,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     final user = _profileService.currentUser;
 
+    final isGoogleUser = user?.providerData.any(
+          (info) => info.providerId == 'google.com',
+        ) ??
+        false;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profil'),
@@ -178,30 +185,57 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Ubah Password (Opsional)',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: isGoogleUser ? Colors.grey : Colors.black,
                       ),
                     ),
+                    if (isGoogleUser)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 6),
+                        child: Text(
+                          'Akun Google tidak dapat mengubah password.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 12),
                     _buildField(
                       controller: _passwordController,
                       label: 'Password Baru',
                       icon: Icons.lock_outline,
-                      obscure: true,
+                      obscure: _obscurePassword,
+                      enabled: !isGoogleUser,
+                      onToggleObscure: isGoogleUser
+                          ? null
+                          : () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
                     ),
                     const SizedBox(height: 12),
                     _buildField(
                       controller: _confirmPasswordController,
                       label: 'Konfirmasi Password',
                       icon: Icons.lock_reset,
-                      obscure: true,
+                      obscure: _obscureConfirmPassword,
+                      enabled: !isGoogleUser,
+                      onToggleObscure: isGoogleUser
+                          ? null
+                          : () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
 
               SizedBox(
@@ -246,6 +280,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     required IconData icon,
     bool obscure = false,
     bool enabled = true,
+    VoidCallback? onToggleObscure,
   }) {
     return TextFormField(
       controller: controller,
@@ -255,6 +290,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon),
+        suffixIcon: onToggleObscure != null
+            ? IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: onToggleObscure,
+              )
+            : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),

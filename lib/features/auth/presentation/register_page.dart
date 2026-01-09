@@ -18,6 +18,9 @@ class Register extends StatefulWidget {
   final _confirmPasswordController = TextEditingController();
 
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
 
   Future<void> _register() async {
     if (_passwordController.text != _confirmPasswordController.text) {
@@ -126,29 +129,50 @@ class Register extends StatefulWidget {
 
                 const SizedBox(height: 20),
 
-                // Password
                 TextField(
                   controller: _passwordController,
-                  obscureText: true,
+                  obscureText: _obscurePassword,
                   decoration: _inputDecoration(
                     'Password',
                     'Masukkan password',
                     Icons.lock_outline,
+                  ).copyWith(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
-                // Konfirmasi Password
-                      TextField(
+                TextField(
                   controller: _confirmPasswordController,
-                  obscureText: true,
+                  obscureText: _obscureConfirmPassword,
                   decoration: _inputDecoration(
                     'Konfirmasi Password',
                     'Ulangi password Anda',
                     Icons.lock_outline,
+                  ).copyWith(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
+                    ),
                   ),
                 ),
+
                 const SizedBox(height: 30),
 
                 ElevatedButton(
