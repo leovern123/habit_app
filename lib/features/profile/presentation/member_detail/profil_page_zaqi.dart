@@ -15,6 +15,10 @@ class MemberPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            const CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage('assets/images/zaqi.jpeg'),
+            ),
           ],
         ),
       ),
