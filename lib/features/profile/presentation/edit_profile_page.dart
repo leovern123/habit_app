@@ -24,6 +24,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Uint8List? _webImage;
   File? _selectedImage;
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
 
     Widget _buildAvatar(User? user) {
     if (kIsWeb && _webImage != null) {
@@ -246,6 +249,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     required IconData icon,
     bool obscure = false,
     bool enabled = true,
+    VoidCallback? onToggleObscure,
   }) {
     return TextFormField(
       controller: controller,
@@ -255,6 +259,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon),
+        suffixIcon: onToggleObscure != null
+            ? IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: onToggleObscure,
+              )
+            : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
