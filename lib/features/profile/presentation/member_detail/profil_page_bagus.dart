@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MemberBagusPage extends StatelessWidget {
   const MemberBagusPage({super.key});
 
@@ -44,6 +46,7 @@ class MemberBagusPage extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 30),
 
             const SectionTitle(title: 'Biodata'),
@@ -57,8 +60,9 @@ class MemberBagusPage extends StatelessWidget {
               label: 'Email',
               value: 'bagus@email.com',
             ),
+
             const SizedBox(height: 20),
-            
+
             const SectionTitle(title: 'Keahlian'),
             const ProfileLine(
               icon: Icons.check_circle_outline,
@@ -70,3 +74,61 @@ class MemberBagusPage extends StatelessWidget {
               label: 'Tools',
               value: 'VS Code, Firebase',
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  final String title;
+
+  const SectionTitle({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileLine extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const ProfileLine({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.blueGrey),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              '$label : $value',
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
