@@ -20,29 +20,68 @@ class MemberPage extends StatelessWidget {
               backgroundImage: AssetImage('assets/images/zaqi.jpeg'),
             ),
 
-              const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-              const Text(
-                'Zaqi Maulana',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+            const Text(
+              'Zaqi Maulana',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            Text(
+              'TI-23-SE-SH',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey[600],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: const [
+                    ProfileItem(
+                      icon: Icons.badge,
+                      label: 'NIM',
+                      value: '123456789',
+                    ),
+                    Divider(),
+                    ProfileItem(
+                      icon: Icons.email,
+                      label: 'Email',
+                      value: 'zaqi@email.com',
+                    ),
+                    Divider(),
+                    ProfileItem(
+                      icon: Icons.code,
+                      label: 'Keahlian',
+                      value: 'Flutter Basic, Firebase',
+                    ),
+                    Divider(),
+                    ProfileItem(
+                      icon: Icons.school,
+                      label: 'Program Studi',
+                      value: 'Teknik Informatika',
+                    ),
+                  ],
                 ),
               ),
-
-              const SizedBox(height: 6),
-
-              Text(
-                'TI-23-SE-SH',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-
+            ),
           ],
         ),
       ),
     );
   }
 }
+
