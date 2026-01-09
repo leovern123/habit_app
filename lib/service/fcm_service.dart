@@ -15,6 +15,7 @@ class FcmService {
 
      String? token = await messaging.getToken();
     log("Token FCM perangkat: $token");
+    
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('Notifikasi masuk di foreground: ${message.notification?.title}');
       if (message.notification != null) {
@@ -25,3 +26,12 @@ class FcmService {
         );
       }
     });
+
+    
+    // klik notifikasi
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      log('Notifikasi diklik: ${message.data}');
+
+    });
+  }
+}
