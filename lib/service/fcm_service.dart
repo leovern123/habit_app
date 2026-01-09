@@ -5,10 +5,13 @@ import 'notification_service.dart';
 class FcmService {
   static Future<void> initFCM() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    
+
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       badge: true,
       sound: true,
     );
     log('Izin notifikasi: ${settings.authorizationStatus}');
+
+     String? token = await messaging.getToken();
+    log("Token FCM perangkat: $token");
