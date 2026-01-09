@@ -63,3 +63,11 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
                   ),
 
                   const SizedBox(height: 8),
+
+                   StatisticCalendarPicker(
+                    onSelected: _onDateRangeChanged,
+                  ),
+                ],
+              ),
+            ),
+          ),
