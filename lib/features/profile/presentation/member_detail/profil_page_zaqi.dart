@@ -6,11 +6,17 @@ class MemberPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Member Detail'),
+        title: const Text('Profil Member'),
+        centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Member Detail Page Content Here'),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+          ],
+        ),
       ),
     );
   }
