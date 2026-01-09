@@ -39,7 +39,7 @@ class SplashScreen5 extends StatelessWidget {
             const SizedBox(height: 15),
 
             const Text(
-              "Siap untuk hidup lebih teratur?n\ Yuk, mulai catat kebiasaan mulai dari hal yang paling sederhana",
+              "Siap untuk hidup lebih teratur? \n Yuk, mulai catat kebiasaan mulai dari hal yang paling sederhana",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
