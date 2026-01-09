@@ -54,13 +54,13 @@ class MemberPage extends StatelessWidget {
                     ProfileItem(
                       icon: Icons.badge,
                       label: 'NIM',
-                      value: '123456789',
+                      value: '1123150048',
                     ),
                     Divider(),
                     ProfileItem(
                       icon: Icons.email,
                       label: 'Email',
-                      value: 'zaqi@email.com',
+                      value: 'zaqimaulana72@email.com',
                     ),
                     Divider(),
                     ProfileItem(
@@ -81,6 +81,51 @@ class MemberPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// WIDGET ITEM PROFIL
+class ProfileItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const ProfileItem({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.blue),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
