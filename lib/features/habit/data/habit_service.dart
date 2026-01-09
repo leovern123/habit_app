@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../model/habit_model.dart';
 import '../../../core/utils/date_helper.dart';
 import 'package:uas_flutter/service/notification_service.dart';
+import 'package:uas_flutter/service/fcm_service.dart';
 
 
 
@@ -210,6 +211,10 @@ Future<void> deleteHabit(String habitId) async {
       .doc(habitId)
       .delete();
 }
+
+ static void init() {
+    FcmService.initFCM();
+  }
 
 void sendHabitNotification() {
   NotificationService.showNotification(
