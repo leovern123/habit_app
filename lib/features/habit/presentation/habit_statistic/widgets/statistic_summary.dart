@@ -62,11 +62,52 @@ class StatisticSummary extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-      
+              Center(
+                  child: SizedBox(
+                    height: 140,
+                    width: 140,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Lingkaran latar (abu-abu)
+                        CircularProgressIndicator(
+                          value: 1,
+                          strokeWidth: 60,
+                          valueColor:
+                              AlwaysStoppedAnimation(Colors.grey.shade300),
+                        ),
+                 
+                        CircularProgressIndicator(
+                          value: percent,
+                          strokeWidth: 60,
+                          valueColor:
+                              const AlwaysStoppedAnimation(Colors.green),
+                        ),
+                      
+                        Text(
+                          '$percentText%',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 1, 16, 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                
+                Center(
+                  child: Text(
+                    '$done dari $total habit selesai',
+                    style: const TextStyle(color: Colors.grey),
+                  ),
                 ),
               ],
             ),
           ),
         );
-  }
-}
+      }
