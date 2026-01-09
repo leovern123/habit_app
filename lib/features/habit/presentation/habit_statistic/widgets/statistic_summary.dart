@@ -34,6 +34,10 @@ class StatisticSummary extends StatelessWidget {
           .where('dateTs', isLessThan: Timestamp.fromDate(end))
           .snapshots(),
       builder: (context, snapshot) {
+      if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
 
   }
 }
