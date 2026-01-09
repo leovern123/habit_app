@@ -110,4 +110,7 @@ class StatisticSummary extends StatelessWidget {
             ),
           ),
         );
-      }
+      },
+    );
+  }
+}
