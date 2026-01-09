@@ -22,3 +22,44 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
       selectedRange = range;
     });
   }
+@override
+  Widget build(BuildContext context) {
+    final green = Colors.green.shade700;
+
+    return Scaffold(
+      backgroundColor: Colors.green.shade50,
+      appBar: AppBar(
+        backgroundColor: green,
+        elevation: 0,
+        title: const Text(
+          'Statistik Habit',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Filter Tanggal',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  StatisticDateFilter(
+                    onRangeSelected: _onDateRangeChanged,
+                  ),
+
+                  const SizedBox(height: 8),
