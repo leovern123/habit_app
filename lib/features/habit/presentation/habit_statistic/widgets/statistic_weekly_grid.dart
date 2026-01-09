@@ -6,16 +6,19 @@ class StatisticWeeklyGrid extends StatelessWidget {
   final HabitService habitService;
 
   const StatisticWeeklyGrid({super.key, required this.habitService});
-   @override
+
+  @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final start = now.subtract(const Duration(days: 6));
+    final start = DateTime(now.year, now.month, now.day)
+        .subtract(const Duration(days: 6));
 
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('habit_logs')
           .where('userId', isEqualTo: habitService.uid)
-          .where('date', isGreaterThanOrEqualTo: start)
+          .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+          .where('dateTs', isLessThanOrEqualTo: Timestamp.fromDate(now))
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const SizedBox();
