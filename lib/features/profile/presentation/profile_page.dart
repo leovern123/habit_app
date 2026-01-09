@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text('Profil'),
         centerTitle: true,
-        backgroundColor: Colors.blue, 
+        backgroundColor: Colors.green.shade100, 
         elevation: 1,
       ),
       body: Padding(
