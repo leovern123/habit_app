@@ -29,15 +29,20 @@ class StatisticWeeklyGrid extends StatelessWidget {
 
         return GridView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: 7,
           gridDelegate:
               const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
           itemBuilder: (context, i) {
             final day = start.add(Duration(days: i));
-            final done = logs.any((e) =>
-                (e['date'] as Timestamp).toDate().day == day.day &&
-                e['isDone'] == true);
 
+            final done = logs.any((e) {
+              final logDate = (e['dateTs'] as Timestamp).toDate();
+              return logDate.year == day.year &&
+                  logDate.month == day.month &&
+                  logDate.day == day.day &&
+                  e['isDone'] == true;
+            });
             return Icon(
               done ? Icons.check_circle : Icons.cancel,
               color: done ? Colors.green : Colors.red,
