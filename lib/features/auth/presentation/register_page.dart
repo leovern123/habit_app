@@ -129,7 +129,6 @@ class Register extends StatefulWidget {
 
                 const SizedBox(height: 20),
 
-                // Password
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
@@ -139,6 +138,7 @@ class Register extends StatefulWidget {
                     Icons.lock_outline,
                   ),
                 ),
+
 
                 const SizedBox(height: 20),
 
