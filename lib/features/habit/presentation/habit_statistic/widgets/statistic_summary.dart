@@ -15,6 +15,14 @@ class StatisticSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    if (range == null) {
+      return const Text('Pilih rentang tanggal');
+    }
+
+    final start = DateTime(range!.start.year, range!.start.month, range!.start.day);
+    final end = DateTime(range!.end.year, range!.end.month, range!.end.day)
+        .add(const Duration(days: 1)); 
+
 
   }
 }
