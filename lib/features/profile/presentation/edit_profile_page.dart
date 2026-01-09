@@ -16,7 +16,6 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final _profileService = ProfileService();
   final _storageService = SupabaseStorageService();
-
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -122,6 +121,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     final user = _profileService.currentUser;
 
+    final isGoogleUser = user?.providerData.any(
+          (info) => info.providerId == 'google.com',
+        ) ??
+        false;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Profil'),
@@ -181,23 +185,38 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Ubah Password (Opsional)',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: isGoogleUser ? Colors.grey : Colors.black,
                       ),
                     ),
+                    if (isGoogleUser)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 6),
+                        child: Text(
+                          'Akun Google tidak dapat mengubah password.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
                     const SizedBox(height: 12),
                     _buildField(
                       controller: _passwordController,
                       label: 'Password Baru',
                       icon: Icons.lock_outline,
                       obscure: _obscurePassword,
-                      onToggleObscure: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
+                      enabled: !isGoogleUser,
+                      onToggleObscure: isGoogleUser
+                          ? null
+                          : () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
                     ),
                     const SizedBox(height: 12),
                     _buildField(
@@ -205,16 +224,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       label: 'Konfirmasi Password',
                       icon: Icons.lock_reset,
                       obscure: _obscureConfirmPassword,
-                      onToggleObscure: () {
-                        setState(() {
-                          _obscureConfirmPassword = !_obscureConfirmPassword;
-                        });
-                      },
+                      enabled: !isGoogleUser,
+                      onToggleObscure: isGoogleUser
+                          ? null
+                          : () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(height: 30),
 
               SizedBox(
