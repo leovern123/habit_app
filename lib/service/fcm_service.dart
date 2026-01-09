@@ -15,3 +15,13 @@ class FcmService {
 
      String? token = await messaging.getToken();
     log("Token FCM perangkat: $token");
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      log('Notifikasi masuk di foreground: ${message.notification?.title}');
+      if (message.notification != null) {
+        NotificationService.showNotification(
+          id: message.hashCode,
+          title: message.notification!.title ?? '',
+          body: message.notification!.body ?? '',
+        );
+      }
+    });
