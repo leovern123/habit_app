@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_4.dart';
+import 'package:uas_flutter/features/splash/presentation/splash_screen_2.dart';
 
-class MySplashScreen3 extends StatefulWidget {
-  const MySplashScreen3({super.key});
+class SplashScreen1 extends StatefulWidget {
+  const SplashScreen1({super.key});
 
   @override
-  State<MySplashScreen3> createState() => _SplashScreen3State();
+  State<SplashScreen1> createState() => _SplashScreen1State();
 }
 
-class _SplashScreen3State extends State<MySplashScreen3> {
+class _SplashScreen1State extends State<SplashScreen1> {
   @override
   void initState() {
     super.initState();
@@ -18,11 +18,11 @@ class _SplashScreen3State extends State<MySplashScreen3> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MySplashScreen4()),
+        MaterialPageRoute(builder: (context) => const MySplashScreen2()),
       );
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +30,9 @@ class _SplashScreen3State extends State<MySplashScreen3> {
         child: Column(
           children: [
             const SizedBox(height: 50),
-
+            
             Lottie.asset(
-              "assets/lotties/graph.json",
+              "assets/lotties/succes.json",
               width: 220,
               height: 220,
             ),
@@ -40,7 +40,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
             const SizedBox(height: 30), 
 
              const Text(
-              "Build Positive Habits",
+              "Welcome to Habit Tracker",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
             const SizedBox(height: 15),
 
             const Text(
-                "Pantau perkembanganmu dan\n capai target setiap hari",
+                "Mulai kebiasaan baikmu dan capai tujuanmu\ndengan aplikasi Habit Tracker!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                 fontSize: 15,
@@ -61,7 +61,7 @@ class _SplashScreen3State extends State<MySplashScreen3> {
               ),
 
               const SizedBox(height: 50),
-
+                
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,25 +71,25 @@ class _SplashScreen3State extends State<MySplashScreen3> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFedede9),
-                    ),
-                  ),
-                  Container(
-                    width: 13,
-                    height: 13,
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFedede9),
-                    ),
-                  ),
-                  Container(
-                    width: 13,
-                    height: 13,
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
                       color: Color(0xFF84a98c), // aktif
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
+                    ),
+                  ),
+                  Container(
+                    width: 13,
+                    height: 13,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFedede9),
                     ),
                   ),
                   Container(
@@ -121,9 +121,9 @@ class _SplashScreen3State extends State<MySplashScreen3> {
               height: 50,
               repeat: true,
             ),
-          ],
-        ),        
-      ),
+          ]
+        )
+      )
     );
   }
 }

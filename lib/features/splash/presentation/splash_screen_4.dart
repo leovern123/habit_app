@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:uas_flutter/screen/splash_screen_3.dart';
+import 'package:uas_flutter/features/splash/presentation/splash_screen_5.dart';
 
-class MySplashScreen2 extends StatefulWidget {
-  const MySplashScreen2({super.key});
+
+class MySplashScreen4 extends StatefulWidget {
+  const MySplashScreen4({super.key}); 
+
 
   @override
-  State<MySplashScreen2> createState() => _SplashScreen2State();
+  State<MySplashScreen4> createState() => _SplashScreen4State();
 }
 
-class _SplashScreen2State extends State<MySplashScreen2> {
+class _SplashScreen4State extends State<MySplashScreen4> {
   @override
   void initState() {
     super.initState();
@@ -18,21 +20,21 @@ class _SplashScreen2State extends State<MySplashScreen2> {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const MySplashScreen3()),
+        MaterialPageRoute(builder: (context) => const SplashScreen5()),
       );
     });
   }
-
- @override
- Widget build(BuildContext context) {
- return Scaffold( 
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
         child: Column(
           children: [
             const SizedBox(height: 50),
-            
+
             Lottie.asset(
-              "assets/lotties/calendar.json",
+              "assets/lotties/income_tracker_final.json",
               width: 220,
               height: 220,
             ),
@@ -40,7 +42,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
             const SizedBox(height: 30), 
 
              const Text(
-              "Track Your Daily Routine",
+              "Make Good Habits Stick",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -51,7 +53,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
             const SizedBox(height: 15),
 
             const Text(
-                "Buat jadwal harian\n dan atur rutinitas mu dengan mudah",
+                "Atur target, catat perkembangan, dan \n tetap konsisten setiap hari.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                 fontSize: 15,
@@ -61,7 +63,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
               ),
 
               const SizedBox(height: 50),
-                
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,7 +73,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFedede9), 
+                      color: Color(0xFFedede9),
                     ),
                   ),
                   Container(
@@ -80,7 +82,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFF84a98c), //aktif
+                      color: Color(0xFFedede9),
                     ),
                   ),
                   Container(
@@ -98,7 +100,7 @@ class _SplashScreen2State extends State<MySplashScreen2> {
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0xFFedede9),
+                      color: Color(0xFF84a98c), // aktif
                     ),
                   ),
                   Container(
@@ -111,9 +113,9 @@ class _SplashScreen2State extends State<MySplashScreen2> {
                     ),
                   ),
                 ],
-              ),  
+              ),
 
-               const SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               Lottie.asset(
               'assets/lotties/Sandy Loading.json',
@@ -121,9 +123,9 @@ class _SplashScreen2State extends State<MySplashScreen2> {
               height: 50,
               repeat: true,
             ),
-          ]
-        ),
+          ],
+        ),        
       ),
-  );
+    );
   }
-  }
+}
