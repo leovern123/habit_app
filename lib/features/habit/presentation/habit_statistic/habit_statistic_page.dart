@@ -99,3 +99,27 @@ class _HabitStatisticPageState extends State<HabitStatisticPage> {
             ),
 
           const SizedBox(height: 16),
+           Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Progress 7 Hari Terakhir',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  StatisticWeeklyGrid(habitService: _habitService),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
