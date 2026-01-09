@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uas_flutter/features/habit/data/habit_service.dart';
+
+class StatisticHabitList extends StatelessWidget {
+  final HabitService habitService;
+  final DateTimeRange range;
+
+  const StatisticHabitList({
+    super.key,
+    required this.habitService,
+    required this.range,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final start = DateTime(range.start.year, range.start.month, range.start.day);
+    final end = DateTime(range.end.year, range.end.month, range.end.day)
+        .add(const Duration(days: 1));
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('habits')
+          .where('userId', isEqualTo: habitService.uid)
+          .where('isActive', isEqualTo: true)
+          .snapshots(),
+      builder: (context, habitSnapshot) {
+        if (!habitSnapshot.hasData) return const SizedBox();
+
+        final habits = habitSnapshot.data!.docs;
+
+        return Column(
+          children: habits.map((habit) {
+            return StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('habit_logs')
+                  .where('habitId', isEqualTo: habit.id)
+                  .where('userId', isEqualTo: habitService.uid)
+                  .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+                  .where('dateTs', isLessThan: Timestamp.fromDate(end))
+                  .snapshots(),
+              builder: (context, logSnapshot) {
+                if (!logSnapshot.hasData) return const SizedBox();
+
+                final logs = logSnapshot.data!.docs;
+
+                final done = logs.where((e) => e['isDone'] == true).length;
+
+                return ListTile(
+                  title: Text(habit['title']),
+                  subtitle: Text('$done / ${logs.length} hari selesai'),
+                  leading: Icon(
+                    done == logs.length && logs.isNotEmpty
+                        ? Icons.check_circle
+                        : Icons.timelapse,
+                    color: done == logs.length && logs.isNotEmpty
+                        ? Colors.green
+                        : Colors.grey,
+                  ),
+                );
+              },
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
+}

@@ -85,6 +85,10 @@ Stream<List<Habit>> getAllHabits() {
 
     final today = DateHelper.today();
 
+  final now = DateTime.now();
+  final DateTime onlyDate = DateTime(now.year, now.month, now.day);
+  final Timestamp todayTs = Timestamp.fromDate(onlyDate);
+
     final query = await _firestore
         .collection('habit_logs')
         .where('userId', isEqualTo: uid)
@@ -98,6 +102,7 @@ Stream<List<Habit>> getAllHabits() {
         'habitId': habitId,
         'userId': uid,
         'date': today,
+        'dateTs': todayTs,
         'isDone': value,
         'completedAt': Timestamp.now(),
       });
@@ -108,6 +113,7 @@ Stream<List<Habit>> getAllHabits() {
           .update({
         'isDone': value,
         'completedAt': Timestamp.now(),
+        'dateTs': todayTs,
       });
     }
   }
@@ -124,8 +130,9 @@ Stream<List<Habit>> getAllHabits() {
         .collection('habit_logs')
         .where('habitId', isEqualTo: habitId)
         .where('userId', isEqualTo: uid)
-        .where('date', isGreaterThanOrEqualTo: startOfMonth)
-        .where('date', isLessThan: startOfNextMonth)
+        .where('dateTs', isGreaterThanOrEqualTo: startOfMonth)
+        .where('dateTs', isLessThan: startOfNextMonth)
+
         .snapshots()
         .map((snapshot) {
       final map = <String, bool>{};
@@ -146,8 +153,8 @@ Stream<List<Habit>> getAllHabits() {
         .collection('habit_logs')
         .where('habitId', isEqualTo: habitId)
         .where('userId', isEqualTo: uid)
-        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgo))
-        .where('date', isLessThanOrEqualTo: Timestamp.fromDate(now))
+        .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgo))
+        .where('dateTs', isLessThanOrEqualTo: Timestamp.fromDate(now))
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => doc['isDone'] as bool).toList());
