@@ -30,7 +30,7 @@ class MemberPageUmar extends StatelessWidget {
               ),
               child: const CircleAvatar(
                 radius: 55,
-                backgroundImage: AssetImage('assets/images/member3.jpg'),
+                backgroundImage: AssetImage('assets/images/umar.jpeg'),
               ),
             ),
 
