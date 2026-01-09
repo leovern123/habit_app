@@ -216,6 +216,26 @@ Future<void> deleteHabit(String habitId) async {
     FcmService.initFCM();
   }
 
+static void scheduleDailyHabitNotification(int id, String title, TimeOfDay time) {
+    DateTime now = DateTime.now();
+    DateTime scheduled = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      time.hour,
+      time.minute,
+    );
+
+    if (scheduled.isBefore(now)) scheduled = scheduled.add(const Duration(days: 1));
+
+    NotificationService.showNotification(
+      id: id,
+      title: title,
+      body: 'Saatnya lakukan habit!',
+      payload: 'habit_$id',
+    );
+  }
+
 void sendHabitNotification() {
   NotificationService.showNotification(
     id: 1,
