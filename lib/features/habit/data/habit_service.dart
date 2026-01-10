@@ -11,6 +11,9 @@ import 'package:uas_flutter/service/fcm_service.dart';
 class HabitService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+    final CollectionReference<Map<String, dynamic>> _habitCollection =
+      FirebaseFirestore.instance.collection('habits');
+
 
   String? get uid => _auth.currentUser?.uid;
 
@@ -20,7 +23,7 @@ class HabitService {
       return const Stream.empty();
     }
 
-    print('UID LOGIN (getHabits): $uid');
+    debugPrint('UID LOGIN (getHabits): $uid');
 
     return _firestore
         .collection('habits')
@@ -185,8 +188,7 @@ Stream<List<Habit>> getAllHabits() {
     'userId': uid,
     'isActive': true,
     'createdAt': Timestamp.now(),
-    'habitTime': Timestamp.fromDate(habitDateTime),
-    'isActive': true, 
+    'habitTime': Timestamp.fromDate(habitDateTime), 
   });
 }
 
@@ -243,6 +245,15 @@ static void sendTestNotification() {
       body: 'Ini adalah notifikasi percobaan',
       payload: 'test_999',
     );
+  }
+
+  Future<void> toggleNotification(
+    String habitId,
+    bool currentValue,
+  ) async {
+    await _habitCollection.doc(habitId).update({
+      'notificationOn': !currentValue,
+    });
   }
 
 }

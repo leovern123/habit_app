@@ -149,12 +149,6 @@ class _HabitListPageState extends State<HabitListPage> {
                     return HabitListItem(
                       title: habit.title,
                       isActive: habit.isActive,
-                      onToggleActive: () async {
-                        await habitService.toggleActive(
-                          habit.habitId,
-                          habit.isActive,
-                        );
-                      },
                       onDelete: () async {
                         final confirm =
                             await showConfirmDeleteDialog(context);
