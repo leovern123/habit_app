@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:uas_flutter/features/profile/presentation/member_detail/profil_page_bagus.dart';
+import 'package:uas_flutter/features/profile/presentation/member_detail/profil_page_haikal.dart';
+import 'package:uas_flutter/features/profile/presentation/member_detail/profil_page_umar.dart';
 import 'widgets/team_member_tile.dart';
 import 'member_detail/profil_page_zaqi.dart';
+import 'member_detail/profil_page_faras.dart';
 
 class AboutTeamPage extends StatelessWidget {
   const AboutTeamPage({super.key});
@@ -23,7 +27,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.green.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberPageZaqi()),
             ),
           ),
           TeamMemberTile(
@@ -34,7 +38,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.lightGreen.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberPageUmar()),
             ),
           ),
           TeamMemberTile(
@@ -45,7 +49,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.green.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberHaikalPage()),
             ),
           ),
           TeamMemberTile(
@@ -56,7 +60,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.lightGreen.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberBagusPage()),
             ),
           ),
           TeamMemberTile(
@@ -67,7 +71,7 @@ class AboutTeamPage extends StatelessWidget {
             accentColor: Colors.green.shade800,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const MemberPage()),
+              MaterialPageRoute(builder: (_) => const MemberFarasPage()),
             ),
           ),
         ],
