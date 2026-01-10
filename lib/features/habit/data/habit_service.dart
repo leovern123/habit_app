@@ -247,13 +247,29 @@ static void sendTestNotification() {
     );
   }
 
-  Future<void> toggleNotification(
-    String habitId,
-    bool currentValue,
-  ) async {
-    await _habitCollection.doc(habitId).update({
-      'notificationOn': !currentValue,
-    });
+ Future<void> toggleNotification(
+  Habit habit,
+) async {
+  final newValue = !habit.notificationOn;
+
+  await _habitCollection.doc(habit.habitId).update({
+    'notificationOn': newValue,
+  });
+
+  if (newValue && habit.habitTime != null) {
+    final date = habit.habitTime!.toDate();
+    final time = TimeOfDay(hour: date.hour, minute: date.minute);
+
+    // 🔔 JADWALKAN NOTIFIKASI
+    NotificationService.scheduleDailyNotification(
+      id: habit.habitId.hashCode,
+      title: habit.title,
+      time: time,
+    );
+  } else {
+    // ❌ MATIKAN NOTIF
+    NotificationService.cancel(habit.habitId.hashCode);
   }
+}
 
 }
