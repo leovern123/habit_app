@@ -4,12 +4,28 @@ import './widgets/habit_home_header.dart';
 import './widgets/habit_today_list.dart';
 import './widgets/add_habit_bottom_sheet.dart';
 
-class HabitHomePage extends StatelessWidget {
+class HabitHomePage extends StatefulWidget {
   const HabitHomePage({super.key});
 
   @override
+  State<HabitHomePage> createState() => _HabitHomePageState();
+}
+
+class _HabitHomePageState extends State<HabitHomePage> {
+  late final HabitService habitService;
+
+  @override
+  void initState() {
+    super.initState();
+
+    habitService = HabitService();
+
+    // 🔁 Restore semua notifikasi dari Firestore
+    habitService.restoreAllNotifications();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final habitService = HabitService();
     final theme = Theme.of(context);
 
     return Scaffold(

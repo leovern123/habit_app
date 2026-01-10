@@ -7,7 +7,6 @@ import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_fi
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_item.dart';
 
-
 class HabitListPage extends StatefulWidget {
   const HabitListPage({super.key});
 
@@ -21,106 +20,73 @@ class _HabitListPageState extends State<HabitListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Habit List'),
+        backgroundColor: Colors.green.shade600,
+      ),
       body: Column(
         children: [
-      Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.green.shade600,
-                  Colors.green.shade400,
-                ],
-              ),
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(24),
-              ),
-            ),
-          child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Habit List',
-        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-                      ),
+          // Filter SegmentedButton
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SegmentedButton<HabitFilter>(
+              segments: const [
+                ButtonSegment(
+                  value: HabitFilter.all,
+                  label: Text('Semua'),
+                  icon: Icon(Icons.list),
                 ),
-              const SizedBox(height: 4),
-              Text(
-                'Kelola kebiasaan baikmu setiap hari',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
-                    ),
+                ButtonSegment(
+                  value: HabitFilter.active,
+                  label: Text('Aktif'),
+                  icon: Icon(Icons.check_circle),
+                ),
+                ButtonSegment(
+                  value: HabitFilter.inactive,
+                  label: Text('Nonaktif'),
+                  icon: Icon(Icons.pause_circle),
+                ),
+              ],
+              selected: {_filter},
+              onSelectionChanged: (value) {
+                setState(() {
+                  _filter = value.first;
+                });
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.green.shade600;
+                  }
+                  return Colors.green.shade50;
+                }),
+                foregroundColor: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return Colors.white;
+                  }
+                  return Colors.green.shade700;
+                }),
               ),
-            ],
-          ),
-        ),
-         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-          child: SegmentedButton<HabitFilter>(
-            segments: const [
-              ButtonSegment(
-                value: HabitFilter.all,
-                label: Text('Semua'),
-                icon: Icon(Icons.list),
-              ),
-              ButtonSegment(
-                value: HabitFilter.active,
-                label: Text('Aktif'),
-                icon: Icon(Icons.check_circle),
-              ),
-              ButtonSegment(
-                value: HabitFilter.inactive,
-                label: Text('Nonaktif'),
-                icon: Icon(Icons.pause_circle),
-              ),
-            ],
-            selected: {_filter},
-            onSelectionChanged: (value) {
-              setState(() {
-                _filter = value.first;
-              });
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
-                  return Colors.green.shade600;
-                }
-                return Colors.green.shade50;
-              }),
-              foregroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
-                  return Colors.white;
-                }
-                return Colors.green.shade700;
-              }),
             ),
           ),
-        ),
-        const SizedBox(height: 12),
 
+          const SizedBox(height: 12),
+
+          // List of Habits
           Expanded(
             child: StreamBuilder<List<Habit>>(
               stream: habitService.getAllHabits(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator());
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return const HabitListEmpty();
                 }
 
-                /// filter di UI (AMAN)
+                // Apply filter
                 final habits = snapshot.data!.where((habit) {
                   switch (_filter) {
                     case HabitFilter.active:
@@ -141,51 +107,36 @@ class _HabitListPageState extends State<HabitListPage> {
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
                   itemCount: habits.length,
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(height: 12),
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final habit = habits[index];
 
                     return HabitListItem(
+                      habitId: habit.habitId,
+                      habitTime: habit.habitTime?.toDate() ?? DateTime.now(), 
                       title: habit.title,
                       isActive: habit.isActive,
-
-                      //notification
-                      notificationOn: habit.notificationOn,
+                      notificationOn: habit.notificationOn ?? true, // default ON
                       onToggleNotification: () async {
-                        await habitService.toggleNotification(
-                          habit.habitId,
-                          habit.notificationOn,
-                        );
+                        await habitService.toggleNotification(habit);
                       },
-                        //aktif/nonaktif
-                        onToggleActive: () async {
-                          await habitService.toggleActive(
-                            habit.habitId,
-                            habit.isActive,
-                          );
-                        },
-
+                      onToggleActive: () async {
+                        await habitService.toggleActive(habit.habitId, habit.isActive);
+                      },
                       onDelete: () async {
-                        final confirm =
-                            await showConfirmDeleteDialog(context);
+                        final confirm = await showConfirmDeleteDialog(context);
                         if (confirm == true) {
-                          await habitService.deleteHabit(
-                              habit.habitId);
+                          await habitService.deleteHabit(habit.habitId);
                         }
                       },
                       onEdit: () {
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
-                          shape:
-                              const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                           ),
-                          builder: (_) =>
-                              EditHabitBottomSheet(habit: habit),
+                          builder: (_) => EditHabitBottomSheet(habit: habit),
                         );
                       },
                     );
@@ -196,6 +147,17 @@ class _HabitListPageState extends State<HabitListPage> {
           ),
         ],
       ),
+      
+
+      // FAB untuk tes notifikasi
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          HabitService.sendTestNotification();
+        },
+        child: const Icon(Icons.notifications),
+        tooltip: 'Tes Notifikasi',
+      ),
     );
+    
   }
 }
