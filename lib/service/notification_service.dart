@@ -8,6 +8,9 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Asia/Jakarta'));
+
     const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -15,21 +18,22 @@ class NotificationService {
 
     await _plugin.initialize(settings);
 
-
     await _plugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
   }
 
-
   static Future<void> scheduleDailyNotification({
     required int id,
     required String title,
     required TimeOfDay time,
+    required String payload,
   }) async {
-    final now = DateTime.now();
-    DateTime scheduled = DateTime(
+    final now = tz.TZDateTime.now(tz.local);
+
+    tz.TZDateTime scheduled = tz.TZDateTime(
+      tz.local,
       now.year,
       now.month,
       now.day,
@@ -45,7 +49,7 @@ class NotificationService {
       id,
       title,
       'Saatnya lakukan habit!',
-      scheduled.toLocal(),
+      scheduled,
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'habit_channel',
@@ -55,9 +59,10 @@ class NotificationService {
         ),
       ),
       androidAllowWhileIdle: true,
-      matchDateTimeComponents: DateTimeComponents.time,
+      matchDateTimeComponents: DateTimeComponents.time, // 🔁 tiap hari
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      payload: payload,
     );
   }
 
@@ -65,7 +70,7 @@ class NotificationService {
     await _plugin.cancel(id);
   }
 
-  /// 🧪 TEST
+  /// test notif
   static Future<void> showNotification({
     required int id,
     required String title,
@@ -81,8 +86,10 @@ class NotificationService {
           'test_channel',
           'Test',
           importance: Importance.max,
+          priority: Priority.high,
         ),
       ),
+      payload: payload,
     );
   }
 }
