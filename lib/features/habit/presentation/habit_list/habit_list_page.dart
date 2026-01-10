@@ -158,6 +158,13 @@ class _HabitListPageState extends State<HabitListPage> {
                           habit.notificationOn,
                         );
                       },
+                        //aktif/nonaktif
+                        onToggleActive: () async {
+                          await habitService.toggleActive(
+                            habit.habitId,
+                            habit.isActive,
+                          );
+                        },
 
                       onDelete: () async {
                         final confirm =
