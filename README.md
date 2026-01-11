@@ -21,9 +21,14 @@ https://global.ac.id/
 
 ## About The Project
 
-..... adalah aplikasi mobile modern yang dikembangkan menggunakan Flutter untuk membantu ....... menyediakan antarmuka yang intuitif, fitur sinkronisasi cloud menggunakan firebase authentication , firebase store, ..... dan .......
+Habit App adalah aplikasi mobile yang dikembangkan menggunakan Flutter untuk membantu pengguna membuat, melacak, dan mempertahankan kebiasaan sehari-hari. Aplikasi ini menekankan kemudahan penggunaan, sinkronisasi cloud menggunakan Firebase, serta dukungan offline menggunakan SQLite sehingga data tetap tersedia saat tidak ada koneksi internet.
 
-Dengan .............. lain.
+Fitur utama berfokus pada:
+- pembuatan habit (kebiasaan),
+- pengingat berkala (reminder),
+- statistik perkembangan (streaks & analytics),
+- sinkronisasi otomatis ke Firebase,
+- tampilan modern dan mode gelap.
 
 ### Key Features
 
