@@ -134,27 +134,76 @@ flutter build apk --split-per-abi
 
 ```
 lib/
-├── main.dart                 # Entry point
-├── app/
-│   ├── routes/              # App routing
-│   └── themes/              # App themes
-├── models/                   # Data models
-│   ├── user.dart
-│   └── category.dart
-├── screens/                  # UI Screens
-│   ├── splash/
+├── core/
+│   └── utils/
+│       ├── date_helper.dart
+│       ├── statistic_helper.dart
+│       └── supabase_client.dart
+├── features/
 │   ├── auth/
-│   │   ├── login_screen.dart
-│   │   └── register_screen.dart
-│   ├── home/
+│   │   ├── data/
+│   │   │   └── auth_service.dart
+│   │   └── presentation/
+│   │       ├── login_page.dart
+│   │       └── register_page.dart
+│   ├── habit/
+│   │   ├── data/
+│   │   │   └── habit_service.dart
+│   │   ├── model/
+│   │   │   ├── habit_log_model.dart
+│   │   │   └── habit_model.dart
+│   │   └── presentation/
+│   │       ├── habit_home/
+│   │       │   ├── widgets/
+│   │       │   │   ├── add_habit_bottom_sheet.dart
+│   │       │   │   ├── habit_home_header.dart
+│   │       │   │   ├── habit_today_item.dart
+│   │       │   │   ├── habit_today_list.dart
+│   │       │   │   └── habit_home_page.dart
+│   │       ├── habit_list/
+│   │       │   ├── widgets/
+│   │       │   │   ├── confirm_delete_dialog.dart
+│   │       │   │   ├── edit_habit_bottom_sheet.dart
+│   │       │   │   ├── habit_list_empty.dart
+│   │       │   │   ├── habit_list_filter.dart
+│   │       │   │   ├── habit_list_header.dart
+│   │       │   │   ├── habit_list_item.dart
+│   │       │   │   └── habit_list_page.dart
+│   │       └── habit_statistic/
+│   │           ├── widgets/
+│   │           │   ├── statistic_calendar_picker.dart
+│   │           │   ├── statistic_date_filter.dart
+│   │           │   ├── statistic_habit_list.dart
+│   │           │   ├── statistic_summary.dart
+│   │           │   └── statistic_weekly_grid.dart
+│   │           └── habit_statistic_page.dart
+│   ├── navigation/
+│   │   └── main_navigation.dart
 │   ├── profile/
-│   └── settings/
-├── widgets/                  # Reusable widgets
-├── services/                 # Business logic
-│   ├── auth_service.dart
-│   ├── database_service.dart
-│   └── notification_service.dart
-└── utils/                    # Utilities & helpers
+│   │   ├── data/
+│   │   │   ├── profile_service.dart
+│   │   │   └── supabase_storage_service.dart
+│   │   └── presentation/
+│   │       ├── member_detail/
+│   │       │   ├── profil_page_bagus.dart
+│   │       │   ├── profil_page_faras.dart
+│   │       │   ├── profil_page_haikal.dart
+│   │       │   ├── profil_page_umar.dart
+│   │       │   └── profil_page_zaqi.dart
+│   │       └── widgets/
+│   │           ├── about_team_page.dart
+│   │           ├── edit_profile_page.dart
+│   │           └── profile_page.dart
+│   └── splash/
+│       └── presentation/
+│           ├── splash_screen_1.dart
+│           ├── splash_screen_2.dart
+│           ├── splash_screen_3.dart
+│           ├── splash_screen_4.dart
+│           └── splash_screen_5.dart
+├── service/
+│   ├── firebase_options.dart
+└── main.dart
 ```
 
 ## Authentication Flow
