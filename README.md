@@ -36,6 +36,7 @@ Fitur utama berfokus pada:
 - **Streaks & Analytics** - Melihat progres harian dan ringkasan mingguan/bulana
 - **Push Notifications** - Pengingat kebiasaan sesuai jadwal
 - **Cloud Sync** - Sinkronisasi otomatis dengan Firebase
+- **Thema modern** - Ui yg simpel untuk aplikasi mudah di gunakan untuk user awam
 
 ## Screenshots
 
@@ -66,7 +67,7 @@ Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/12345678
 Download versi terbaru aplikasi Notes App:
 
 ### Latest Release v1.0.0
-- [**Download APK (15.2 MB)**](https://github.com/yourusername/notes-app/releases/download/v1.0.0/notes-app-v1.0.0.apk)
+- [**Download APK (15.2 MB)**](https://github.com/leovern123/habit_app/releases)
 
 
 **Minimum Requirements:**
@@ -209,13 +210,15 @@ lib/
 ## Authentication Flow
 
 ```
-1. Splash Screen (Auto-login check)
+1. Splash Screen (cek auto-login / token)
    ↓
-2. Login Screen / Register Screen
+2. Login / Register (Firebase Authentication)
    ↓
-3. Home Screen (Dashboard)
+3. Home (daftar habit & ringkasan)
    ↓
-4. Profile & Settings
+4. Habit Detail / Edit / Create
+   ↓
+5. Settings & Profile
 ```
 
 ## 🗄️ Database Schema
