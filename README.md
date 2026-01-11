@@ -96,8 +96,8 @@ Pastikan Anda sudah menginstall:
 
 1. Clone repository
 ```bash
-git clone https://github.com/yourusername/notes-app.git
-cd notes-app
+git clone git clone https://github.com/leovern123/habit_app.git
+cd habit_app
 ```
 
 2. Install dependencies
