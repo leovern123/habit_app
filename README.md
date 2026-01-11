@@ -28,18 +28,14 @@ Fitur utama berfokus pada:
 - pengingat berkala (reminder),
 - statistik perkembangan (streaks & analytics),
 - sinkronisasi otomatis ke Firebase,
-- tampilan modern dan mode gelap.
 
 ### Key Features
 
 - **Modern UI/UX Design** - Antarmuka yang clean dan user-friendly
-- ....
-- ....
-- **Push Notifications** - Reminder untuk catatan penting
+- **Buat / Edit / Hapus Habit** - Atur frekuensi, reminder, target harian/mingguan
+- **Streaks & Analytics** - Melihat progres harian dan ringkasan mingguan/bulana
+- **Push Notifications** - Pengingat kebiasaan sesuai jadwal
 - **Cloud Sync** - Sinkronisasi otomatis dengan Firebase
-- **Dark Mode** - Theme gelap untuk kenyamanan mata
-- ...
-- ...
 
 ## Screenshots
 
