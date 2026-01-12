@@ -13,18 +13,24 @@ class HabitHomePage extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
-      body: Column(
-        children: [
-          HabitHomeHeader(
-            habitService: habitService,
+      backgroundColor:  Colors.green.shade50,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          child: Column(
+            children: [
+              HabitHomeHeader(
+                habitService: habitService,
+              ),
+              const SizedBox(height: 15), 
+              Expanded(
+                child: HabitTodayList(
+                  habitService: habitService,
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: HabitTodayList(
-              habitService: habitService,
-            ),
-          ),
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
