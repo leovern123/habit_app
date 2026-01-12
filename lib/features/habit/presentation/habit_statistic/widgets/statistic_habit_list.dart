@@ -18,6 +18,17 @@ class StatisticHabitList extends StatelessWidget {
     final end = DateTime(range.end.year, range.end.month, range.end.day)
         .add(const Duration(days: 1));
 
+    final now = DateTime.now();
+    final isToday =
+        start.year == now.year &&
+        start.month == now.month &&
+        start.day == now.day &&
+        end.difference(start).inDays == 1;
+
+    final emptyText = isToday
+        ? 'Tidak ada aktivitas hari ini'
+        : 'Tidak ada aktivitas pada rentang waktu ini';
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('habits')
@@ -25,42 +36,90 @@ class StatisticHabitList extends StatelessWidget {
           .where('isActive', isEqualTo: true)
           .snapshots(),
       builder: (context, habitSnapshot) {
-        if (!habitSnapshot.hasData) return const SizedBox();
+        if (!habitSnapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
         final habits = habitSnapshot.data!.docs;
 
-        return Column(
-          children: habits.map((habit) {
-            return StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('habit_logs')
-                  .where('habitId', isEqualTo: habit.id)
-                  .where('userId', isEqualTo: habitService.uid)
-                  .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
-                  .where('dateTs', isLessThan: Timestamp.fromDate(end))
-                  .snapshots(),
-              builder: (context, logSnapshot) {
-                if (!logSnapshot.hasData) return const SizedBox();
+        return StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('habit_logs')
+              .where('userId', isEqualTo: habitService.uid)
+              .where('dateTs',
+                  isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+              .where('dateTs', isLessThan: Timestamp.fromDate(end))
+              .snapshots(),
+          builder: (context, logSnapshot) {
+            if (!logSnapshot.hasData) {
+              return const SizedBox();
+            }
 
-                final logs = logSnapshot.data!.docs;
+            final allLogs = logSnapshot.data!.docs;
 
-                final done = logs.where((e) => e['isDone'] == true).length;
+            final activeHabitIds = habits.map((e) => e.id).toSet();
+            final filteredLogs = allLogs
+                .where((log) => activeHabitIds.contains(log['habitId']))
+                .toList();
 
-                return ListTile(
-                  title: Text(habit['title']),
-                  subtitle: Text('$done / ${logs.length} hari selesai'),
-                  leading: Icon(
-                    done == logs.length && logs.isNotEmpty
-                        ? Icons.check_circle
-                        : Icons.timelapse,
-                    color: done == logs.length && logs.isNotEmpty
-                        ? Colors.green
-                        : Colors.grey,
+            if (filteredLogs.isEmpty) {
+              return Text(
+                emptyText,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+              );
+            }
+
+            return Column(
+              children: habits.map((habit) {
+                final logs = filteredLogs
+                    .where((log) => log['habitId'] == habit.id)
+                    .toList();
+
+                if (logs.isEmpty) {
+                  return const SizedBox();
+                }
+
+                final done =
+                    logs.where((e) => e['isDone'] == true).length;
+                final progress = done / logs.length;
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        habit['title'],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 8,
+                        backgroundColor: Colors.grey.shade300,
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '$done dari ${logs.length} hari',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 );
-              },
+              }).toList(),
             );
-          }).toList(),
+          },
         );
       },
     );

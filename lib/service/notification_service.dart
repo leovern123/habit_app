@@ -19,10 +19,8 @@ class NotificationService {
         _plugin.resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
 
-    // Permission Android 13+
     await androidPlugin?.requestNotificationsPermission();
 
-    // Channel wajib
     await androidPlugin?.createNotificationChannel(
       const AndroidNotificationChannel(
         'habit_channel',
