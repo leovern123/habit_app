@@ -96,13 +96,23 @@ class _HabitListPageState extends State<HabitListPage> {
                     case HabitFilter.all:
                       return true;
                   }
-                }).toList();
 
-                if (habits.isEmpty) {
-                  return const Center(
-                    child: Text('Tidak ada habit sesuai filter'),
-                  );
-                }
+                  final habits = snapshot.data!.where((habit) {
+                    switch (_filter) {
+                      case HabitFilter.active:
+                        return habit.isActive;
+                      case HabitFilter.inactive:
+                        return !habit.isActive;
+                      case HabitFilter.all:
+                        return true;
+                    }
+                  }).toList();
+
+                  if (habits.isEmpty) {
+                    return const Center(
+                      child: Text('Tidak ada habit sesuai filter'),
+                    );
+                  }
 
                 return ListView.separated(
                   padding: const EdgeInsets.all(16),
@@ -144,8 +154,8 @@ class _HabitListPageState extends State<HabitListPage> {
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
     

@@ -136,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF4FAFF), Color(0xFFE6F0FF)],
+            colors: [Color.fromARGB(255, 144, 223, 174), Color.fromARGB(255, 230, 255, 235)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

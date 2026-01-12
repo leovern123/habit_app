@@ -22,6 +22,12 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = _service.currentUser;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profil'),
+        centerTitle: true,
+        backgroundColor: Colors.green.shade100, 
+        elevation: 1,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -85,3 +91,4 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
