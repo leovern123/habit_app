@@ -18,10 +18,22 @@ class StatisticHabitList extends StatelessWidget {
     final end = DateTime(range.end.year, range.end.month, range.end.day)
         .add(const Duration(days: 1));
 
+    final now = DateTime.now();
+    final isToday =
+        start.year == now.year &&
+        start.month == now.month &&
+        start.day == now.day &&
+        end.difference(start).inDays == 1;
+
+    final emptyText = isToday
+        ? 'Tidak ada aktivitas hari ini'
+        : 'Tidak ada aktivitas pada rentang waktu ini';
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('habits')
           .where('userId', isEqualTo: habitService.uid)
+          .where('isActive', isEqualTo: true)
           .snapshots(),
       builder: (context, habitSnapshot) {
         if (!habitSnapshot.hasData) {
@@ -30,37 +42,49 @@ class StatisticHabitList extends StatelessWidget {
 
         final habits = habitSnapshot.data!.docs;
 
-        return Column(
-          children: habits.map((habit) {
-            return StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('habit_logs')
-                  .where('habitId', isEqualTo: habit.id)
-                  .where('userId', isEqualTo: habitService.uid)
-                  .where('dateTs',
-                      isGreaterThanOrEqualTo: Timestamp.fromDate(start))
-                  .where('dateTs',
-                      isLessThan: Timestamp.fromDate(end))
-                  .snapshots(),
-              builder: (context, logSnapshot) {
-                if (!logSnapshot.hasData ||
-                    logSnapshot.data!.docs.isEmpty) {
+        return StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('habit_logs')
+              .where('userId', isEqualTo: habitService.uid)
+              .where('dateTs',
+                  isGreaterThanOrEqualTo: Timestamp.fromDate(start))
+              .where('dateTs', isLessThan: Timestamp.fromDate(end))
+              .snapshots(),
+          builder: (context, logSnapshot) {
+            if (!logSnapshot.hasData) {
+              return const SizedBox();
+            }
+
+            final allLogs = logSnapshot.data!.docs;
+
+            final activeHabitIds = habits.map((e) => e.id).toSet();
+            final filteredLogs = allLogs
+                .where((log) => activeHabitIds.contains(log['habitId']))
+                .toList();
+
+            if (filteredLogs.isEmpty) {
+              return Text(
+                emptyText,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                ),
+              );
+            }
+
+            return Column(
+              children: habits.map((habit) {
+                final logs = filteredLogs
+                    .where((log) => log['habitId'] == habit.id)
+                    .toList();
+
+                if (logs.isEmpty) {
                   return const SizedBox();
                 }
 
-                final logs = logSnapshot.data!.docs;
                 final done =
                     logs.where((e) => e['isDone'] == true).length;
-                final progress =
-                    logs.isEmpty ? 0.0 : done / logs.length;
-
-                final isActive = habit.data().toString().contains('isActive')
-                    ? habit['isActive'] == true
-                    : true;
-
-                final title = isActive
-                    ? habit['title']
-                    : '${habit['title']} (dihapus)';
+                final progress = done / logs.length;
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -68,11 +92,10 @@ class StatisticHabitList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
-                        style: TextStyle(
+                        habit['title'],
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
-                          color: isActive ? Colors.black : Colors.grey,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -94,9 +117,9 @@ class StatisticHabitList extends StatelessWidget {
                     ],
                   ),
                 );
-              },
+              }).toList(),
             );
-          }).toList(),
+          },
         );
       },
     );
