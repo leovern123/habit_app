@@ -17,7 +17,6 @@ class _HabitHomePageState extends State<HabitHomePage> {
   @override
   void initState() {
     super.initState();
-
     habitService = HabitService();
 
     // 🔁 Restore semua notifikasi dari Firestore
@@ -42,22 +41,30 @@ class _HabitHomePageState extends State<HabitHomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            backgroundColor: theme.colorScheme.surface,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(24),
-              ),
-            ),
-            builder: (_) =>
-                AddHabitBottomSheet(habitService: habitService),
-          );
-        },
-        child: const Icon(Icons.add),
+
+      // 🔥 FLOATING BUTTON STACK
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: "add_habit",
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: theme.colorScheme.surface,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(24),
+                  ),
+                ),
+                builder: (_) =>
+                    AddHabitBottomSheet(habitService: habitService),
+              );
+            },
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

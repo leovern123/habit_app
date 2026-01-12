@@ -147,16 +147,6 @@ class _HabitListPageState extends State<HabitListPage> {
           ),
         ],
       ),
-      
-
-      // FAB untuk tes notifikasi
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          HabitService.sendTestNotification();
-        },
-        child: const Icon(Icons.notifications),
-        tooltip: 'Tes Notifikasi',
-      ),
     );
     
   }

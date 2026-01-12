@@ -10,6 +10,7 @@ class Habit {
   final bool isActive;
   final bool notificationOn;
   final List<int> notificationDays;
+  final int? notifId; 
 
   Habit({
     required this.habitId,
@@ -19,7 +20,8 @@ class Habit {
     this.habitTime,
     required this.isActive,
      required this.notificationOn,
-    required this.notificationDays, 
+    required this.notificationDays,
+    this.notifId, 
   });
 /// Dipakai saat ambil dari Firestore (doc + id)
   factory Habit.fromFirestore(
@@ -35,6 +37,7 @@ class Habit {
        isActive: data['isActive'] ?? true,
       notificationOn: data['notificationOn'] ?? false,
       notificationDays: List<int>.from(data['notificationDays'] ?? []),
+      notifId: data['notifId'], 
 
     );
   }
