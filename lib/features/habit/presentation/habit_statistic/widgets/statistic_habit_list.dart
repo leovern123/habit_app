@@ -14,9 +14,11 @@ class StatisticHabitList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final start = DateTime(range.start.year, range.start.month, range.start.day);
-    final end = DateTime(range.end.year, range.end.month, range.end.day)
-        .add(const Duration(days: 1));
+    final start =
+        DateTime(range.start.year, range.start.month, range.start.day);
+    final end =
+        DateTime(range.end.year, range.end.month, range.end.day)
+            .add(const Duration(days: 1));
 
     final now = DateTime.now();
     final isToday =
@@ -29,40 +31,41 @@ class StatisticHabitList extends StatelessWidget {
         ? 'Tidak ada aktivitas hari ini'
         : 'Tidak ada aktivitas pada rentang waktu ini';
 
+    /// 🔹 AMBIL SEMUA HABIT (AKTIF + TERHAPUS)
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('habits')
           .where('userId', isEqualTo: habitService.uid)
-          .where('isActive', isEqualTo: true)
           .snapshots(),
-      builder: (context, habitSnapshot) {
-        if (!habitSnapshot.hasData) {
+      builder: (context, habitSnap) {
+        if (!habitSnap.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final habits = habitSnapshot.data!.docs;
+        final habits = habitSnap.data!.docs;
 
+        /// 🔹 AMBIL LOG SESUAI RENTANG
         return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('habit_logs')
               .where('userId', isEqualTo: habitService.uid)
-              .where('dateTs',
-                  isGreaterThanOrEqualTo: Timestamp.fromDate(start))
-              .where('dateTs', isLessThan: Timestamp.fromDate(end))
+              .where(
+                'dateTs',
+                isGreaterThanOrEqualTo: Timestamp.fromDate(start),
+              )
+              .where(
+                'dateTs',
+                isLessThan: Timestamp.fromDate(end),
+              )
               .snapshots(),
-          builder: (context, logSnapshot) {
-            if (!logSnapshot.hasData) {
+          builder: (context, logSnap) {
+            if (!logSnap.hasData) {
               return const SizedBox();
             }
 
-            final allLogs = logSnapshot.data!.docs;
+            final logs = logSnap.data!.docs;
 
-            final activeHabitIds = habits.map((e) => e.id).toSet();
-            final filteredLogs = allLogs
-                .where((log) => activeHabitIds.contains(log['habitId']))
-                .toList();
-
-            if (filteredLogs.isEmpty) {
+            if (logs.isEmpty) {
               return Text(
                 emptyText,
                 style: const TextStyle(
@@ -72,19 +75,34 @@ class StatisticHabitList extends StatelessWidget {
               );
             }
 
-            return Column(
-              children: habits.map((habit) {
-                final logs = filteredLogs
-                    .where((log) => log['habitId'] == habit.id)
-                    .toList();
+            /// 🔹 KELOMPOKKAN LOG PER HABIT
+            final Map<String, List<QueryDocumentSnapshot>> logsByHabit = {};
 
-                if (logs.isEmpty) {
+            for (final log in logs) {
+              final habitId = log['habitId'];
+              logsByHabit.putIfAbsent(habitId, () => []).add(log);
+            }
+
+            return Column(
+              children: logsByHabit.entries.map((entry) {
+                final habitId = entry.key;
+                final habitLogs = entry.value;
+
+                /// 🔹 CARI HABIT (PASTI ADA NAMANYA)
+                final habitList = habits.where((h) => h.id == habitId).toList();
+
+                if (habitList.isEmpty) {
                   return const SizedBox();
                 }
 
+                final habit = habitList.first;
+
+                final title = habit['title'];
+                final isDeleted = habit['isActive'] == false;
+
                 final done =
-                    logs.where((e) => e['isDone'] == true).length;
-                final progress = done / logs.length;
+                    habitLogs.where((e) => e['isDone'] == true).length;
+                final progress = done / habitLogs.length;
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -92,10 +110,13 @@ class StatisticHabitList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        habit['title'],
-                        style: const TextStyle(
+                        title,
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
+                          color: isDeleted
+                              ? Colors.grey
+                              : Colors.black,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -108,7 +129,7 @@ class StatisticHabitList extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '$done dari ${logs.length} hari',
+                        '$done dari ${habitLogs.length} hari',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.grey,
