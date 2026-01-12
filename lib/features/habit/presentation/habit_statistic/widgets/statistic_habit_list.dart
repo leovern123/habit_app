@@ -22,7 +22,6 @@ class StatisticHabitList extends StatelessWidget {
       stream: FirebaseFirestore.instance
           .collection('habits')
           .where('userId', isEqualTo: habitService.uid)
-          .where('isActive', isEqualTo: true)
           .snapshots(),
       builder: (context, habitSnapshot) {
         if (!habitSnapshot.hasData) {
@@ -30,13 +29,6 @@ class StatisticHabitList extends StatelessWidget {
         }
 
         final habits = habitSnapshot.data!.docs;
-
-        if (habits.isEmpty) {
-          return const Text(
-            'Tidak ada habit aktif',
-            style: TextStyle(color: Colors.grey),
-          );
-        }
 
         return Column(
           children: habits.map((habit) {
@@ -51,16 +43,24 @@ class StatisticHabitList extends StatelessWidget {
                       isLessThan: Timestamp.fromDate(end))
                   .snapshots(),
               builder: (context, logSnapshot) {
-                if (!logSnapshot.hasData) {
+                if (!logSnapshot.hasData ||
+                    logSnapshot.data!.docs.isEmpty) {
                   return const SizedBox();
                 }
 
                 final logs = logSnapshot.data!.docs;
                 final done =
                     logs.where((e) => e['isDone'] == true).length;
-
                 final progress =
                     logs.isEmpty ? 0.0 : done / logs.length;
+
+                final isActive = habit.data().toString().contains('isActive')
+                    ? habit['isActive'] == true
+                    : true;
+
+                final title = isActive
+                    ? habit['title']
+                    : '${habit['title']} (dihapus)';
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
@@ -68,10 +68,11 @@ class StatisticHabitList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        habit['title'],
-                        style: const TextStyle(
+                        title,
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
+                          color: isActive ? Colors.black : Colors.grey,
                         ),
                       ),
                       const SizedBox(height: 6),
