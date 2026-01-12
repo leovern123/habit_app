@@ -7,7 +7,6 @@ import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_fi
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_empty.dart';
 import 'package:uas_flutter/features/habit/presentation/habit_list/habit_list_item.dart';
 
-
 class HabitListPage extends StatefulWidget {
   const HabitListPage({super.key});
 
@@ -21,8 +20,6 @@ class _HabitListPageState extends State<HabitListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
@@ -141,43 +138,43 @@ class _HabitListPageState extends State<HabitListPage> {
                   if (habits.isEmpty) {
                     return const Center(
                       child: Text('Tidak ada habit sesuai filter'),
-                    );
+                       );
                   }
 
-                  return ListView.separated(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: habits.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 12),
-                    itemBuilder: (context, index) {
-                      final habit = habits[index];
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: habits.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final habit = habits[index];
 
-                      return HabitListItem(
-                        title: habit.title,
-                        isActive: habit.isActive,
-                        onToggleActive: () async {
-                          await habitService.toggleActive(
-                            habit.habitId,
-                            habit.isActive,
-                          );
-                        },
-                        onDelete: () async {
-                          final confirm = await showConfirmDeleteDialog(context);
-                          if (confirm == true) {
-                            await habitService.deleteHabit(habit.habitId);
-                          }
-                        },
-                        onEdit: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(16),
-                              ),
-                            ),
-                            builder: (_) =>
-                                EditHabitBottomSheet(habit: habit),
-                          );
+                    return HabitListItem(
+                      habitId: habit.habitId,
+                      habitTime: habit.habitTime?.toDate() ?? DateTime.now(), 
+                      title: habit.title,
+                      isActive: habit.isActive,
+                      notificationOn: habit.notificationOn ?? true, // default ON
+                      onToggleNotification: () async {
+                        await habitService.toggleNotification(habit);
+                      },
+                      onToggleActive: () async {
+                        await habitService.toggleActive(habit.habitId, habit.isActive);
+                      },
+                      onDelete: () async {
+                        final confirm = await showConfirmDeleteDialog(context);
+                        if (confirm == true) {
+                          await habitService.deleteHabit(habit.habitId);
+                        }
+                      },
+                      onEdit: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                          ),
+                          builder: (_) => EditHabitBottomSheet(habit: habit),
+                        );
                         },
                       );
                     },

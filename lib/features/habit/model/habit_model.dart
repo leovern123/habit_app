@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uas_flutter/main.dart';
 
 class Habit {
   final String habitId;
@@ -7,6 +8,9 @@ class Habit {
   final Timestamp createdAt;
   final Timestamp? habitTime;
   final bool isActive;
+  final bool notificationOn;
+  final List<int> notificationDays;
+  final int? notifId; 
 
   Habit({
     required this.habitId,
@@ -14,7 +18,10 @@ class Habit {
     required this.userId,
     required this.createdAt,
     this.habitTime,
-    required this.isActive, 
+    required this.isActive,
+     required this.notificationOn,
+    required this.notificationDays,
+    this.notifId, 
   });
 /// Dipakai saat ambil dari Firestore (doc + id)
   factory Habit.fromFirestore(
@@ -28,6 +35,10 @@ class Habit {
       createdAt: data['createdAt'] as Timestamp,
       habitTime: data['habitTime'] as Timestamp?,
        isActive: data['isActive'] ?? true,
+      notificationOn: data['notificationOn'] ?? false,
+      notificationDays: List<int>.from(data['notificationDays'] ?? []),
+      notifId: data['notifId'], 
+
     );
   }
   /// Opsional: kalau map sudah mengandung habitId
@@ -39,6 +50,9 @@ class Habit {
       createdAt: map['createdAt'] as Timestamp,
       habitTime: map['habitTime'] as Timestamp?,
       isActive: map['isActive'] as bool,
+      notificationOn: map['notificationOn'] as bool,
+      notificationDays: map['notificationDays'] as List<int>,
+      
     );
   }
 
@@ -49,7 +63,10 @@ class Habit {
       'userId': userId,
       'createdAt': createdAt,
       if (habitTime != null) 'habitTime': habitTime, 
-      'isActive': isActive,    
+      'isActive': isActive,  
+      'notificationOn': notificationOn,
+      'notificationDays': notificationDays,  
     };
   }
+  
 }

@@ -3,91 +3,224 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../model/habit_model.dart';
 import '../../../core/utils/date_helper.dart';
+import 'package:uas_flutter/service/notification_service.dart';
+
 
 class HabitService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  final CollectionReference<Map<String, dynamic>> _habitCollection =
+      FirebaseFirestore.instance.collection('habits');
+
   String? get uid => _auth.currentUser?.uid;
 
-  /// ambil semua habit user
   Stream<List<Habit>> getHabits() {
-    if (uid == null) {
-      return const Stream.empty();
-    }
+    if (uid == null) return const Stream.empty();
 
-    print('UID LOGIN (getHabits): $uid');
-
-    return _firestore
-        .collection('habits')
+    return _habitCollection
         .where('userId', isEqualTo: uid)
-         .where('isActive', isEqualTo: true)
+        .where('isActive', isEqualTo: true)
         .orderBy('createdAt', descending: true)
         .snapshots()
-        .map((snapshot) {
-      return snapshot.docs
-          .map((doc) => Habit.fromFirestore(doc.data(), doc.id))
-          .toList();
-    });
+        .map((s) =>
+            s.docs.map((d) => Habit.fromFirestore(d.data(), d.id)).toList());
   }
-// ambil SEMUA habit (aktif + nonaktif)
-Stream<List<Habit>> getAllHabits() {
-  if (uid == null) return const Stream.empty();
 
-  return _firestore
-      .collection('habits')
-      .where('userId', isEqualTo: uid)
-      .orderBy('createdAt', descending: true)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs
-              .map((doc) => Habit.fromFirestore(doc.data(), doc.id))
-              .toList());
-}
+  Stream<List<Habit>> getAllHabits() {
+    if (uid == null) return const Stream.empty();
 
-  /// ambil log hari ini
-  Stream<Map<String, bool>> getTodayLogs() {
-    if (uid == null) {
-      return const Stream.empty();
+    return _habitCollection
+        .where('userId', isEqualTo: uid)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((s) =>
+            s.docs.map((d) => Habit.fromFirestore(d.data(), d.id)).toList());
+  }
+
+  // ===============================
+  // CREATE HABIT
+  // ===============================
+  Future<void> createHabit({
+    required String title,
+    required TimeOfDay time,
+  }) async {
+    if (uid == null) return;
+
+    final now = DateTime.now();
+    DateTime habitDateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      time.hour,
+      time.minute,
+    );
+
+    if (habitDateTime.isBefore(now)) {
+      habitDateTime = habitDateTime.add(const Duration(days: 1));
     }
 
+    final notifId = DateTime.now().millisecondsSinceEpoch % 100000;
+
+    final docRef = await _habitCollection.add({
+      'title': title,
+      'userId': uid,
+      'isActive': true,
+      'notificationOn': true,
+      'createdAt': Timestamp.now(),
+      'habitTime': Timestamp.fromDate(habitDateTime),
+      'notifId': notifId,
+    });
+
+    await NotificationService.scheduleDailyNotificationFromDateTime(
+      id: notifId,
+      title: title,
+      habitTime: habitDateTime,
+      payload: 'habit_${docRef.id}',
+    );
+  }
+
+  // ===============================
+  // RESTORE NOTIFICATION
+  // ===============================
+  Future<void> restoreAllNotifications() async {
+    if (uid == null) return;
+
+    final snapshot = await _habitCollection
+        .where('userId', isEqualTo: uid)
+        .where('notificationOn', isEqualTo: true)
+        .get();
+
+    final now = DateTime.now();
+
+    for (var doc in snapshot.docs) {
+      final data = doc.data();
+
+      if (data['habitTime'] == null || data['notifId'] == null) continue;
+
+      DateTime habitTime = (data['habitTime'] as Timestamp).toDate().toLocal();
+
+      if (habitTime.isBefore(now)) {
+        habitTime = habitTime.add(const Duration(days: 1));
+      }
+
+      await NotificationService.scheduleDailyNotificationFromDateTime(
+        id: data['notifId'],
+        title: data['title'] ?? 'Habit Reminder',
+        habitTime: habitTime,
+        payload: 'habit_${doc.id}',
+      );
+    }
+
+    debugPrint('🔁 All notifications restored');
+  }
+
+  // ===============================
+  // TOGGLE NOTIFICATION
+  // ===============================
+  Future<void> toggleNotification(Habit habit) async {
+    final newValue = !habit.notificationOn;
+
+    await _habitCollection.doc(habit.habitId).update({
+      'notificationOn': newValue,
+    });
+
+    if (newValue && habit.habitTime != null) {
+      DateTime time = habit.habitTime!.toDate().toLocal();
+      final now = DateTime.now();
+
+      if (time.isBefore(now)) {
+        time = time.add(const Duration(days: 1));
+      }
+
+      await NotificationService.scheduleDailyNotificationFromDateTime(
+        id: habit.notifId!,
+        title: habit.title,
+        habitTime: time,
+        payload: 'habit_${habit.habitId}',
+      );
+    } else {
+      await NotificationService.cancel(habit.notifId!);
+    }
+  }
+
+  Future<void> updateHabitTime(String habitId, TimeOfDay time) async {
+    final doc = await _habitCollection.doc(habitId).get();
+    if (!doc.exists) return;
+
+    final data = doc.data()!;
+    final notifId = data['notifId'];
+
+    final now = DateTime.now();
+    DateTime newTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      time.hour,
+      time.minute,
+    );
+
+    if (newTime.isBefore(now)) {
+      newTime = newTime.add(const Duration(days: 1));
+    }
+
+    await _habitCollection.doc(habitId).update({
+      'habitTime': Timestamp.fromDate(newTime),
+    });
+
+    if (data['notificationOn'] == true) {
+      await NotificationService.scheduleDailyNotificationFromDateTime(
+        id: notifId,
+        title: data['title'],
+        habitTime: newTime,
+        payload: 'habit_$habitId',
+      );
+    }
+  }
+
+  Future<void> deleteHabit(String habitId) async {
+    final doc = await _habitCollection.doc(habitId).get();
+    final notifId = doc.data()?['notifId'];
+
+    await _habitCollection.doc(habitId).delete();
+
+    if (notifId != null) {
+      await NotificationService.cancel(notifId);
+    }
+  }
+
+  // ===============================
+  // LOGS
+  // ===============================
+  Stream<Map<String, bool>> getTodayLogs() {
+    if (uid == null) return const Stream.empty();
+
     final today = DateHelper.today();
-    print('UID LOGIN (getTodayLogs): $uid');
 
     return _firestore
         .collection('habit_logs')
         .where('userId', isEqualTo: uid)
         .where('date', isEqualTo: today)
         .snapshots()
-        .map((snapshot) {
+        .map((s) {
       final map = <String, bool>{};
-      for (var doc in snapshot.docs) {
+      for (var doc in s.docs) {
         map[doc['habitId']] = doc['isDone'] as bool;
       }
       return map;
     });
   }
 
-// Update habitTime untuk habit tertentu
-  Future<void> updateHabitTime(String habitId, TimeOfDay time) async {
-    if (uid == null) return;
-
-    final now = DateTime.now();
-    final dateTime = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-
-    await _firestore.collection('habits').doc(habitId).update({
-      'habitTime': Timestamp.fromDate(dateTime),
-    });
-  }
-  /// toggle habit hari ini (ANTI DUPLIKAT)
+  // ===============================
+  // TOGGLE DONE
+  // ===============================
   Future<void> toggleHabit(String habitId, bool value) async {
     if (uid == null) return;
 
     final today = DateHelper.today();
-
-  final now = DateTime.now();
-  final DateTime onlyDate = DateTime(now.year, now.month, now.day);
-  final Timestamp todayTs = Timestamp.fromDate(onlyDate);
+    final now = DateTime.now();
+    final onlyDate = DateTime(now.year, now.month, now.day);
+    final Timestamp todayTs = Timestamp.fromDate(onlyDate);
 
     final query = await _firestore
         .collection('habit_logs')
@@ -118,95 +251,28 @@ Stream<List<Habit>> getAllHabits() {
     }
   }
 
-/// Ambil logs habit untuk bulan ini sebagai Stream
-  Stream<Map<String, bool>> getCurrentMonthLogsStream(String habitId) {
-    if (uid == null) return const Stream.empty();
-
-    final now = DateTime.now();
-    final startOfMonth = Timestamp.fromDate(DateTime(now.year, now.month, 1));
-    final startOfNextMonth = Timestamp.fromDate(DateTime(now.year, now.month + 1, 1));
-
-    return _firestore
-        .collection('habit_logs')
-        .where('habitId', isEqualTo: habitId)
-        .where('userId', isEqualTo: uid)
-        .where('dateTs', isGreaterThanOrEqualTo: startOfMonth)
-        .where('dateTs', isLessThan: startOfNextMonth)
-
-        .snapshots()
-        .map((snapshot) {
-      final map = <String, bool>{};
-      for (var doc in snapshot.docs) {
-        map[doc['date'].toDate().day.toString()] = doc['isDone'] as bool;
-      }
-      return map;
+  // ===============================
+  // TOGGLE ACTIVE
+  // ===============================
+  Future<void> toggleActive(String habitId, bool isActive) async {
+    await _habitCollection.doc(habitId).update({
+      'isActive': !isActive,
     });
   }
-   /// Ambil logs 7 hari terakhir sebagai Stream
-  Stream<List<bool>> getLast7DaysLogsStream(String habitId) {
-    if (uid == null) return const Stream.empty();
 
-    final now = DateTime.now();
-    final sevenDaysAgo = now.subtract(const Duration(days: 7));
-
-    return _firestore
-        .collection('habit_logs')
-        .where('habitId', isEqualTo: habitId)
-        .where('userId', isEqualTo: uid)
-        .where('dateTs', isGreaterThanOrEqualTo: Timestamp.fromDate(sevenDaysAgo))
-        .where('dateTs', isLessThanOrEqualTo: Timestamp.fromDate(now))
-        .snapshots()
-        .map((snapshot) =>
-            snapshot.docs.map((doc) => doc['isDone'] as bool).toList());
+  // ===============================
+  // TEST
+  // ===============================
+  Future<void> scheduleTestNotification(DateTime time) async {
+    await NotificationService.scheduleDailyNotificationFromDateTime(
+      id: 9999,
+      title: "ALARM TEST",
+      habitTime: time,
+      payload: "test",
+    );
   }
 
-// create add habit
-  Future<void> createHabit({
-  required String title,
-  required TimeOfDay time,
-}) async {
-  if (uid == null) return;
-
-  final now = DateTime.now();
-  final habitDateTime = DateTime(
-    now.year,
-    now.month,
-    now.day,
-    time.hour,
-    time.minute,
-  );
-
-  await _firestore.collection('habits').add({
-    'title': title,
-    'userId': uid,
-    'isActive': true,
-    'createdAt': Timestamp.now(),
-    'habitTime': Timestamp.fromDate(habitDateTime),
-    'isActive': true, 
-  });
-}
-
-/// toggle aktif / nonaktif
-Future<void> toggleActive(String habitId, bool isActive) async {
-  if (uid == null) return;
-
-  await _firestore
-      .collection('habits')
-      .doc(habitId)
-      .update({
-    'isActive': !isActive,
-  });
-}
-
-/// hapus habit
-Future<void> deleteHabit(String habitId) async {
-  if (uid == null) return;
-
-  await _firestore
-      .collection('habits')
-      .doc(habitId)
-      .delete();
-}
-
-
+  static void sendTestNotification() {
+    NotificationService.showTestNow();
+  }
 }
