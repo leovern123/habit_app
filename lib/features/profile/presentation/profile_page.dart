@@ -171,5 +171,5 @@ class _ProfilePageState extends State<ProfilePage> {
         onTap: onTap,
       ),
     );
-  }
+  } 
 }

@@ -16,18 +16,27 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final _profileService = ProfileService();
   final _storageService = SupabaseStorageService();
+
   final _nameController = TextEditingController();
+  final _currentPasswordController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
   Uint8List? _webImage;
   File? _selectedImage;
   bool _isLoading = false;
+  bool _obscureCurrentPassword = true;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
+  @override
+  void initState() {
+    super.initState();
+    final user = _profileService.currentUser;
+    _nameController.text = user?.displayName ?? '';
+  }
 
-    Widget _buildAvatar(User? user) {
+  Widget _buildAvatar(User? user) {
     if (kIsWeb && _webImage != null) {
       return Image.memory(_webImage!, fit: BoxFit.cover);
     }
@@ -43,36 +52,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return const Icon(Icons.person, size: 60, color: Colors.grey);
   }
 
-  @override
-  void initState() {
-    super.initState();
-    final user = _profileService.currentUser;
-    _nameController.text = user?.displayName ?? '';
-  }
-
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) return;
 
-    if (image != null) {
-      if (kIsWeb) {
-        final bytes = await image.readAsBytes();
-        setState(() {
-          _webImage = bytes;
-        });
-      } else {
-        setState(() {
-          _selectedImage = File(image.path);
-        });
-      }
+    if (kIsWeb) {
+      final bytes = await image.readAsBytes();
+      setState(() => _webImage = bytes);
+    } else {
+      setState(() => _selectedImage = File(image.path));
     }
   }
-
 
   Future<void> _saveProfile() async {
     final user = _profileService.currentUser;
     if (user == null) return;
 
+    // Validasi password baru & konfirmasi
     if (_passwordController.text.isNotEmpty &&
         _passwordController.text != _confirmPasswordController.text) {
       _showMessage('Konfirmasi password tidak cocok');
@@ -84,6 +81,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     try {
       String? photoUrl;
 
+      // Upload avatar
       if (_selectedImage != null || _webImage != null) {
         photoUrl = await _storageService.uploadAvatar(
           userId: user.uid,
@@ -92,20 +90,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
         );
       }
 
-
+      // Update profile
       await _profileService.updateProfile(
         displayName: _nameController.text.trim(),
         photoUrl: photoUrl,
+        currentPassword: _currentPasswordController.text.isEmpty
+            ? null
+            : _currentPasswordController.text,
         newPassword: _passwordController.text.isEmpty
             ? null
             : _passwordController.text,
       );
 
-      if (mounted) {
-        Navigator.pop(context, true);
-      }
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
-      _showMessage('Gagal menyimpan profil');
+      _showMessage(e.toString());
     } finally {
       setState(() => _isLoading = false);
     }
@@ -156,7 +155,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 24),
 
               _buildCard(
@@ -197,47 +195,52 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         padding: EdgeInsets.only(top: 6),
                         child: Text(
                           'Akun Google tidak dapat mengubah password.',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ),
-                    const SizedBox(height: 12),
-                    _buildField(
-                      controller: _passwordController,
-                      label: 'Password Baru',
-                      icon: Icons.lock_outline,
-                      obscure: _obscurePassword,
-                      enabled: !isGoogleUser,
-                      onToggleObscure: isGoogleUser
-                          ? null
-                          : () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                    ),
-                    const SizedBox(height: 12),
-                    _buildField(
-                      controller: _confirmPasswordController,
-                      label: 'Konfirmasi Password',
-                      icon: Icons.lock_reset,
-                      obscure: _obscureConfirmPassword,
-                      enabled: !isGoogleUser,
-                      onToggleObscure: isGoogleUser
-                          ? null
-                          : () {
-                              setState(() {
-                                _obscureConfirmPassword = !_obscureConfirmPassword;
-                              });
-                            },
-                    ),
+                    if (!isGoogleUser) ...[
+                      const SizedBox(height: 12),
+                      _buildField(
+                        controller: _currentPasswordController,
+                        label: 'Password Lama',
+                        icon: Icons.lock_outline,
+                        obscure: _obscureCurrentPassword,
+                        onToggleObscure: () {
+                          setState(() {
+                            _obscureCurrentPassword = !_obscureCurrentPassword;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      _buildField(
+                        controller: _passwordController,
+                        label: 'Password Baru',
+                        icon: Icons.lock_outline,
+                        obscure: _obscurePassword,
+                        onToggleObscure: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      _buildField(
+                        controller: _confirmPasswordController,
+                        label: 'Konfirmasi Password',
+                        icon: Icons.lock_reset,
+                        obscure: _obscureConfirmPassword,
+                        onToggleObscure: () {
+                          setState(() {
+                            _obscureConfirmPassword = !_obscureConfirmPassword;
+                          });
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
 
+              const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 height: 50,
@@ -284,7 +287,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }) {
     return TextFormField(
       controller: controller,
-      initialValue: initialValue,
+      initialValue: controller == null ? initialValue : null,
       obscureText: obscure,
       enabled: enabled,
       decoration: InputDecoration(
@@ -292,9 +295,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         prefixIcon: Icon(icon),
         suffixIcon: onToggleObscure != null
             ? IconButton(
-                icon: Icon(
-                  obscure ? Icons.visibility_off : Icons.visibility,
-                ),
+                icon: Icon(obscure ? Icons.visibility_off : Icons.visibility),
                 onPressed: onToggleObscure,
               )
             : null,
