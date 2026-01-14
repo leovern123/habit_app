@@ -67,7 +67,7 @@ Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1eJuMYHJ
 Download versi terbaru aplikasi Notes App:
 
 ### Latest Release v1.0.0
-- [**Download APK (15.2 MB)**](https://github.com/leovern123/habit_app/releases)
+- [**Download APK (82.9 MB)**](https://github.com/leovern123/habit_app/releases/download/v1.0.0/base.apk)
 
 
 **Minimum Requirements:**
