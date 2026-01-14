@@ -41,18 +41,39 @@ Fitur utama berfokus pada:
 ## Screenshots
 
 <div align="center">
-  <img src="screenshots/splash_screen.png" alt="Splash Screen" width="200"/>
-  <img src="screenshots/login_screen.png" alt="Login" width="200"/>
-  <img src="screenshots/home_screen.png" alt="Home" width="200"/>
-  <img src="screenshots/profile_screen.png" alt="Profile" width="200"/>
+  <img src="screenshots/SplashScreen1.png" alt="Splash Screen 1" width="200"/>
+  <img src="screenshots/SplashScreen2.png" alt="Splash Screen 2" width="200"/>
+  <img src="screenshots/SplashScreen3.png" alt="Splash Screen 3" width="200"/>
+  <img src="screenshots/SplashScreen4.png" alt="Splash Screen 4" width="200"/>
+  <img src="screenshots/SplashScreen5.png" alt="Splash Screen 5" width="200"/>
+
 </div>
 
 <div align="center">
-  <img src="screenshots/note_detail.png" alt="Note Detail" width="200"/>
-  <img src="screenshots/search.png" alt="Search" width="200"/>
-  <img src="screenshots/category.png" alt="Category" width="200"/>
-  <img src="screenshots/settings.png" alt="Settings" width="200"/>
+  <img src="screenshots/login.png" alt="Login" width="200"/>
+  <img src="screenshots/register.png" alt="Register" width="200"/>
+  <img src="screenshots/dashboard_habbit.png" alt="Dashboard" width="200"/>
+  <img src="screenshots/habbit_list.png" alt="Habit List" width="200"/>
 </div>
+
+<div align="center">
+  <img src="screenshots/card_add_habbit.png" alt="Add Habit" width="200"/>
+  <img src="screenshots/card_delet_habbit.png" alt="Delete Habit" width="200"/>
+  <img src="screenshots/statistik_awal.png" alt="Statistik" width="200"/>
+  <img src="screenshots/statistik.png" alt="Statistik" width="200"/>
+</div>
+
+<div align="center">
+  <img src="screenshots/edit_profil.png" alt="Edit Profil" width="200"/>
+  <img src="screenshots/tampilan_profil.png" alt="Profil" width="200"/>
+  <img src="screenshots/profil_team.png" alt="Team Profile" width="200"/>
+  <img src="screenshots/profil_bagus.png" alt="Profil Bagus" width="200"/>
+  <img src="screenshots/profil_faras.png" alt="Profil Faras" width="200"/>
+  <img src="screenshots/profil_haikal.png" alt="Profil Haikal" width="200"/>
+  <img src="screenshots/profil_umar.png" alt="Profil Umar" width="200"/>
+  <img src="screenshots/profil_zaki.png" alt="Profil Zaki" width="200"/>
+</div>
+
 
 ## Demo Video
 
