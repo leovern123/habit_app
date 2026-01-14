@@ -288,7 +288,7 @@ CREATE TABLE tableABC (
 | **Umar** | Project Lead & Backend Developer | - Spalash screen<br>- Authentication system<br>- Firebase integration<br>- API development<br>- Database design|
 | **Zaqi** | Flutter Developer & Frontend Developer | - Spalash screen<br>- UI/UX Design<br>- Home screen implementation<br>- Profile screen<br>- State management<br>- Register screen |
 | **Faras** | Frontend Developer | - Spalash screen<br>- Profile member screen |
-| **Bagus** | Mobile Developer | - Spalash screen<br>- Push notifications (FCM)<br>- Notification system  |
+| **Bagus** | Mobile Developer | - Spalash screen<br>- Push notifications<br>- Notification system  |
 | **Haikal** | Cyber Scurity | - Spalash screen<br>- Login Screen<br>- Testing  |
 
 
