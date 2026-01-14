@@ -146,14 +146,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               GestureDetector(
                 onTap: _pickImage,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    color: Colors.grey.shade200,
-                    child: _buildAvatar(user),
-                  ),
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        color: Colors.grey.shade200,
+                        child: _buildAvatar(user),
+                      ),
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.all(6),
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
