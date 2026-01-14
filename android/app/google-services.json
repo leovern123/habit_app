@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "871204951466",
+    "project_id": "habit-app-1867c",
+    "storage_bucket": "habit-app-1867c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871204951466:android:60a77fe1e742d3902107d3",
+        "android_client_info": {
+          "package_name": "com.example.habitapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871204951466-vb4n0g76ph6srllhi2ruccoosrtf5nm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.habitapp",
+            "certificate_hash": "5701ba5003392511192c26bf6d62a9fb286c15bb"
+          }
+        },
+        {
+          "client_id": "871204951466-ote0j9r5lkdfuqoicgdje9abvusmpce9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV9srNtAiLM6BRLvaweN4nb0sTiXUPWmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871204951466-ote0j9r5lkdfuqoicgdje9abvusmpce9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "871204951466-hkmi8fc0081sumch96f709vl1ug37iif.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.uasFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871204951466:android:57647485b020ce702107d3",
+        "android_client_info": {
+          "package_name": "com.example.uas_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871204951466-ote0j9r5lkdfuqoicgdje9abvusmpce9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV9srNtAiLM6BRLvaweN4nb0sTiXUPWmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871204951466-ote0j9r5lkdfuqoicgdje9abvusmpce9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "871204951466-hkmi8fc0081sumch96f709vl1ug37iif.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.uasFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
