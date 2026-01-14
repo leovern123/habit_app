@@ -41,33 +41,54 @@ Fitur utama berfokus pada:
 ## Screenshots
 
 <div align="center">
-  <img src="screenshots/splash_screen.png" alt="Splash Screen" width="200"/>
-  <img src="screenshots/login_screen.png" alt="Login" width="200"/>
-  <img src="screenshots/home_screen.png" alt="Home" width="200"/>
-  <img src="screenshots/profile_screen.png" alt="Profile" width="200"/>
+  <img src="assets/Screenshots/SplashScreen1.png" alt="Splash Screen 1" width="200"/>
+  <img src="assets/Screenshots/SplashScreen2.png" alt="Splash Screen 2" width="200"/>
+  <img src="assets/Screenshots/SplashScreen3.png" alt="Splash Screen 3" width="200"/>
+  <img src="assets/Screenshots/SplashScreen4.png" alt="Splash Screen 4" width="200"/>
+  <img src="assets/Screenshots/SplashScreen5.png" alt="Splash Screen 5" width="200"/>
+
 </div>
 
 <div align="center">
-  <img src="screenshots/note_detail.png" alt="Note Detail" width="200"/>
-  <img src="screenshots/search.png" alt="Search" width="200"/>
-  <img src="screenshots/category.png" alt="Category" width="200"/>
-  <img src="screenshots/settings.png" alt="Settings" width="200"/>
+  <img src="assets/Screenshots/login.png" alt="Login" width="200"/>
+  <img src="assets/Screenshots/register.png" alt="Register" width="200"/>
+  <img src="assets/Screenshots/dashboard_habbit.png" alt="Dashboard" width="200"/>
+  <img src="assets/Screenshots/habbit_list.png" alt="Habit List" width="200"/>
 </div>
+
+<div align="center">
+  <img src="assets/Screenshots/card_add_habbit.png" alt="Add Habit" width="200"/>
+  <img src="assets/Screenshots/card_delet_habbit.png" alt="Delete Habit" width="200"/>
+  <img src="assets/Screenshots/statistik_awal.png" alt="Statistik" width="200"/>
+  <img src="assets/Screenshots/statistik.png" alt="Statistik" width="200"/>
+</div>
+
+<div align="center">
+  <img src="assets/Screenshots/edit_profil.png" alt="Edit Profil" width="200"/>
+  <img src="assets/Screenshots/tampilan_profil.png" alt="Profil" width="200"/>
+  <img src="assets/Screenshots/profil_team.png" alt="Team Profile" width="200"/>
+  <img src="assets/Screenshots/profil_bagus.png" alt="Profil Bagus" width="200"/>
+  <img src="assets/Screenshots/profil_faras.png" alt="Profil Faras" width="200"/>
+  <img src="assets/Screenshots/profil_haikal.png" alt="Profil Haikal" width="200"/>
+  <img src="assets/Screenshots/profil_umar.png" alt="Profil Umar" width="200"/>
+  <img src="assets/Screenshots/profil_zaki.png" alt="Profil Zaki" width="200"/>
+</div>
+
 
 ## Demo Video
 
 Lihat video demo aplikasi kami untuk melihat semua fitur dalam aksi!
 
-**[Watch Full Demo on YouTube](https://youtube.com/watch?v=dQw4w9WgXcQ)**
+**[Watch Full Demo on YouTube](https://youtu.be/rPrlCHzAd-U?si=bn-fq2mVkbpFdDT6)**
 
-Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1234567890/view)**
+Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1eJuMYHJ4H7DgWkw-eHmemngHkPiR_E0b/view?usp=drive_link)**
 
 ## Download APK
 
 Download versi terbaru aplikasi Notes App:
 
 ### Latest Release v1.0.0
-- [**Download APK (15.2 MB)**](https://github.com/leovern123/habit_app/releases)
+- [**Download APK (82.9 MB)**](https://github.com/leovern123/habit_app/releases/download/v1.0.0/base.apk)
 
 
 **Minimum Requirements:**
@@ -203,7 +224,11 @@ lib/
 │           ├── splash_screen_4.dart
 │           └── splash_screen_5.dart
 ├── service/
-│   ├── firebase_options.dart
+│   ├── alarm_callback.dart
+│   ├── firestore_service.dart
+│   ├── notification_service.dart
+│   └── firebase_options.dart
+│── firebase_options.dart
 └── main.dart
 ```
 
