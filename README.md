@@ -58,9 +58,9 @@ Fitur utama berfokus pada:
 
 Lihat video demo aplikasi kami untuk melihat semua fitur dalam aksi!
 
-**[Watch Full Demo on YouTube](https://youtube.com/watch?v=dQw4w9WgXcQ)**
+**[Watch Full Demo on YouTube](https://youtu.be/rPrlCHzAd-U?si=bn-fq2mVkbpFdDT6)**
 
-Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1234567890/view)**
+Alternative link: **[Google Drive Demo](https://drive.google.com/file/d/1eJuMYHJ4H7DgWkw-eHmemngHkPiR_E0b/view?usp=drive_link)**
 
 ## Download APK
 
